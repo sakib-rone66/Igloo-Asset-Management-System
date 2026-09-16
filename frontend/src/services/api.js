@@ -3,10 +3,18 @@ import axios from "axios";
 // ========================================
 // API BASE URL
 // ========================================
-const apiBaseUrl =
-  window.location.protocol === "https:"
-    ? "/api"
-    : `http://${window.location.hostname}:3000/api`;
+
+const isLocalDevelopment =
+  window.location.hostname === "localhost" ||
+  window.location.hostname === "127.0.0.1";
+
+const apiBaseUrl = isLocalDevelopment
+  ? "http://localhost:3000/api"
+  : "https://igloo-asset-management-system.onrender.com/api";
+
+// ========================================
+// AXIOS INSTANCE
+// ========================================
 
 const api = axios.create({
   baseURL: apiBaseUrl,
@@ -22,6 +30,7 @@ const api = axios.create({
 // REQUEST INTERCEPTOR
 // Automatically attach JWT token to every protected API request.
 // ========================================
+
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
@@ -39,8 +48,10 @@ api.interceptors.request.use(
 
 // ========================================
 // RESPONSE INTERCEPTOR
-// If the backend says the token is invalid or expired, remove stored login data.
+// If the backend says the token is invalid or expired,
+// remove stored login data.
 // ========================================
+
 api.interceptors.response.use(
   (response) => {
     return response;
@@ -56,5 +67,8 @@ api.interceptors.response.use(
   },
 );
 
+// ========================================
 // EXPORT
+// ========================================
+
 export default api;
