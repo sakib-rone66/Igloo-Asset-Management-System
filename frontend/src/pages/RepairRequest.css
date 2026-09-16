@@ -1,0 +1,1180 @@
+/* ========================================
+   ROOT
+   ======================================== */
+
+.repair-request-layout {
+  --sidebar-width: 230px;
+
+  width: 100%;
+  min-height: 100vh;
+
+  background: linear-gradient(180deg, #f3f8f5, #f8faf9);
+
+  color: #17211b;
+
+  font-family: "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  overflow-x: hidden;
+}
+
+/* ========================================
+   MAIN
+   ======================================== */
+
+.repair-request-main {
+  width: calc(100% - var(--sidebar-width));
+
+  min-width: 0;
+
+  min-height: 100vh;
+
+  margin-left: var(--sidebar-width);
+
+  box-sizing: border-box;
+
+  transition:
+    width 0.25s ease,
+    margin-left 0.25s ease;
+}
+
+.repair-request-sidebar-closed .repair-request-main {
+  width: 100%;
+
+  margin-left: 0;
+}
+
+/* ========================================
+   SIDEBAR TOGGLE
+   ======================================== */
+
+.repair-request-sidebar-toggle {
+  position: fixed;
+
+  top: 88px;
+  left: 18px;
+
+  z-index: 900;
+
+  width: 40px;
+  height: 40px;
+
+  border: 1px solid #dce5df;
+
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  color: #16864f;
+
+  font-size: 18px;
+
+  cursor: pointer;
+
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.1);
+}
+
+/* ========================================
+   CONTENT
+   ======================================== */
+
+.repair-request-content {
+  width: 100%;
+
+  max-width: 1550px;
+
+  margin: 0 auto;
+
+  padding: 32px;
+
+  box-sizing: border-box;
+}
+
+/* ========================================
+   HEADER
+   ======================================== */
+
+.repair-request-header {
+  margin-bottom: 24px;
+}
+
+.repair-request-back-dashboard {
+  display: inline-block;
+
+  margin-bottom: 15px;
+
+  color: #16864f;
+
+  font-size: 13px;
+
+  font-weight: 650;
+
+  text-decoration: none;
+}
+
+.repair-request-back-dashboard:hover {
+  color: #116c40;
+}
+
+.repair-request-header .repair-request-eyebrow {
+  margin: 0 0 7px;
+
+  color: #16a34a !important;
+
+  font-size: 11px;
+
+  font-weight: 800;
+
+  letter-spacing: 1.5px;
+
+  line-height: 1.2;
+
+  text-transform: uppercase;
+}
+
+.repair-request-header h2 {
+  margin: 0;
+
+  color: #17202a;
+
+  font-size: 28px;
+
+  font-weight: 700;
+}
+
+.repair-request-header p:not(.repair-request-eyebrow) {
+  margin-top: 7px;
+
+  color: #7b8794;
+}
+
+/* ========================================
+   MESSAGE CONTAINER
+   ======================================== */
+
+.repair-request-message-container {
+  scroll-margin-top: 95px;
+}
+
+/* ========================================
+   MESSAGES
+   ======================================== */
+
+.repair-request-message {
+  display: flex;
+
+  align-items: center;
+
+  gap: 11px;
+
+  margin-bottom: 18px;
+
+  padding: 13px 15px;
+
+  border-radius: 10px;
+}
+
+.repair-request-message-icon {
+  width: 29px;
+  height: 29px;
+
+  flex-shrink: 0;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  font-weight: 800;
+}
+
+.repair-request-message > div {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.repair-request-message strong {
+  font-size: 13px;
+}
+
+.repair-request-message p {
+  margin: 0;
+
+  font-size: 12px;
+}
+
+.repair-request-success {
+  border: 1px solid #bbf7d0;
+
+  background: #ecfdf5;
+
+  color: #166534;
+}
+
+.repair-request-success .repair-request-message-icon {
+  background: #dcfce7;
+
+  color: #15803d;
+}
+
+.repair-request-error {
+  border: 1px solid #fecaca;
+
+  background: #fef2f2;
+
+  color: #991b1b;
+}
+
+.repair-request-error .repair-request-message-icon {
+  background: #dc2626;
+
+  color: #ffffff;
+}
+
+/* ========================================
+   CREATE CARD
+   ======================================== */
+
+.repair-request-card {
+  margin-bottom: 20px;
+
+  padding: 0;
+
+  border: 1px solid #e3e9e5;
+
+  border-radius: 17px;
+
+  background: #ffffff;
+
+  box-shadow: 0 7px 22px rgba(15, 23, 42, 0.04);
+}
+
+/* ========================================
+   CARD HEADER
+   ======================================== */
+
+.repair-request-card-header {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 15px;
+
+  padding: 20px 22px;
+
+  border-bottom: 1px solid #edf0ee;
+}
+
+.repair-request-card-header h3 {
+  margin: 0 0 4px;
+
+  color: #17211b;
+
+  font-size: 18px;
+
+  font-weight: 750;
+}
+
+.repair-request-card-header p {
+  margin: 0;
+
+  color: #98a19b;
+
+  font-size: 11px;
+}
+
+.repair-request-required {
+  padding: 6px 10px;
+
+  border-radius: 999px;
+
+  background: #fff5dc;
+
+  color: #9a6a00;
+
+  font-size: 10px;
+
+  font-weight: 750;
+
+  white-space: nowrap;
+}
+
+/* ========================================
+   FORM
+   ======================================== */
+
+.repair-request-form {
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 18px 20px;
+
+  padding: 22px;
+}
+
+.repair-request-field {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+.repair-request-field:nth-child(1),
+.repair-request-field:nth-child(2),
+.repair-request-field:nth-child(4) {
+  grid-column: span 2;
+}
+
+.repair-request-field label {
+  color: #445047;
+
+  font-size: 12px;
+
+  font-weight: 650;
+}
+
+.repair-request-field label span {
+  margin-left: 3px;
+
+  color: #cf5555;
+}
+
+/* ========================================
+   INPUTS
+   ======================================== */
+
+.repair-request-field input,
+.repair-request-field textarea {
+  width: 100%;
+
+  padding: 11px 12px;
+
+  box-sizing: border-box;
+
+  border: 1px solid #d6dfd9;
+
+  border-radius: 9px;
+
+  background: #ffffff;
+
+  color: #26322b;
+
+  font-family: inherit;
+
+  font-size: 12px;
+
+  outline: none;
+}
+
+.repair-request-field input {
+  height: 42px;
+}
+
+.repair-request-field textarea {
+  resize: vertical;
+
+  min-height: 100px;
+
+  line-height: 1.5;
+}
+
+.repair-request-field input:focus,
+.repair-request-field textarea:focus {
+  border-color: #198754;
+
+  box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.08);
+}
+
+.repair-request-field input:disabled,
+.repair-request-field textarea:disabled {
+  background: #f8faf9;
+
+  cursor: not-allowed;
+}
+
+/* ========================================
+   FIELD HELP TEXT
+   ======================================== */
+
+.repair-request-field small {
+  color: #98a19b;
+
+  font-size: 10px;
+
+  line-height: 1.5;
+}
+
+/* ========================================
+   AIN SEARCH
+   ======================================== */
+
+.repair-request-ain-search {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+}
+
+.repair-request-ain-search input {
+  flex: 1;
+}
+
+.repair-request-search-button {
+  height: 42px;
+
+  padding: 0 16px;
+
+  flex-shrink: 0;
+
+  border: none;
+
+  border-radius: 9px;
+
+  background: #16864f;
+
+  color: #ffffff;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.repair-request-search-button:hover:not(:disabled) {
+  background: #117442;
+}
+
+.repair-request-search-button:disabled {
+  opacity: 0.55;
+
+  cursor: not-allowed;
+}
+
+/* ========================================
+   ASSET PREVIEW
+   ======================================== */
+
+.repair-request-asset-preview {
+  display: grid;
+
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  gap: 10px;
+
+  margin-top: 4px;
+
+  padding: 14px;
+
+  border: 1px solid #edf0ee;
+
+  border-radius: 10px;
+
+  background: #fafcfb;
+}
+
+.repair-request-asset-preview > div {
+  padding: 4px;
+}
+
+.repair-request-asset-preview span {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #98a19b;
+
+  font-size: 9px;
+
+  font-weight: 650;
+
+  text-transform: uppercase;
+}
+
+.repair-request-asset-preview strong {
+  color: #374139;
+
+  font-size: 12px;
+
+  font-weight: 700;
+}
+
+/* ========================================
+   FORM ACTIONS
+   ======================================== */
+
+.repair-request-form-actions {
+  grid-column: span 2;
+
+  display: flex;
+
+  justify-content: flex-end;
+
+  padding-top: 4px;
+}
+
+.repair-request-submit-button {
+  padding: 10px 16px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: #16864f;
+
+  color: #ffffff;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.repair-request-submit-button:hover:not(:disabled) {
+  background: #117442;
+}
+
+.repair-request-submit-button:disabled {
+  opacity: 0.55;
+
+  cursor: not-allowed;
+}
+
+/* ========================================
+   LIST SECTION
+   ======================================== */
+
+.repair-request-list-section {
+  overflow: hidden;
+
+  border: 1px solid #e3e9e5;
+
+  border-radius: 16px;
+
+  background: #ffffff;
+
+  box-shadow: 0 7px 22px rgba(15, 23, 42, 0.04);
+}
+
+/* ========================================
+   LIST HEADING
+   ======================================== */
+
+.repair-request-list-heading {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 15px;
+
+  padding: 20px 22px;
+
+  border-bottom: 1px solid #edf0ee;
+}
+
+.repair-request-list-heading h3 {
+  margin: 0 0 4px;
+
+  color: #17211b;
+
+  font-size: 18px;
+
+  font-weight: 750;
+}
+
+.repair-request-list-heading p {
+  margin: 0;
+
+  color: #98a19b;
+
+  font-size: 11px;
+}
+
+.repair-request-list-heading strong {
+  color: #69746d;
+
+  font-weight: 750;
+}
+
+/* ========================================
+   TABLE FILTERS
+   ======================================== */
+
+.repair-request-filters {
+  border-bottom: 1px solid #edf0ee;
+}
+
+.repair-request-filter-fields {
+  display: grid;
+
+  grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+
+  align-items: end;
+
+  gap: 12px;
+
+  padding: 16px 22px;
+}
+
+.repair-request-filter-fields label {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 6px;
+
+  color: #5e6b63;
+
+  font-size: 10px;
+
+  font-weight: 700;
+}
+
+.repair-request-filter-fields input {
+  width: 100%;
+
+  height: 36px;
+
+  padding: 0 10px;
+
+  box-sizing: border-box;
+
+  border: 1px solid #d6dfd9;
+
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  color: #26322b;
+
+  font-family: inherit;
+
+  font-size: 11px;
+
+  outline: none;
+}
+
+.repair-request-filter-fields input:focus {
+  border-color: #198754;
+
+  box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.08);
+}
+
+.repair-request-clear-filters {
+  height: 36px;
+
+  padding: 0 10px;
+
+  border: 1px solid #dbe5df;
+
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  color: #5e6b63;
+
+  font-family: inherit;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+}
+
+.repair-request-clear-filters:hover {
+  border-color: #9ccdb0;
+
+  color: #16864f;
+}
+
+.repair-request-filter-bar {
+  display: flex;
+
+  gap: 8px;
+
+  overflow-x: auto;
+
+  padding: 14px 22px;
+
+  scrollbar-width: thin;
+}
+
+.repair-request-filter-button {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  min-height: 34px;
+
+  padding: 6px 11px;
+
+  border: 1px solid #dbe5df;
+
+  border-radius: 999px;
+
+  background: #ffffff;
+
+  color: #5e6b63;
+
+  font-family: inherit;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.repair-request-filter-button:hover {
+  border-color: #9ccdb0;
+
+  background: #f2faf5;
+
+  color: #16864f;
+}
+
+.repair-request-filter-button span {
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  min-width: 18px;
+
+  height: 18px;
+
+  padding: 0 4px;
+
+  border-radius: 999px;
+
+  background: #edf1ee;
+
+  color: inherit;
+
+  font-size: 9px;
+}
+
+.repair-request-filter-button-active {
+  border-color: #16864f;
+
+  background: #16864f;
+
+  color: #ffffff;
+}
+
+.repair-request-filter-button-active:hover {
+  border-color: #117442;
+
+  background: #117442;
+
+  color: #ffffff;
+}
+
+.repair-request-filter-button-active span {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ========================================
+   TABLE CARD
+   ======================================== */
+
+.repair-request-table-card {
+  width: 100%;
+
+  overflow-x: auto;
+}
+
+/* ========================================
+   TABLE
+   ======================================== */
+
+.repair-request-table {
+  width: 100%;
+
+  border-collapse: collapse;
+
+  font-size: 12px;
+}
+
+.repair-request-table th {
+  padding: 13px 14px;
+
+  background: #f8faf9;
+
+  border-bottom: 1px solid #e8eeea;
+
+  color: #667169;
+
+  font-size: 10px;
+
+  font-weight: 750;
+
+  text-align: left;
+
+  white-space: nowrap;
+}
+
+.repair-request-table td {
+  padding: 14px;
+
+  border-bottom: 1px solid #f0f2f1;
+
+  color: #4d5851;
+
+  vertical-align: middle;
+
+  white-space: nowrap;
+}
+
+.repair-request-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.repair-request-table tbody tr:hover {
+  background: #fbfdfc;
+}
+
+/* ========================================
+   AIN
+   ======================================== */
+
+.repair-request-ain-cell {
+  color: #374139 !important;
+
+  font-size: 12px !important;
+
+  font-weight: 700;
+}
+
+/* ========================================
+   PROBLEM
+   ======================================== */
+
+.repair-request-problem-cell {
+  max-width: 280px;
+
+  white-space: normal !important;
+
+  line-height: 1.45;
+}
+
+/* ========================================
+   DATE
+   ======================================== */
+
+.repair-request-date-cell {
+  color: #69746d !important;
+
+  font-size: 10px !important;
+}
+
+/* ========================================
+   STATUS
+   ======================================== */
+
+.repair-request-status {
+  display: inline-flex;
+
+  align-items: center;
+
+  padding: 5px 9px;
+
+  border-radius: 999px;
+
+  font-size: 9px;
+
+  font-weight: 750;
+
+  white-space: nowrap;
+}
+
+.repair-request-status-pending {
+  background: #fff5dc;
+
+  color: #9a6a00;
+}
+
+.repair-request-status-approved {
+  background: #e5f7ed;
+
+  color: #16864f;
+}
+
+.repair-request-status-rejected {
+  background: #fff0f0;
+
+  color: #cf5555;
+}
+
+.repair-request-status-under_repair {
+  background: #eef5ff;
+
+  color: #3976c8;
+}
+
+.repair-request-status-completed {
+  background: #e5f7ed;
+
+  color: #16864f;
+}
+
+/* ========================================
+   ACTIONS
+   ======================================== */
+
+.repair-request-actions-cell select {
+  height: 34px;
+
+  padding: 0 9px;
+
+  border: 1px solid #d6dfd9;
+
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  color: #4d5851;
+
+  font-family: inherit;
+
+  font-size: 10px;
+
+  font-weight: 650;
+
+  outline: none;
+
+  cursor: pointer;
+}
+
+.repair-request-actions-cell select:focus {
+  border-color: #198754;
+
+  box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.08);
+}
+
+.repair-request-completed-label {
+  display: inline-flex;
+
+  align-items: center;
+
+  padding: 5px 9px;
+
+  border-radius: 999px;
+
+  background: #e5f7ed;
+
+  color: #16864f;
+
+  font-size: 9px;
+
+  font-weight: 750;
+}
+
+.repair-request-no-action {
+  color: #9aa39e;
+
+  font-size: 12px;
+}
+
+/* ========================================
+   EMPTY STATE
+   ======================================== */
+
+.repair-request-empty-state {
+  min-height: 230px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 30px;
+
+  box-sizing: border-box;
+
+  text-align: center;
+}
+
+.repair-request-empty-icon {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 9px;
+
+  border-radius: 50%;
+
+  background: #e8f7ef;
+
+  color: #16864f;
+
+  font-size: 16px;
+
+  font-weight: 800;
+}
+
+.repair-request-empty-state strong {
+  color: #4d5952;
+
+  font-size: 14px;
+}
+
+.repair-request-empty-state p {
+  margin: 5px 0 0;
+
+  color: #9aa39e;
+
+  font-size: 11px;
+}
+
+/* ========================================
+   LOADING
+   ======================================== */
+
+.repair-request-loading-spinner {
+  width: 27px;
+  height: 27px;
+
+  margin-bottom: 11px;
+
+  border: 3px solid #e4ebe7;
+
+  border-top-color: #198754;
+
+  border-radius: 50%;
+
+  animation: repairRequestSpin 0.7s linear infinite;
+}
+
+.repair-request-empty-state p {
+  color: #7c8680;
+}
+
+@keyframes repairRequestSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 900px) {
+  .repair-request-layout {
+    --sidebar-width: 0px;
+  }
+
+  .repair-request-main {
+    width: 100%;
+
+    margin-left: 0;
+  }
+
+  .repair-request-content {
+    padding: 25px 18px 40px;
+  }
+
+  .repair-request-form {
+    grid-template-columns: 1fr;
+  }
+
+  .repair-request-field:nth-child(1),
+  .repair-request-field:nth-child(2),
+  .repair-request-field:nth-child(4),
+  .repair-request-form-actions {
+    grid-column: span 1;
+  }
+
+  .repair-request-asset-preview {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 650px) {
+  .repair-request-content {
+    padding: 20px 14px 35px;
+  }
+
+  .repair-request-header h2 {
+    font-size: 30px;
+  }
+
+  .repair-request-card-header {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .repair-request-required {
+    align-self: flex-start;
+  }
+
+  .repair-request-form {
+    padding: 18px 14px;
+  }
+
+  .repair-request-ain-search {
+    align-items: stretch;
+
+    flex-direction: column;
+  }
+
+  .repair-request-search-button {
+    width: 100%;
+  }
+
+  .repair-request-form-actions {
+    justify-content: stretch;
+  }
+
+  .repair-request-submit-button {
+    width: 100%;
+  }
+
+  .repair-request-list-heading {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .repair-request-filter-fields {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .repair-request-clear-filters {
+    width: 100%;
+  }
+}

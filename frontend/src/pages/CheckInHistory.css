@@ -1,0 +1,469 @@
+/* ========================================
+   CHECK-IN HISTORY PAGE
+   ======================================== */
+
+.checkin-history-page {
+  width: 100%;
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 24px 50px;
+  box-sizing: border-box;
+}
+
+/* ========================================
+   HEADER
+   ======================================== */
+
+.checkin-history-header {
+  margin-bottom: 25px;
+}
+
+.checkin-history-header h2 {
+  margin: 0 0 6px;
+  color: #111827;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.checkin-history-header p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ========================================
+   DATE FILTER
+   ======================================== */
+
+.checkin-history-filter {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+
+  margin-top: 18px;
+  padding: 14px 16px;
+
+  background: #f8faf9;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+}
+
+.checkin-history-filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.checkin-history-filter-field label {
+  color: #374151;
+
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.checkin-history-filter-field input {
+  height: 38px;
+  padding: 0 10px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 7px;
+
+  background: #ffffff;
+  color: #111827;
+
+  font: inherit;
+  font-size: 13px;
+  outline: none;
+}
+
+.checkin-history-filter-field input:focus {
+  border-color: #16a34a;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.08);
+}
+
+.checkin-history-filter-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.checkin-history-filter-button,
+.checkin-history-clear-button {
+  height: 38px;
+  padding: 0 15px;
+
+  border-radius: 7px;
+
+  font: inherit;
+  font-size: 13px;
+  font-weight: 650;
+
+  cursor: pointer;
+}
+
+.checkin-history-filter-button {
+  border: 1px solid #16a34a;
+  background: #16a34a;
+  color: #ffffff;
+}
+
+.checkin-history-filter-button:hover {
+  background: #15803d;
+  border-color: #15803d;
+}
+
+.checkin-history-clear-button {
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  color: #4b5563;
+}
+
+.checkin-history-clear-button:hover {
+  background: #f9fafb;
+  border-color: #9ca3af;
+}
+
+/* ========================================
+   BACK LINK
+   ======================================== */
+
+.checkin-history-back-link {
+  display: inline-block;
+  margin-top: 12px;
+
+  color: #16a34a;
+
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.checkin-history-back-link:hover {
+  color: #15803d;
+  transform: translateX(-2px);
+}
+
+/* ========================================
+   SUMMARY
+   ======================================== */
+
+.checkin-history-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 20px;
+  padding: 18px 20px;
+
+  background: #ffffff;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.05);
+}
+
+.checkin-history-summary-label {
+  color: #6b7280;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.checkin-history-summary-count {
+  color: #16a34a;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+/* ========================================
+   ERROR
+   ======================================== */
+
+.checkin-history-error {
+  padding: 15px 18px;
+
+  margin-bottom: 20px;
+
+  background: #fef2f2;
+  color: #991b1b;
+
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.checkin-history-error strong {
+  font-size: 14px;
+}
+
+/* ========================================
+   TABLE CARD
+   ======================================== */
+
+.checkin-history-card {
+  width: 100%;
+
+  background: #ffffff;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.05);
+
+  overflow: hidden;
+}
+
+/* ========================================
+   TABLE WRAPPER
+   ======================================== */
+
+.checkin-history-table-wrapper {
+  width: 100%;
+
+  overflow-x: auto;
+}
+
+/* ========================================
+   TABLE
+   ======================================== */
+
+.checkin-history-table {
+  width: 100%;
+  min-width: 950px;
+
+  border-collapse: collapse;
+
+  background: #ffffff;
+
+  font-size: 13px;
+}
+
+/* ========================================
+   TABLE HEADER
+   ======================================== */
+
+.checkin-history-table thead {
+  background: #f9fafb;
+}
+
+.checkin-history-table th {
+  padding: 14px 16px;
+
+  color: #374151;
+
+  border-bottom: 1px solid #e5e7eb;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  letter-spacing: 0.4px;
+
+  text-align: left;
+
+  white-space: nowrap;
+}
+
+/* ========================================
+   TABLE BODY
+   ======================================== */
+
+.checkin-history-table td {
+  padding: 14px 16px;
+
+  color: #4b5563;
+
+  border-bottom: 1px solid #f0f1f3;
+
+  font-size: 13px;
+
+  vertical-align: middle;
+}
+
+.checkin-history-table tbody tr {
+  transition: background 0.2s ease;
+}
+
+.checkin-history-table tbody tr:hover {
+  background: #f9fafb;
+}
+
+.checkin-history-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ========================================
+   USER NAME
+   ======================================== */
+
+.checkin-history-user-name {
+  color: #111827 !important;
+  font-weight: 600;
+}
+
+/* ========================================
+   CHECK-IN TYPE
+   ======================================== */
+
+.checkin-history-type {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 5px 9px;
+
+  border-radius: 999px;
+
+  background: #ecfdf5;
+  color: #166534;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+/* ========================================
+   LOCATION
+   ======================================== */
+
+.checkin-history-location {
+  color: #374151 !important;
+  font-weight: 550;
+}
+
+/* ========================================
+   GPS VALUES
+   ======================================== */
+
+.checkin-history-gps {
+  color: #6b7280 !important;
+
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+
+  font-size: 12px !important;
+}
+
+/* ========================================
+   DATE & TIME
+   ======================================== */
+
+.checkin-history-datetime {
+  color: #374151 !important;
+
+  font-size: 12px !important;
+
+  white-space: nowrap;
+}
+
+/* ========================================
+   REMARKS
+   ======================================== */
+
+.checkin-history-remarks {
+  max-width: 220px;
+
+  color: #6b7280 !important;
+
+  line-height: 1.5;
+
+  word-break: break-word;
+}
+
+/* ========================================
+   EMPTY STATE
+   ======================================== */
+
+.checkin-history-empty {
+  padding: 45px 20px !important;
+
+  color: #9ca3af !important;
+
+  text-align: center !important;
+
+  font-size: 14px !important;
+}
+
+/* ========================================
+   LOADING
+   ======================================== */
+
+.checkin-history-loading {
+  padding: 50px 20px;
+
+  color: #6b7280;
+
+  text-align: center;
+
+  font-size: 14px;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 900px) {
+  .checkin-history-page {
+    margin: 30px auto;
+    padding: 0 18px 40px;
+  }
+
+  .checkin-history-header h2 {
+    font-size: 25px;
+  }
+
+  .checkin-history-card {
+    border-radius: 12px;
+  }
+}
+
+@media (max-width: 640px) {
+  .checkin-history-page {
+    margin: 25px auto;
+    padding: 0 14px 35px;
+  }
+
+  .checkin-history-header h2 {
+    font-size: 23px;
+  }
+
+  .checkin-history-summary {
+    padding: 15px 16px;
+  }
+
+  .checkin-history-summary-count {
+    font-size: 20px;
+  }
+
+  .checkin-history-filter {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .checkin-history-filter-field input,
+  .checkin-history-filter-actions,
+  .checkin-history-filter-button,
+  .checkin-history-clear-button {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .checkin-history-filter-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .checkin-history-table {
+    min-width: 900px;
+  }
+
+  .checkin-history-table th,
+  .checkin-history-table td {
+    padding: 12px 13px;
+  }
+}

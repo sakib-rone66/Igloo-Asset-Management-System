@@ -1,0 +1,587 @@
+/* ==========================================================================
+   GLOBAL NOTIFICATION POPUP SYSTEM
+   Matches the Add Asset page (http://localhost:5173/assets/add) notification design.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Unified AppNotification Component Styles
+   -------------------------------------------------------------------------- */
+
+.app-notification {
+  position: fixed;
+  top: 22px;
+  right: 22px;
+  z-index: 9999;
+  box-sizing: border-box;
+  width: max-content;
+  min-width: 280px;
+  max-width: min(380px, calc(100vw - 44px));
+  margin: 0;
+
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 14px 16px;
+  border-radius: 11px;
+
+  font-family: "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.45;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08), 0 2px 6px rgba(15, 23, 42, 0.04);
+
+  animation: app-notification-lifecycle 4s ease-out forwards;
+}
+
+.app-notification-icon {
+  width: 29px;
+  height: 29px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.app-notification-content {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+}
+
+.app-notification-content strong {
+  font-size: 13px;
+  font-weight: 750;
+  line-height: 1.25;
+}
+
+.app-notification-content span {
+  font-size: 12px;
+  line-height: 1.45;
+  word-break: break-word;
+}
+
+.app-notification-close {
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 3px 6px;
+  border-radius: 6px;
+  opacity: 0.5;
+  transition: opacity 0.15s ease, background-color 0.15s ease;
+  margin-left: 6px;
+  flex-shrink: 0;
+}
+
+.app-notification-close:hover {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.06);
+}
+
+.app-notification-success {
+  border: 1px solid #bbf7d0 !important;
+  background: #ecfdf5 !important;
+  color: #166534 !important;
+}
+
+.app-notification-success .app-notification-icon {
+  background: #dcfce7 !important;
+  color: #15803d !important;
+}
+
+.app-notification-success .app-notification-close {
+  color: #166534 !important;
+}
+
+.app-notification-error {
+  border: 1px solid #fecaca !important;
+  background: #fef2f2 !important;
+  color: #991b1b !important;
+}
+
+.app-notification-error .app-notification-icon {
+  background: #dc2626 !important;
+  color: #ffffff !important;
+}
+
+.app-notification-error .app-notification-close {
+  color: #991b1b !important;
+}
+
+/* --------------------------------------------------------------------------
+   2. Comprehensive Fixed Positioning for All Page Notification Selectors
+   -------------------------------------------------------------------------- */
+
+:is(
+  .app-notification,
+  .add-asset-message,
+  .existing-asset-message,
+  .add-user-message,
+  .all-history-message,
+  .assignment-message,
+  .authorization-message,
+  .asset-disposal-message,
+  .asset-return-message,
+  .asset-transfer-message,
+  .asset-history-error,
+  .asset-qr-message,
+  .assets-error,
+  .dashboard-toast,
+  .dashboard-count-error,
+  .distributors-message,
+  .districts-message,
+  .regions-message,
+  .outlet-message,
+  .outlet-details-success,
+  .outlet-details-error,
+  .users-message,
+  .mapping-toast,
+  .mapping-admin-error,
+  .verification-history-error,
+  .checkin-history-error,
+  .checkin-toast,
+  .forgot-success-message,
+  .forgot-error-message,
+  .reset-success-message,
+  .reset-error-message,
+  .change-password-success,
+  .change-password-error,
+  .login-error,
+  .manufacturer-message,
+  .repair-message,
+  .repair-request-message,
+  .pending-asset-request-message,
+  .asset-request-message,
+  .user-access-error,
+  .user-access-success,
+  .user-access-message,
+  .profile-toast
+) {
+  position: fixed !important;
+  top: 22px !important;
+  right: 22px !important;
+  z-index: 9999 !important;
+  box-sizing: border-box !important;
+  width: max-content !important;
+  min-width: 280px !important;
+  max-width: min(380px, calc(100vw - 44px)) !important;
+  margin: 0 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  gap: 11px !important;
+  padding: 14px 16px !important;
+  border-radius: 11px !important;
+  font-family: "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+  font-size: 13px !important;
+  line-height: 1.45 !important;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08), 0 2px 6px rgba(15, 23, 42, 0.04) !important;
+
+  animation: app-notification-lifecycle 4s ease-out forwards;
+}
+
+/* --------------------------------------------------------------------------
+   3. Notification Lifecycle Animation (Entrance, Hold, Fade out)
+   -------------------------------------------------------------------------- */
+
+@keyframes app-notification-lifecycle {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.98);
+  }
+
+  6% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  85% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  to {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-8px) scale(0.98);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   4. Icon Badge Standardization
+   -------------------------------------------------------------------------- */
+
+:is(
+  .add-asset-message-icon,
+  .existing-asset-message-icon,
+  .add-user-message-icon,
+  .assignment-message-icon,
+  .authorization-message-icon,
+  .asset-disposal-message-icon,
+  .asset-return-message-icon,
+  .asset-transfer-message-icon,
+  .asset-history-error-icon,
+  .dashboard-toast-icon,
+  .distributors-message-icon,
+  .mapping-toast-icon,
+  .mapping-admin-error-icon,
+  .users-message-icon,
+  .manufacturer-message-icon,
+  .repair-request-message-icon,
+  .pending-asset-request-message-icon,
+  .asset-request-message-icon,
+  .profile-toast-icon,
+  .login-error-icon,
+  .assets-error-icon
+) {
+  width: 29px !important;
+  height: 29px !important;
+  flex-shrink: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 50% !important;
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  margin: 0 !important;
+}
+
+/* --------------------------------------------------------------------------
+   5. Content & Typography Standardization
+   -------------------------------------------------------------------------- */
+
+:is(
+  .add-asset-message-content,
+  .existing-asset-message-content,
+  .add-user-message-content,
+  .assignment-message-content,
+  .authorization-message-content,
+  .asset-disposal-message-content,
+  .asset-return-message-content,
+  .asset-transfer-message-content,
+  .dashboard-toast-content,
+  .distributors-message-content,
+  .mapping-toast-content,
+  .profile-toast-content
+) {
+  min-width: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 3px !important;
+  flex: 1 !important;
+}
+
+:is(
+  .add-asset-message,
+  .existing-asset-message,
+  .add-user-message,
+  .all-history-message,
+  .assignment-message,
+  .authorization-message,
+  .asset-disposal-message,
+  .asset-return-message,
+  .asset-transfer-message,
+  .asset-history-error,
+  .asset-qr-message,
+  .assets-error,
+  .dashboard-toast,
+  .distributors-message,
+  .districts-message,
+  .regions-message,
+  .outlet-message,
+  .outlet-details-success,
+  .outlet-details-error,
+  .users-message,
+  .mapping-toast,
+  .mapping-admin-error,
+  .verification-history-error,
+  .checkin-history-error,
+  .checkin-toast,
+  .forgot-success-message,
+  .forgot-error-message,
+  .reset-success-message,
+  .reset-error-message,
+  .change-password-success,
+  .change-password-error,
+  .login-error,
+  .manufacturer-message,
+  .repair-message,
+  .repair-request-message,
+  .pending-asset-request-message,
+  .asset-request-message,
+  .user-access-error,
+  .user-access-success,
+  .user-access-message,
+  .profile-toast
+) strong {
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: 13px !important;
+  font-weight: 750 !important;
+  line-height: 1.25 !important;
+}
+
+:is(
+  .add-asset-message,
+  .existing-asset-message,
+  .add-user-message,
+  .all-history-message,
+  .assignment-message,
+  .authorization-message,
+  .asset-disposal-message,
+  .asset-return-message,
+  .asset-transfer-message,
+  .asset-history-error,
+  .asset-qr-message,
+  .assets-error,
+  .dashboard-toast,
+  .distributors-message,
+  .districts-message,
+  .regions-message,
+  .outlet-message,
+  .outlet-details-success,
+  .outlet-details-error,
+  .users-message,
+  .mapping-toast,
+  .mapping-admin-error,
+  .verification-history-error,
+  .checkin-history-error,
+  .checkin-toast,
+  .forgot-success-message,
+  .forgot-error-message,
+  .reset-success-message,
+  .reset-error-message,
+  .change-password-success,
+  .change-password-error,
+  .login-error,
+  .manufacturer-message,
+  .repair-message,
+  .repair-request-message,
+  .pending-asset-request-message,
+  .asset-request-message,
+  .user-access-error,
+  .user-access-success,
+  .user-access-message,
+  .profile-toast
+) :is(span, p) {
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: 12px !important;
+  line-height: 1.45 !important;
+  word-break: break-word !important;
+}
+
+/* --------------------------------------------------------------------------
+   6. Color Themes (Success vs Error)
+   -------------------------------------------------------------------------- */
+
+:is(
+  .add-asset-success,
+  .existing-asset-success,
+  .add-user-success,
+  .assignment-success,
+  .authorization-success,
+  .asset-disposal-success,
+  .asset-return-success,
+  .asset-transfer-success,
+  .distributors-success,
+  .districts-success,
+  .regions-message-success,
+  .success-message,
+  .users-success,
+  .mapping-success,
+  .dashboard-toast,
+  .checkin-toast-success,
+  .outlet-details-success,
+  .manufacturer-success,
+  .repair-success,
+  .repair-request-success,
+  .pending-asset-request-success,
+  .asset-request-success,
+  .user-access-success,
+  .profile-toast-success,
+  .forgot-success-message,
+  .reset-success-message,
+  .change-password-success
+) {
+  border: 1px solid #bbf7d0 !important;
+  background: #ecfdf5 !important;
+  color: #166534 !important;
+}
+
+:is(
+  .add-asset-success,
+  .existing-asset-success,
+  .add-user-success,
+  .assignment-success,
+  .authorization-success,
+  .asset-disposal-success,
+  .asset-return-success,
+  .asset-transfer-success,
+  .distributors-success,
+  .districts-success,
+  .regions-message-success,
+  .success-message,
+  .users-success,
+  .mapping-success,
+  .dashboard-toast,
+  .checkin-toast-success,
+  .outlet-details-success,
+  .manufacturer-success,
+  .repair-success,
+  .repair-request-success,
+  .pending-asset-request-success,
+  .asset-request-success,
+  .user-access-success,
+  .profile-toast-success
+) :is(.add-asset-message-icon, .existing-asset-message-icon, .add-user-message-icon, .assignment-message-icon, .authorization-message-icon, .asset-disposal-message-icon, .asset-return-message-icon, .asset-transfer-message-icon, .dashboard-toast-icon, .distributors-message-icon, .mapping-toast-icon, .users-message-icon, .manufacturer-message-icon, .repair-request-message-icon, .pending-asset-request-message-icon, .asset-request-message-icon, .profile-toast-icon, span:first-child) {
+  background: #dcfce7 !important;
+  color: #15803d !important;
+}
+
+:is(
+  .add-asset-error,
+  .existing-asset-error,
+  .add-user-error,
+  .all-history-error,
+  .assignment-error,
+  .authorization-error,
+  .asset-disposal-error,
+  .asset-return-error,
+  .asset-transfer-error,
+  .asset-history-error,
+  .assets-error,
+  .dashboard-count-error,
+  .distributors-error,
+  .districts-error,
+  .regions-message-error,
+  .outlet-details-error,
+  .error-message,
+  .users-error,
+  .mapping-error,
+  .mapping-admin-error,
+  .verification-history-error,
+  .checkin-history-error,
+  .checkin-toast-error,
+  .forgot-error-message,
+  .reset-error-message,
+  .change-password-error,
+  .login-error,
+  .manufacturer-error,
+  .repair-error,
+  .repair-request-error,
+  .pending-asset-request-error,
+  .asset-request-error,
+  .user-access-error,
+  .profile-toast-error
+) {
+  border: 1px solid #fecaca !important;
+  background: #fef2f2 !important;
+  color: #991b1b !important;
+}
+
+:is(
+  .add-asset-error,
+  .existing-asset-error,
+  .add-user-error,
+  .all-history-error,
+  .assignment-error,
+  .authorization-error,
+  .asset-disposal-error,
+  .asset-return-error,
+  .asset-transfer-error,
+  .asset-history-error,
+  .assets-error,
+  .dashboard-count-error,
+  .distributors-error,
+  .districts-error,
+  .regions-message-error,
+  .outlet-details-error,
+  .error-message,
+  .users-error,
+  .mapping-error,
+  .mapping-admin-error,
+  .verification-history-error,
+  .checkin-history-error,
+  .checkin-toast-error,
+  .forgot-error-message,
+  .reset-error-message,
+  .change-password-error,
+  .login-error,
+  .manufacturer-error,
+  .repair-error,
+  .repair-request-error,
+  .pending-asset-request-error,
+  .asset-request-error,
+  .user-access-error,
+  .profile-toast-error
+) :is(.add-asset-message-icon, .existing-asset-message-icon, .add-user-message-icon, .assignment-message-icon, .authorization-message-icon, .asset-disposal-message-icon, .asset-return-message-icon, .asset-transfer-message-icon, .asset-history-error-icon, .distributors-message-icon, .mapping-admin-error-icon, .users-message-icon, .manufacturer-message-icon, .repair-request-message-icon, .pending-asset-request-message-icon, .asset-request-message-icon, .profile-toast-icon, .login-error-icon, .assets-error-icon, span:first-child) {
+  background: #dc2626 !important;
+  color: #ffffff !important;
+}
+
+/* --------------------------------------------------------------------------
+   7. Mobile Responsiveness
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 520px) {
+  :is(
+    .app-notification,
+    .add-asset-message,
+    .existing-asset-message,
+    .add-user-message,
+    .all-history-message,
+    .assignment-message,
+    .authorization-message,
+    .asset-disposal-message,
+    .asset-return-message,
+    .asset-transfer-message,
+    .asset-history-error,
+    .asset-qr-message,
+    .assets-error,
+    .dashboard-toast,
+    .dashboard-count-error,
+    .distributors-message,
+    .districts-message,
+    .regions-message,
+    .outlet-message,
+    .outlet-details-success,
+    .outlet-details-error,
+    .users-message,
+    .mapping-toast,
+    .mapping-admin-error,
+    .verification-history-error,
+    .checkin-history-error,
+    .checkin-toast,
+    .forgot-success-message,
+    .forgot-error-message,
+    .reset-success-message,
+    .reset-error-message,
+    .change-password-success,
+    .change-password-error,
+    .login-error,
+    .manufacturer-message,
+    .repair-message,
+    .repair-request-message,
+    .pending-asset-request-message,
+    .asset-request-message,
+    .user-access-error,
+    .user-access-success,
+    .user-access-message,
+    .profile-toast
+  ) {
+    top: 14px !important;
+    right: 14px !important;
+    left: 14px !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+  }
+}

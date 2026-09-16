@@ -1,0 +1,108 @@
+/* Shared viewport and responsive sizing rules for every application page. */
+
+html {
+  box-sizing: border-box;
+  min-width: 320px;
+  overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  min-width: 320px;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Older pages own their shell, so keep all sidebar layouts aligned. */
+[class$="-main"] {
+  width: calc(100% - 230px);
+  margin-left: 230px;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+[class$="-sidebar-closed"] [class$="-main"] {
+  width: 100%;
+  margin-left: 0;
+}
+
+main[class$="-content"],
+.profile-page {
+  min-width: 0;
+  max-width: 100%;
+}
+
+@media (max-width: 900px) {
+  [class$="-main"],
+  .app-page-main {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .sidebar {
+    box-shadow: 12px 0 30px rgba(15, 23, 42, 0.18);
+  }
+}
+
+@media (max-width: 640px) {
+  .navbar {
+    min-height: 60px;
+    padding: 0 16px;
+  }
+
+  .navbar-current,
+  .navbar-system-status,
+  .navbar-divider {
+    display: none;
+  }
+
+  .navbar-right {
+    gap: 8px;
+  }
+
+  .navbar-user-info {
+    display: none;
+  }
+
+  main[class$="-content"],
+  .profile-page {
+    padding: 20px 16px 40px;
+  }
+
+  .dashboard-welcome,
+  .assets-header,
+  .add-user-header,
+  .users-title-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .dashboard-welcome h2,
+  .assets-header h2,
+  .add-user-header h2 {
+    font-size: clamp(24px, 8vw, 32px);
+  }
+
+  .dashboard-date-card,
+  .assets-summary-card {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .app-sidebar-toggle {
+    top: 68px;
+    left: 12px;
+  }
+}

@@ -1,0 +1,994 @@
+/* ========================================
+   ROOT
+   ======================================== */
+
+.authorization-layout {
+  --sidebar-width: 230px;
+
+  width: 100%;
+  min-height: 100vh;
+
+  background: #f5f7f8;
+
+  color: #17211b;
+
+  font-family: "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  overflow-x: hidden;
+}
+
+/* ========================================
+   MAIN
+   ======================================== */
+
+.authorization-main {
+  width: calc(100% - var(--sidebar-width));
+
+  min-height: 100vh;
+
+  margin-left: var(--sidebar-width);
+
+  box-sizing: border-box;
+
+  transition:
+    width 0.25s ease,
+    margin-left 0.25s ease;
+}
+
+.authorization-sidebar-closed .authorization-main {
+  width: 100%;
+
+  margin-left: 0;
+}
+
+/* ========================================
+   SIDEBAR TOGGLE
+   ======================================== */
+
+.authorization-sidebar-toggle {
+  position: fixed;
+
+  top: 88px;
+  left: 18px;
+
+  z-index: 900;
+
+  width: 40px;
+  height: 40px;
+
+  border: 1px solid #dce5df;
+
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  color: #16864f;
+
+  font-size: 18px;
+
+  cursor: pointer;
+
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.1);
+}
+
+/* ========================================
+   CONTENT
+   ======================================== */
+
+.authorization-content {
+  width: 100%;
+
+  max-width: 1550px;
+
+  margin: 0 auto;
+
+  padding: 32px;
+
+  box-sizing: border-box;
+}
+
+/* ========================================
+   HEADER
+   ======================================== */
+
+.authorization-header {
+  margin-bottom: 24px;
+}
+
+.authorization-back {
+  display: inline-block;
+
+  margin-bottom: 15px;
+
+  color: #16864f;
+
+  font-size: 13px;
+
+  font-weight: 650;
+
+  text-decoration: none;
+}
+
+.authorization-eyebrow {
+  margin: 0 0 7px;
+
+  color: #16864f;
+
+  font-size: 10px;
+
+  font-weight: 800;
+
+  letter-spacing: 1.6px;
+
+  text-transform: uppercase;
+}
+
+.authorization-header h2 {
+  margin: 0;
+
+  color: #111a14;
+
+  font-size: 36px;
+
+  font-weight: 800;
+
+  letter-spacing: -1.2px;
+}
+
+.authorization-header p {
+  margin: 9px 0 0;
+
+  color: #6f7973;
+
+  font-size: 14px;
+}
+
+/* ========================================
+   MESSAGES
+   ======================================== */
+
+.authorization-message {
+  display: flex;
+
+  align-items: center;
+
+  gap: 11px;
+
+  margin-bottom: 18px;
+
+  padding: 13px 15px;
+
+  border-radius: 10px;
+
+  scroll-margin-top: 95px;
+}
+
+.authorization-message-icon {
+  width: 29px;
+  height: 29px;
+
+  flex-shrink: 0;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  font-weight: 800;
+}
+
+.authorization-message > div:last-child {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.authorization-message strong {
+  font-size: 13px;
+}
+
+.authorization-message span {
+  font-size: 12px;
+}
+
+.authorization-success {
+  border: 1px solid #bbf7d0;
+
+  background: #ecfdf5;
+
+  color: #166534;
+}
+
+.authorization-success .authorization-message-icon {
+  background: #dcfce7;
+
+  color: #15803d;
+}
+
+.authorization-error {
+  border: 1px solid #fecaca;
+
+  background: #fef2f2;
+
+  color: #991b1b;
+}
+
+.authorization-error .authorization-message-icon {
+  background: #dc2626;
+
+  color: #ffffff;
+}
+
+/* ========================================
+   SUMMARY
+   ======================================== */
+
+.authorization-summary {
+  display: grid;
+
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  gap: 16px;
+
+  margin-bottom: 20px;
+}
+
+.authorization-summary-card {
+  padding: 18px;
+
+  border: 1px solid #e3e9e5;
+
+  border-radius: 14px;
+
+  background: #ffffff;
+
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.04);
+}
+
+.authorization-summary-card span {
+  display: block;
+
+  margin-bottom: 9px;
+
+  color: #89938d;
+
+  font-size: 11px;
+
+  font-weight: 650;
+}
+
+.authorization-summary-card strong {
+  color: #17211b;
+
+  font-size: 28px;
+
+  font-weight: 800;
+}
+
+/* ========================================
+   FILTER
+   ======================================== */
+
+.authorization-filter-card {
+  display: flex;
+
+  align-items: flex-end;
+
+  justify-content: space-between;
+
+  gap: 20px;
+
+  margin-bottom: 20px;
+
+  padding: 18px;
+
+  border: 1px solid #e3e9e5;
+
+  border-radius: 14px;
+
+  background: #ffffff;
+}
+
+.authorization-filter-card > div {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7px;
+
+  width: 260px;
+}
+
+.authorization-filter-card label {
+  color: #46534c;
+
+  font-size: 12px;
+
+  font-weight: 650;
+}
+
+.authorization-filter-card select {
+  height: 42px;
+
+  padding: 0 12px;
+
+  border: 1px solid #d6dfd9;
+
+  border-radius: 9px;
+
+  background: #ffffff;
+
+  color: #27322b;
+
+  font-size: 13px;
+
+  outline: none;
+}
+
+.authorization-refresh-button {
+  height: 42px;
+
+  padding: 0 15px;
+
+  border: 1px solid #dce4df;
+
+  border-radius: 9px;
+
+  background: #ffffff;
+
+  color: #526058;
+
+  font-size: 12px;
+
+  font-weight: 650;
+
+  cursor: pointer;
+}
+
+.authorization-refresh-button:hover {
+  background: #f0faf4;
+
+  color: #16864f;
+}
+
+/* ========================================
+   TABLE CARD
+   ======================================== */
+
+.authorization-table-card {
+  overflow: hidden;
+
+  border: 1px solid #e3e9e5;
+
+  border-radius: 16px;
+
+  background: #ffffff;
+
+  box-shadow: 0 7px 22px rgba(15, 23, 42, 0.04);
+}
+
+.authorization-table-header {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 15px;
+
+  padding: 20px 22px;
+
+  border-bottom: 1px solid #edf0ee;
+}
+
+.authorization-table-header h3 {
+  margin: 0 0 4px;
+
+  color: #17211b;
+
+  font-size: 18px;
+
+  font-weight: 750;
+}
+
+.authorization-table-header p {
+  margin: 0;
+
+  color: #98a19b;
+
+  font-size: 11px;
+}
+
+.authorization-status-badge {
+  padding: 6px 10px;
+
+  border-radius: 999px;
+
+  background: #eef7f2;
+
+  color: #16864f;
+
+  font-size: 10px;
+
+  font-weight: 750;
+}
+
+/* ========================================
+   TABLE
+   ======================================== */
+
+.authorization-table-wrapper {
+  width: 100%;
+
+  overflow-x: auto;
+}
+
+.authorization-table {
+  width: 100%;
+
+  border-collapse: collapse;
+
+  font-size: 12px;
+}
+
+.authorization-table th {
+  padding: 13px 14px;
+
+  background: #f8faf9;
+
+  border-bottom: 1px solid #e8eeea;
+
+  color: #667169;
+
+  font-size: 10px;
+
+  font-weight: 750;
+
+  text-align: left;
+
+  white-space: nowrap;
+}
+
+.authorization-table td {
+  padding: 14px;
+
+  border-bottom: 1px solid #f0f2f1;
+
+  color: #4d5851;
+
+  vertical-align: middle;
+
+  white-space: nowrap;
+}
+
+.authorization-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.authorization-table tbody tr:hover {
+  background: #fbfdfc;
+}
+
+/* ========================================
+   REQUESTER
+   ======================================== */
+
+.authorization-requester,
+.authorization-manufacturer,
+.authorization-location {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.authorization-requester strong,
+.authorization-manufacturer strong,
+.authorization-location strong {
+  color: #374139;
+
+  font-size: 12px;
+
+  font-weight: 700;
+}
+
+.authorization-requester span,
+.authorization-manufacturer span,
+.authorization-location span {
+  color: #98a19b;
+
+  font-size: 10px;
+}
+
+/* ========================================
+   CAPACITY
+   ======================================== */
+
+.authorization-unit {
+  margin-left: 3px;
+
+  color: #9aa39e;
+
+  font-size: 10px;
+}
+
+/* ========================================
+   DATE
+   ======================================== */
+
+.authorization-date {
+  color: #69746d;
+
+  font-size: 10px;
+}
+
+/* ========================================
+   STATUS
+   ======================================== */
+
+.authorization-status {
+  display: inline-flex;
+
+  align-items: center;
+
+  padding: 5px 9px;
+
+  border-radius: 999px;
+
+  font-size: 9px;
+
+  font-weight: 750;
+}
+
+.authorization-status-pending {
+  background: #fff5dc;
+
+  color: #9a6a00;
+}
+
+.authorization-status-approved {
+  background: #e5f7ed;
+
+  color: #16864f;
+}
+
+.authorization-status-rejected {
+  background: #fff0f0;
+
+  color: #cf5555;
+}
+
+/* ========================================
+   ACTIONS
+   ======================================== */
+
+.authorization-actions {
+  display: flex;
+
+  align-items: center;
+
+  gap: 7px;
+}
+
+.authorization-approve-button,
+.authorization-reject-button {
+  padding: 7px 10px;
+
+  border-radius: 7px;
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.authorization-approve-button {
+  border: 1px solid #bde6cc;
+
+  background: #ecfdf5;
+
+  color: #16864f;
+}
+
+.authorization-approve-button:hover:not(:disabled) {
+  background: #dcfce7;
+}
+
+.authorization-reject-button {
+  border: 1px solid #f3c2c2;
+
+  background: #fff5f5;
+
+  color: #cf5555;
+}
+
+.authorization-reject-button:hover:not(:disabled) {
+  background: #fee2e2;
+}
+
+.authorization-approve-button:disabled,
+.authorization-reject-button:disabled {
+  opacity: 0.55;
+
+  cursor: not-allowed;
+}
+
+.authorization-decision-text {
+  color: #8b958f;
+
+  font-size: 10px;
+
+  font-weight: 600;
+}
+
+/* ========================================
+   EMPTY
+   ======================================== */
+
+.authorization-empty {
+  height: 220px;
+
+  text-align: center !important;
+}
+
+.authorization-empty > div {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+}
+
+.authorization-empty span {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 9px;
+
+  border-radius: 50%;
+
+  background: #e8f7ef;
+
+  color: #16864f;
+
+  font-size: 16px;
+
+  font-weight: 800;
+}
+
+.authorization-empty strong {
+  color: #4d5952;
+
+  font-size: 14px;
+}
+
+.authorization-empty p {
+  margin: 5px 0 0;
+
+  color: #9aa39e;
+
+  font-size: 11px;
+}
+
+/* ========================================
+   LOADING
+   ======================================== */
+
+.authorization-loading {
+  min-height: 230px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 11px;
+
+  color: #7c8680;
+
+  font-size: 12px;
+}
+
+.authorization-spinner {
+  width: 27px;
+  height: 27px;
+
+  border: 3px solid #e4ebe7;
+
+  border-top-color: #198754;
+
+  border-radius: 50%;
+
+  animation: authorizationSpin 0.7s linear infinite;
+}
+
+@keyframes authorizationSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ========================================
+   MODAL
+   ======================================== */
+
+.authorization-modal-overlay {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 2000;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 20px;
+
+  background: rgba(15, 23, 42, 0.42);
+}
+
+.authorization-modal {
+  width: 100%;
+
+  max-width: 520px;
+
+  padding: 24px;
+
+  box-sizing: border-box;
+
+  border-radius: 16px;
+
+  background: #ffffff;
+
+  box-shadow: 0 25px 70px rgba(15, 23, 42, 0.22);
+}
+
+.authorization-modal-header {
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: space-between;
+
+  gap: 20px;
+
+  margin-bottom: 20px;
+}
+
+.authorization-modal-header h3 {
+  margin: 0 0 5px;
+
+  color: #17211b;
+
+  font-size: 19px;
+
+  font-weight: 750;
+}
+
+.authorization-modal-header p {
+  margin: 0;
+
+  color: #98a19b;
+
+  font-size: 12px;
+
+  line-height: 1.5;
+}
+
+.authorization-modal-close {
+  width: 30px;
+  height: 30px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: #f4f6f5;
+
+  color: #69746d;
+
+  font-size: 19px;
+
+  cursor: pointer;
+}
+
+.authorization-modal-close:hover {
+  background: #ecefed;
+}
+
+.authorization-modal-info {
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 10px;
+
+  margin-bottom: 18px;
+}
+
+.authorization-modal-info > div {
+  padding: 12px;
+
+  border: 1px solid #edf0ee;
+
+  border-radius: 9px;
+
+  background: #fafcfb;
+}
+
+.authorization-modal-info span {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #98a19b;
+
+  font-size: 9px;
+
+  text-transform: uppercase;
+}
+
+.authorization-modal-info strong {
+  color: #374139;
+
+  font-size: 12px;
+}
+
+.authorization-modal-field {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7px;
+
+  margin-bottom: 20px;
+}
+
+.authorization-modal-field label {
+  color: #445047;
+
+  font-size: 12px;
+
+  font-weight: 650;
+}
+
+.authorization-modal-field textarea {
+  width: 100%;
+
+  padding: 12px;
+
+  box-sizing: border-box;
+
+  resize: vertical;
+
+  border: 1px solid #d6dfd9;
+
+  border-radius: 9px;
+
+  background: #ffffff;
+
+  color: #26322b;
+
+  font-family: inherit;
+
+  font-size: 12px;
+
+  outline: none;
+}
+
+.authorization-modal-field textarea:focus {
+  border-color: #198754;
+
+  box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.08);
+}
+
+.authorization-modal-actions {
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 9px;
+}
+
+.authorization-modal-cancel,
+.authorization-modal-reject {
+  padding: 10px 15px;
+
+  border-radius: 8px;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.authorization-modal-cancel {
+  border: 1px solid #dce4df;
+
+  background: #ffffff;
+
+  color: #5b665f;
+}
+
+.authorization-modal-reject {
+  border: none;
+
+  background: #cf5555;
+
+  color: #ffffff;
+}
+
+.authorization-modal-reject:hover {
+  background: #bd4747;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 900px) {
+  .authorization-content {
+    padding: 25px 18px 40px;
+  }
+
+  .authorization-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .authorization-filter-card {
+    align-items: stretch;
+
+    flex-direction: column;
+  }
+
+  .authorization-filter-card > div {
+    width: 100%;
+  }
+}
+
+@media (max-width: 650px) {
+  .authorization-content {
+    padding: 20px 14px 35px;
+  }
+
+  .authorization-header h2 {
+    font-size: 30px;
+  }
+
+  .authorization-modal {
+    padding: 19px;
+  }
+
+  .authorization-modal-info {
+    grid-template-columns: 1fr;
+  }
+
+  .authorization-modal-actions {
+    flex-direction: column-reverse;
+  }
+
+  .authorization-modal-cancel,
+  .authorization-modal-reject {
+    width: 100%;
+  }
+}

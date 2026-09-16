@@ -1,0 +1,955 @@
+/* ========================================
+   ROOT
+   ======================================== */
+
+.asset-transfer-layout {
+  --sidebar-width: 230px;
+
+  width: 100%;
+  min-height: 100vh;
+
+  background: #f5f7f8;
+
+  color: #17211b;
+
+  font-family: "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  overflow-x: hidden;
+}
+
+/* ========================================
+   MAIN
+   ======================================== */
+
+.asset-transfer-main {
+  width: calc(100% - var(--sidebar-width));
+
+  min-height: 100vh;
+
+  margin-left: var(--sidebar-width);
+
+  box-sizing: border-box;
+
+  transition:
+    width 0.25s ease,
+    margin-left 0.25s ease;
+}
+
+.asset-transfer-sidebar-closed .asset-transfer-main {
+  width: 100%;
+
+  margin-left: 0;
+}
+
+/* ========================================
+   SIDEBAR TOGGLE
+   ======================================== */
+
+.asset-transfer-sidebar-toggle {
+  position: fixed;
+
+  top: 88px;
+  left: 18px;
+
+  z-index: 900;
+
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: 1px solid #dce5df;
+
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  color: #16864f;
+
+  font-size: 18px;
+
+  cursor: pointer;
+
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.1);
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.asset-transfer-sidebar-toggle:hover {
+  transform: translateY(-2px);
+
+  background: #f0faf4;
+}
+
+/* ========================================
+   LOADING
+   ======================================== */
+
+.asset-transfer-loading-page {
+  width: 100%;
+  min-height: 100vh;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  background: #f5f7f8;
+
+  color: #6f7973;
+
+  font-size: 14px;
+}
+
+.asset-transfer-spinner {
+  width: 29px;
+  height: 29px;
+
+  border: 3px solid #e4ebe7;
+
+  border-top-color: #198754;
+
+  border-radius: 50%;
+
+  animation: assetTransferSpin 0.7s linear infinite;
+}
+
+@keyframes assetTransferSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ========================================
+   CONTENT
+   ======================================== */
+
+.asset-transfer-content {
+  width: 100%;
+
+  max-width: 1100px;
+
+  margin: 0 auto;
+
+  padding: 34px;
+
+  box-sizing: border-box;
+}
+
+/* ========================================
+   HEADER
+   ======================================== */
+
+.asset-transfer-header {
+  margin-bottom: 22px;
+}
+
+.asset-transfer-back {
+  display: inline-block;
+
+  margin-bottom: 17px;
+
+  color: #16864f;
+
+  font-size: 13px;
+
+  font-weight: 650;
+
+  text-decoration: none;
+}
+
+.asset-transfer-back:hover {
+  color: #116c40;
+}
+
+.asset-transfer-eyebrow {
+  margin: 0 0 7px;
+
+  color: #16864f;
+
+  font-size: 10px;
+
+  font-weight: 800;
+
+  letter-spacing: 1.7px;
+
+  text-transform: uppercase;
+}
+
+.asset-transfer-header h2 {
+  margin: 0;
+
+  color: #111a14;
+
+  font-size: 36px;
+
+  line-height: 1.15;
+
+  font-weight: 800;
+
+  letter-spacing: -1.2px;
+}
+
+.asset-transfer-subtitle {
+  margin: 10px 0 0;
+
+  max-width: 700px;
+
+  color: #6f7973;
+
+  font-size: 14px;
+
+  line-height: 1.65;
+}
+
+/* ========================================
+   MESSAGES
+   ======================================== */
+
+.asset-transfer-message {
+  display: flex;
+
+  align-items: center;
+
+  gap: 11px;
+
+  margin-bottom: 18px;
+
+  padding: 14px 16px;
+
+  border-radius: 11px;
+
+  scroll-margin-top: 95px;
+}
+
+.asset-transfer-message-icon {
+  width: 29px;
+  height: 29px;
+
+  flex-shrink: 0;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  font-size: 13px;
+
+  font-weight: 800;
+}
+
+.asset-transfer-message-content {
+  min-width: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.asset-transfer-message-content strong {
+  font-size: 13px;
+
+  font-weight: 750;
+}
+
+.asset-transfer-message-content span {
+  font-size: 12px;
+
+  line-height: 1.45;
+}
+
+.asset-transfer-success {
+  border: 1px solid #bbf7d0;
+
+  background: #ecfdf5;
+
+  color: #166534;
+}
+
+.asset-transfer-success .asset-transfer-message-icon {
+  background: #dcfce7;
+
+  color: #15803d;
+}
+
+.asset-transfer-error {
+  border: 1px solid #fecaca;
+
+  background: #fef2f2;
+
+  color: #991b1b;
+}
+
+.asset-transfer-error .asset-transfer-message-icon {
+  background: #dc2626;
+
+  color: #ffffff;
+}
+
+/* ========================================
+   SUMMARY
+   ======================================== */
+
+.asset-transfer-summary {
+  display: grid;
+
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  gap: 15px;
+
+  margin-bottom: 20px;
+}
+
+.asset-transfer-summary-card {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 16px;
+
+  border: 1px solid #e3e9e5;
+
+  border-radius: 13px;
+
+  background: #ffffff;
+
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.04);
+}
+
+.asset-transfer-summary-icon {
+  width: 40px;
+  height: 40px;
+
+  flex-shrink: 0;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 11px;
+
+  font-size: 16px;
+
+  font-weight: 800;
+}
+
+.asset-transfer-summary-icon.green {
+  background: #e5f7ed;
+
+  color: #16864f;
+}
+
+.asset-transfer-summary-icon.blue {
+  background: #e5efff;
+
+  color: #3578d4;
+}
+
+.asset-transfer-summary-icon.purple {
+  background: #eee9ff;
+
+  color: #7655ca;
+}
+
+.asset-transfer-summary-card > div:last-child {
+  min-width: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.asset-transfer-summary-card span {
+  color: #8b958f;
+
+  font-size: 10px;
+
+  font-weight: 600;
+}
+
+.asset-transfer-summary-card strong {
+  color: #17211b;
+
+  font-size: 21px;
+
+  line-height: 1;
+
+  font-weight: 800;
+}
+
+/* ========================================
+   MAIN CARD
+   ======================================== */
+
+.asset-transfer-card {
+  padding: 25px;
+
+  box-sizing: border-box;
+
+  border: 1px solid #e3e9e5;
+
+  border-radius: 17px;
+
+  background: #ffffff;
+
+  box-shadow: 0 8px 25px rgba(15, 23, 42, 0.045);
+}
+
+.asset-transfer-card-header {
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: space-between;
+
+  gap: 15px;
+
+  margin-bottom: 24px;
+
+  padding-bottom: 17px;
+
+  border-bottom: 1px solid #edf0ee;
+}
+
+.asset-transfer-card-header h3 {
+  margin: 0 0 5px;
+
+  color: #17211b;
+
+  font-size: 19px;
+
+  font-weight: 750;
+}
+
+.asset-transfer-card-header p {
+  margin: 0;
+
+  color: #98a19b;
+
+  font-size: 12px;
+}
+
+.asset-transfer-required {
+  color: #9aa39e;
+
+  font-size: 10px;
+
+  font-weight: 600;
+}
+
+/* ========================================
+   FORM
+   ======================================== */
+
+.asset-transfer-form {
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 20px;
+}
+
+.asset-transfer-field {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+.asset-transfer-field-full {
+  grid-column: 1 / -1;
+}
+
+.asset-transfer-field label {
+  color: #3f4b44;
+
+  font-size: 13px;
+
+  font-weight: 650;
+}
+
+.asset-transfer-field label span {
+  margin-left: 3px;
+
+  color: #dc2626;
+}
+
+.asset-transfer-field select,
+.asset-transfer-field textarea {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  border: 1px solid #d6dfd9;
+
+  border-radius: 9px;
+
+  background: #ffffff;
+
+  color: #26322b;
+
+  font-family: inherit;
+
+  font-size: 13px;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.asset-transfer-field select {
+  height: 46px;
+
+  padding: 0 13px;
+
+  cursor: pointer;
+}
+
+.asset-transfer-field textarea {
+  min-height: 105px;
+
+  padding: 12px 13px;
+
+  resize: vertical;
+
+  line-height: 1.5;
+}
+
+.asset-transfer-field select:focus,
+.asset-transfer-field textarea:focus {
+  border-color: #198754;
+
+  box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.09);
+}
+
+.asset-transfer-field select:disabled,
+.asset-transfer-field textarea:disabled {
+  background: #f7f9f8;
+
+  cursor: not-allowed;
+}
+
+.asset-transfer-field-note {
+  color: #9aa39e;
+
+  font-size: 10px;
+
+  line-height: 1.4;
+}
+
+/* ========================================
+   TRANSFER ROUTE
+   ======================================== */
+
+.asset-transfer-route {
+  grid-column: 1 / -1;
+
+  padding: 18px;
+
+  border: 1px solid #dcefe3;
+
+  border-radius: 14px;
+
+  background: linear-gradient(135deg, #f1faf5, #fafdfb);
+}
+
+.asset-transfer-route-header {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 15px;
+
+  margin-bottom: 16px;
+}
+
+.asset-transfer-route-header > span:first-child {
+  color: #2c543d;
+
+  font-size: 12px;
+
+  font-weight: 750;
+}
+
+.asset-transfer-route-status {
+  padding: 5px 8px;
+
+  border-radius: 999px;
+
+  background: #eee9ff;
+
+  color: #7655ca;
+
+  font-size: 9px;
+
+  font-weight: 750;
+}
+
+.asset-transfer-route-body {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    35px
+    minmax(0, 1fr);
+
+  align-items: center;
+
+  gap: 12px;
+}
+
+.asset-transfer-location {
+  display: flex;
+
+  align-items: center;
+
+  gap: 11px;
+
+  min-width: 0;
+
+  padding: 13px;
+
+  border-radius: 10px;
+}
+
+.asset-transfer-location.current {
+  border: 1px solid #e8e0d2;
+
+  background: #fffaf1;
+}
+
+.asset-transfer-location.new {
+  border: 1px solid #dbe8f4;
+
+  background: #f2f8fd;
+}
+
+.asset-transfer-location-icon {
+  width: 38px;
+  height: 38px;
+
+  flex-shrink: 0;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  color: #55705f;
+
+  font-size: 15px;
+
+  font-weight: 800;
+}
+
+.asset-transfer-location > div:last-child {
+  min-width: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.asset-transfer-location span {
+  color: #969f9a;
+
+  font-size: 9px;
+
+  text-transform: uppercase;
+}
+
+.asset-transfer-location strong {
+  overflow: hidden;
+
+  color: #46524b;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
+
+.asset-transfer-location small {
+  color: #9aa39e;
+
+  font-size: 9px;
+}
+
+.asset-transfer-route-arrow {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  color: #16864f;
+
+  font-size: 23px;
+
+  font-weight: 700;
+}
+
+/* ========================================
+   ASSET PREVIEW
+   ======================================== */
+
+.asset-transfer-asset-preview {
+  grid-column: 1 / -1;
+
+  padding: 17px;
+
+  border: 1px solid #e1e8e3;
+
+  border-radius: 13px;
+
+  background: #fafcfb;
+}
+
+.asset-transfer-preview-header {
+  margin-bottom: 13px;
+
+  color: #69746d;
+
+  font-size: 11px;
+
+  font-weight: 700;
+}
+
+.asset-transfer-preview-grid {
+  display: grid;
+
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  gap: 10px;
+}
+
+.asset-transfer-preview-grid > div {
+  padding: 11px;
+
+  border: 1px solid #e8eeea;
+
+  border-radius: 9px;
+
+  background: #ffffff;
+}
+
+.asset-transfer-preview-grid span {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #969f9a;
+
+  font-size: 9px;
+
+  text-transform: uppercase;
+}
+
+.asset-transfer-preview-grid strong {
+  display: block;
+
+  overflow: hidden;
+
+  color: #46524b;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
+
+/* ========================================
+   ACTIONS
+   ======================================== */
+
+.asset-transfer-actions {
+  grid-column: 1 / -1;
+
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 10px;
+
+  padding-top: 20px;
+
+  border-top: 1px solid #edf0ee;
+}
+
+.asset-transfer-cancel,
+.asset-transfer-submit {
+  min-width: 130px;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 11px 17px;
+
+  box-sizing: border-box;
+
+  border-radius: 9px;
+
+  font-family: inherit;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  text-decoration: none;
+
+  cursor: pointer;
+}
+
+.asset-transfer-cancel {
+  border: 1px solid #d9e1dc;
+
+  background: #ffffff;
+
+  color: #59645d;
+}
+
+.asset-transfer-cancel:hover {
+  background: #f7f9f8;
+}
+
+.asset-transfer-submit {
+  border: none;
+
+  background: linear-gradient(135deg, #198754, #157347);
+
+  color: #ffffff;
+
+  box-shadow: 0 7px 17px rgba(25, 135, 84, 0.18);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.asset-transfer-submit:hover:not(:disabled) {
+  transform: translateY(-1px);
+
+  box-shadow: 0 9px 21px rgba(25, 135, 84, 0.23);
+}
+
+.asset-transfer-submit:disabled {
+  opacity: 0.55;
+
+  cursor: not-allowed;
+}
+
+/* ========================================
+   TABLET
+   ======================================== */
+
+@media (max-width: 900px) {
+  .asset-transfer-content {
+    padding: 25px 18px 40px;
+  }
+
+  .asset-transfer-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .asset-transfer-preview-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ========================================
+   MOBILE
+   ======================================== */
+
+@media (max-width: 700px) {
+  .asset-transfer-form {
+    grid-template-columns: 1fr;
+  }
+
+  .asset-transfer-field-full,
+  .asset-transfer-route,
+  .asset-transfer-asset-preview,
+  .asset-transfer-actions {
+    grid-column: auto;
+  }
+
+  .asset-transfer-card {
+    padding: 19px;
+  }
+
+  .asset-transfer-card-header {
+    flex-direction: column;
+  }
+
+  .asset-transfer-route-body {
+    grid-template-columns: 1fr;
+
+    gap: 8px;
+  }
+
+  .asset-transfer-route-arrow {
+    transform: rotate(90deg);
+  }
+
+  .asset-transfer-preview-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .asset-transfer-actions {
+    flex-direction: column-reverse;
+  }
+
+  .asset-transfer-cancel,
+  .asset-transfer-submit {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .asset-transfer-content {
+    padding: 20px 14px 35px;
+  }
+
+  .asset-transfer-header h2 {
+    font-size: 30px;
+  }
+}

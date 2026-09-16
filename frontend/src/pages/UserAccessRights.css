@@ -1,0 +1,848 @@
+/* ========================================
+   USER ACCESS RIGHTS PAGE
+   ======================================== */
+
+.user-access-layout {
+  min-height: 100vh;
+  background: #f5f7f8;
+  color: #17211b;
+  font-family: "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+.user-access-sidebar-open .user-access-content-shell {
+  position: relative;
+  /* Keep the content beside the fixed sidebar.  The previous combination of
+     full width, left padding and the shared shell's left margin made this
+     page wider than the viewport. */
+  width: calc(100% - 230px);
+  max-width: 100%;
+  min-width: 0;
+  min-height: 100vh;
+  box-sizing: border-box;
+  margin-left: 230px;
+  padding-left: 0;
+}
+
+.user-access-sidebar-closed .user-access-content-shell {
+  width: 100%;
+  max-width: 100%;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+/* ========================================
+   SIDEBAR TOGGLE
+   ======================================== */
+
+.user-access-sidebar-toggle {
+  position: fixed;
+  top: 72px;
+  left: 18px;
+  z-index: 150;
+
+  width: 42px;
+  height: 42px;
+
+  border: 1px solid #34d399;
+  border-radius: 10px;
+
+  background: linear-gradient(135deg, #16a34a, #0f766e);
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 19px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 10px 24px rgba(15, 118, 110, 0.32),
+    0 0 0 4px rgba(52, 211, 153, 0.12);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.user-access-sidebar-toggle:hover {
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 12px 28px rgba(15, 118, 110, 0.36),
+    0 0 0 4px rgba(52, 211, 153, 0.15);
+}
+
+.user-access-sidebar-toggle:active {
+  transform: translateY(1px);
+}
+
+/* ========================================
+   PAGE
+   ======================================== */
+
+.user-access-page {
+  min-height: 100vh;
+  padding: 32px;
+  box-sizing: border-box;
+}
+
+.user-access-container {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+/* ========================================
+   TOP BAR
+   ======================================== */
+
+.user-access-topbar {
+  margin-bottom: 0;
+}
+
+.user-access-back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  margin-bottom: 25px;
+
+  color: #15803d;
+  font-size: 14px;
+  font-weight: 650;
+  text-decoration: none;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.user-access-back-button:hover {
+  color: #166534;
+  transform: translateX(-2px);
+}
+
+/* ========================================
+   HEADER
+   ======================================== */
+
+.user-access-header {
+  background: #ffffff;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+
+  padding: 22px 24px;
+  margin-bottom: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.user-access-title-section {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.user-access-user-avatar {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #d1fae5;
+  background: #ecfdf5;
+  box-shadow: 0 4px 10px rgba(21, 128, 61, 0.12);
+}
+
+.user-access-title-icon {
+  width: 48px;
+  height: 48px;
+
+  flex-shrink: 0;
+
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #ecfdf5;
+  color: #15803d;
+
+  font-size: 24px;
+}
+
+.user-access-title-section h1 {
+  margin: 0 0 5px;
+
+  color: #111827;
+
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.user-access-title-section p {
+  margin: 0;
+
+  color: #6b7280;
+
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.user-access-title-section strong {
+  color: #111827;
+}
+
+.user-access-user-info {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  flex-shrink: 0;
+}
+
+.user-access-role-label {
+  color: #6b7280;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.user-access-role-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 6px 12px;
+
+  border-radius: 20px;
+
+  background: #ecfdf5;
+  color: #15803d;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+/* ========================================
+   SUCCESS MESSAGE
+   ======================================== */
+
+.user-access-success {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  padding: 12px 15px;
+  margin-bottom: 20px;
+
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+
+  background: #f0fdf4;
+  color: #166534;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.user-access-success span {
+  width: 22px;
+  height: 22px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #16a34a;
+  color: #ffffff;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* ========================================
+   ERROR MESSAGE
+   ======================================== */
+
+.user-access-error {
+  padding: 14px 16px;
+  margin-bottom: 20px;
+
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+
+  background: #fef2f2;
+  color: #b91c1c;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  line-height: 1.5;
+}
+
+/* ========================================
+   PERMISSION GRID
+   ======================================== */
+
+.user-access-grid {
+  display: grid;
+
+  /* Cards only form two columns when each one has enough room for its
+     controls; otherwise they naturally stack without overflow. */
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+
+  gap: 16px;
+}
+
+/* ========================================
+   PERMISSION CARD
+   ======================================== */
+
+.permission-card {
+  background: #ffffff;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+
+  overflow: hidden;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.permission-card:hover {
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.07);
+}
+
+/* ========================================
+   PERMISSION CARD HEADER
+   ======================================== */
+
+.permission-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 16px 18px;
+
+  border-bottom: 1px solid #e5e7eb;
+
+  background: #fafafa;
+
+  gap: 12px;
+}
+
+.permission-card-title {
+  display: flex;
+  align-items: center;
+
+  gap: 11px;
+
+  min-width: 0;
+}
+
+.permission-card-icon {
+  width: 36px;
+  height: 36px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 8px;
+
+  background: #ecfdf5;
+  color: #15803d;
+
+  font-size: 18px;
+}
+
+.permission-card-title h2 {
+  margin: 0;
+
+  color: #1f2937;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  line-height: 1.3;
+}
+
+/* ========================================
+   SELECT ALL BUTTON
+   ======================================== */
+
+.permission-select-all {
+  border: none;
+
+  background: transparent;
+
+  color: #15803d;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  padding: 5px;
+
+  white-space: nowrap;
+
+  transition:
+    color 0.2s ease,
+    transform 0.1s ease;
+}
+
+.permission-select-all:hover {
+  color: #166534;
+  text-decoration: underline;
+}
+
+.permission-select-all:active {
+  transform: translateY(1px);
+}
+
+/* ========================================
+   PERMISSION LIST
+   ======================================== */
+
+.permission-list {
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr));
+
+  column-gap: 12px;
+  row-gap: 8px;
+
+  padding: 14px 16px 16px;
+}
+
+/* ========================================
+   PERMISSION BUTTON
+   ======================================== */
+
+.permission-item {
+  position: relative;
+
+  min-height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 8px 12px;
+
+  border: 1px solid #16a34a;
+  border-radius: 22px;
+
+  background: #ffffff;
+  color: #15803d;
+
+  cursor: pointer;
+
+  box-sizing: border-box;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.1s ease;
+}
+
+/* ========================================
+   PERMISSION BUTTON HOVER
+   ======================================== */
+
+.permission-item:hover {
+  background: #f0fdf4;
+
+  border-color: #16a34a;
+  color: #15803d;
+
+  box-shadow: 0 3px 8px rgba(22, 163, 74, 0.14);
+}
+
+/* ========================================
+   HIDE NATIVE CHECKBOX
+   ======================================== */
+
+.permission-item input {
+  position: absolute;
+
+  opacity: 0;
+
+  pointer-events: none;
+}
+
+/* ========================================
+   CHECKBOX ICON
+   ======================================== */
+
+.permission-checkbox {
+  display: none;
+}
+
+/* ========================================
+   PERMISSION LABEL
+   ======================================== */
+
+.permission-label {
+  color: #15803d;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  line-height: 1.2;
+
+  text-align: center;
+
+  white-space: normal;
+  overflow-wrap: anywhere;
+
+  transition: color 0.2s ease;
+}
+
+/* ========================================
+   SELECTED PERMISSION
+   ======================================== */
+
+.permission-item input:checked ~ .permission-label {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.permission-item:has(input:checked) {
+  background: linear-gradient(135deg, #16a34a, #15803d);
+
+  border-color: #16a34a;
+
+  color: #ffffff;
+
+  box-shadow:
+    0 4px 10px rgba(22, 163, 74, 0.22),
+    0 0 0 2px rgba(22, 163, 74, 0.08);
+}
+
+/* ========================================
+   SELECTED PERMISSION HOVER
+   ======================================== */
+
+.permission-item:has(input:checked):hover {
+  background: linear-gradient(135deg, #15803d, #166534);
+
+  border-color: #15803d;
+
+  color: #ffffff;
+
+  box-shadow:
+    0 5px 12px rgba(22, 163, 74, 0.28),
+    0 0 0 3px rgba(22, 163, 74, 0.08);
+}
+
+/* ========================================
+   CLICK EFFECT
+   ======================================== */
+
+.permission-item:active {
+  transform: translateY(1px);
+}
+
+/* ========================================
+   KEYBOARD ACCESSIBILITY
+   ======================================== */
+
+.permission-item:focus-within {
+  outline: 2px solid #22c55e;
+  outline-offset: 2px;
+}
+
+/* ========================================
+   BOTTOM ACTIONS
+   ======================================== */
+
+.user-access-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  gap: 10px;
+
+  margin-top: 22px;
+  padding: 18px 0;
+}
+
+.user-access-cancel-button,
+.user-access-save-button {
+  min-width: 130px;
+
+  padding: 11px 18px;
+
+  border-radius: 7px;
+
+  font-family: inherit;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.1s ease;
+}
+
+/* ========================================
+   CANCEL BUTTON
+   ======================================== */
+
+.user-access-cancel-button {
+  border: 1px solid #d1d5db;
+
+  background: #ffffff;
+
+  color: #374151;
+}
+
+.user-access-cancel-button:hover {
+  background: #f9fafb;
+
+  border-color: #9ca3af;
+}
+
+.user-access-cancel-button:active {
+  transform: translateY(1px);
+}
+
+/* ========================================
+   SAVE BUTTON
+   ======================================== */
+
+.user-access-save-button {
+  border: 1px solid #15803d;
+
+  background: #15803d;
+
+  color: #ffffff;
+
+  box-shadow: 0 2px 5px rgba(21, 128, 61, 0.15);
+}
+
+.user-access-save-button:hover {
+  background: #166534;
+
+  border-color: #166534;
+
+  box-shadow: 0 4px 9px rgba(21, 128, 61, 0.2);
+}
+
+.user-access-save-button:active {
+  transform: translateY(1px);
+}
+
+/* ========================================
+   DISABLED SAVE BUTTON
+   ======================================== */
+
+.user-access-save-button:disabled {
+  opacity: 0.65;
+
+  cursor: not-allowed;
+
+  box-shadow: none;
+}
+
+.user-access-save-button:disabled:hover {
+  background: #15803d;
+
+  border-color: #15803d;
+}
+
+/* ========================================
+   LOADING
+   ======================================== */
+
+.user-access-loading {
+  min-height: 70vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #6b7280;
+
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* ========================================
+   TABLET
+   ======================================== */
+
+@media (max-width: 1180px) {
+  .user-access-page {
+    padding: 24px;
+  }
+
+}
+
+/* ========================================
+   MOBILE
+   ======================================== */
+
+@media (max-width: 650px) {
+  .user-access-page {
+    padding: 12px;
+  }
+
+  .user-access-container {
+    max-width: 100%;
+  }
+
+  /* Header */
+
+  .user-access-header {
+    padding: 18px;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 16px;
+  }
+
+  .user-access-title-section {
+    width: 100%;
+  }
+
+  .user-access-title-section h1 {
+    font-size: 20px;
+  }
+
+  .user-access-title-section p {
+    font-size: 13px;
+  }
+
+  .user-access-user-info {
+    width: 100%;
+
+    justify-content: flex-start;
+  }
+
+  /* Permission cards */
+
+  .permission-card-header {
+    padding: 14px;
+  }
+
+  .permission-list {
+    grid-template-columns: 1fr;
+
+    padding: 10px;
+  }
+
+  .permission-item {
+    min-height: 42px;
+  }
+
+  .permission-label {
+    white-space: normal;
+  }
+
+  /* Actions */
+
+  .user-access-actions {
+    flex-direction: column-reverse;
+
+    align-items: stretch;
+
+    padding-bottom: 25px;
+  }
+
+  .user-access-cancel-button,
+  .user-access-save-button {
+    width: 100%;
+  }
+}
+
+/* ========================================
+   VERY SMALL MOBILE
+   ======================================== */
+
+@media (max-width: 420px) {
+  .user-access-page {
+    padding: 10px;
+  }
+
+  .user-access-header {
+    padding: 15px;
+  }
+
+  .user-access-title-section {
+    gap: 10px;
+  }
+
+  .user-access-title-icon {
+    width: 42px;
+    height: 42px;
+
+    font-size: 21px;
+  }
+
+  .user-access-title-section h1 {
+    font-size: 18px;
+  }
+
+  .user-access-title-section p {
+    font-size: 12px;
+  }
+
+  .permission-card-header {
+    padding: 12px;
+  }
+
+  .permission-card-title {
+    gap: 8px;
+  }
+
+  .permission-card-icon {
+    width: 32px;
+    height: 32px;
+
+    font-size: 16px;
+  }
+
+  .permission-card-title h2 {
+    font-size: 14px;
+  }
+
+  .permission-select-all {
+    font-size: 11px;
+  }
+}

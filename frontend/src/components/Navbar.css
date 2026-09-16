@@ -1,0 +1,470 @@
+/* ========================================
+   NAVBAR
+   ======================================== */
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  min-height: 72px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 30px;
+
+  background: rgba(255, 255, 255, 0.94);
+
+  border-bottom: 1px solid #e7ece9;
+
+  box-shadow: 0 4px 18px rgba(16, 24, 40, 0.035);
+}
+
+/* ========================================
+   LEFT
+   ======================================== */
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-title-group {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.navbar-title {
+  color: #18221c;
+
+  font-size: 15px;
+  font-weight: 750;
+
+  letter-spacing: -0.2px;
+}
+
+.navbar-title-divider {
+  color: #c8cfcb;
+
+  font-size: 17px;
+}
+
+.navbar-current {
+  color: #8b9590;
+
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* ========================================
+   RIGHT
+   ======================================== */
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* ========================================
+   SYSTEM STATUS
+   ======================================== */
+
+.navbar-system-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  color: #6f7973;
+
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.navbar-status-dot {
+  width: 7px;
+  height: 7px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: #22c55e;
+
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.1);
+}
+
+/* ========================================
+   DIVIDER
+   ======================================== */
+
+.navbar-divider {
+  width: 1px;
+  height: 30px;
+
+  background: #e5e9e7;
+}
+
+/* ========================================
+   USER
+   ======================================== */
+
+.navbar-user-wrapper {
+  position: relative;
+}
+
+.navbar-user-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 4px 5px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  transition: background 0.2s ease;
+}
+
+.navbar-user-button:hover {
+  background: #f4f7f5;
+}
+
+/* ========================================
+   USER AVATAR
+   ======================================== */
+
+.navbar-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 38px;
+  height: 38px;
+
+  flex-shrink: 0;
+
+  border-radius: 11px;
+
+  background: linear-gradient(135deg, #16864f, #25a566);
+
+  color: #ffffff;
+
+  font-size: 14px;
+  font-weight: 800;
+
+  box-shadow: 0 5px 13px rgba(22, 134, 79, 0.18);
+
+  overflow: hidden;
+}
+
+.navbar-avatar-image {
+  object-fit: cover;
+
+  background: #e8f7ef;
+}
+
+/* ========================================
+   USER INFO
+   ======================================== */
+
+.navbar-user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 2px;
+
+  min-width: 95px;
+}
+
+.navbar-user-info strong {
+  color: #273229;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.navbar-user-info span {
+  color: #909a94;
+
+  font-size: 10px;
+  font-weight: 500;
+}
+
+/* ========================================
+   CHEVRON
+   ======================================== */
+
+.navbar-chevron {
+  color: #9da6a1;
+
+  font-size: 9px;
+
+  transition: transform 0.2s ease;
+}
+
+.navbar-chevron-open {
+  transform: rotate(180deg);
+}
+
+/* ========================================
+   USER DROPDOWN
+   ======================================== */
+
+.navbar-user-menu {
+  position: absolute;
+
+  top: calc(100% + 12px);
+  right: 0;
+
+  width: 255px;
+
+  padding: 10px;
+
+  border: 1px solid #e4e9e6;
+  border-radius: 14px;
+
+  background: #ffffff;
+
+  box-shadow: 0 15px 40px rgba(15, 23, 42, 0.12);
+
+  animation: navbar-menu-in 0.18s ease-out;
+}
+
+@keyframes navbar-menu-in {
+  from {
+    opacity: 0;
+
+    transform: translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+/* ========================================
+   DROPDOWN USER HEADER
+   ======================================== */
+
+.navbar-menu-user {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 9px;
+}
+
+/* ========================================
+   DROPDOWN AVATAR
+   ======================================== */
+
+.navbar-menu-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 38px;
+  height: 38px;
+
+  flex-shrink: 0;
+
+  border-radius: 10px;
+
+  background: #e8f7ef;
+
+  color: #16864f;
+
+  font-size: 13px;
+  font-weight: 800;
+
+  overflow: hidden;
+}
+
+.navbar-menu-avatar-image {
+  object-fit: cover;
+}
+
+/* ========================================
+   DROPDOWN USER INFORMATION
+   ======================================== */
+
+.navbar-menu-user div {
+  display: flex;
+  flex-direction: column;
+
+  gap: 3px;
+
+  min-width: 0;
+}
+
+.navbar-menu-user strong {
+  color: #253029;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.navbar-menu-user span {
+  color: #9aa39e;
+
+  font-size: 10px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ========================================
+   MENU DIVIDER
+   ======================================== */
+
+.navbar-menu-divider {
+  height: 1px;
+
+  margin: 5px 0;
+
+  background: #edf0ee;
+}
+
+/* ========================================
+   MENU ITEMS
+   ======================================== */
+
+.navbar-menu-item {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding: 10px 11px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: transparent;
+
+  color: #4a554e;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  text-align: left;
+  text-decoration: none;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.navbar-menu-item > span {
+  width: 18px;
+
+  text-align: center;
+
+  color: #8c9791;
+
+  font-size: 14px;
+}
+
+.navbar-menu-item:hover {
+  background: #f5f8f6;
+
+  color: #16864f;
+}
+
+.navbar-menu-item:hover > span {
+  color: #16864f;
+}
+
+/* ========================================
+   LOGOUT
+   ======================================== */
+
+.navbar-logout-item:hover {
+  background: #fff3f3;
+
+  color: #d44848;
+}
+
+.navbar-logout-item:hover > span {
+  color: #d44848;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 700px) {
+  .navbar {
+    padding: 0 18px;
+  }
+
+  .navbar-system-status,
+  .navbar-title-divider,
+  .navbar-current {
+    display: none;
+  }
+
+  .navbar-right {
+    gap: 8px;
+  }
+
+  .navbar-user-info {
+    display: none;
+  }
+
+  .navbar-divider {
+    display: none;
+  }
+
+  .navbar-user-menu {
+    width: 240px;
+  }
+}
+
+/* ========================================
+   SMALL MOBILE
+   ======================================== */
+
+@media (max-width: 420px) {
+  .navbar {
+    padding: 0 12px;
+  }
+
+  .navbar-title {
+    font-size: 13px;
+  }
+
+  .navbar-avatar {
+    width: 36px;
+    height: 36px;
+  }
+
+  .navbar-user-menu {
+    right: -5px;
+
+    width: 225px;
+  }
+}

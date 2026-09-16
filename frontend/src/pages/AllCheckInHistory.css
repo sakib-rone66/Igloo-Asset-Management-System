@@ -1,0 +1,753 @@
+/* ========================================
+   ALL CHECK-IN HISTORY PAGE
+   ======================================== */
+
+.all-history-layout {
+  min-height: 100vh;
+  background: #f5f7f6;
+}
+
+/* ========================================
+   MAIN AREA
+
+   IMPORTANT:
+   Sidebar = 255px
+   Main area gets the remaining width
+   ======================================== */
+
+.all-history-main {
+  min-height: 100vh;
+  margin-left: 255px;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.all-history-sidebar-closed .all-history-main {
+  margin-left: 0;
+}
+
+/* ========================================
+   CONTENT
+
+   min-width: 0 prevents wide table
+   from pushing underneath sidebar
+   ======================================== */
+
+.all-history-content {
+  width: 100%;
+  max-width: 1500px;
+  min-width: 0;
+  margin: 0 auto;
+  padding: 30px 30px 60px;
+  box-sizing: border-box;
+}
+
+/* ========================================
+   SIDEBAR TOGGLE
+   ======================================== */
+
+.all-history-sidebar-toggle {
+  position: fixed;
+  top: 88px;
+  left: 18px;
+  z-index: 150;
+
+  width: 42px;
+  height: 42px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 9px;
+
+  background: #ffffff;
+  color: #374151;
+
+  font-size: 19px;
+  cursor: pointer;
+
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.08);
+}
+
+.all-history-sidebar-toggle:hover {
+  background: #f9fafb;
+}
+
+/* ========================================
+   BACK TO DASHBOARD
+   ======================================== */
+
+.all-history-back-dashboard {
+  display: inline-flex;
+  align-items: center;
+
+  margin-bottom: 22px;
+
+  color: #15803d;
+
+  font-size: 14px;
+  font-weight: 650;
+
+  text-decoration: none;
+}
+
+.all-history-back-dashboard:hover {
+  color: #166534;
+}
+
+/* ========================================
+   HEADER
+   ======================================== */
+
+.all-history-header {
+  margin-bottom: 24px;
+}
+
+.all-history-eyebrow {
+  margin: 0 0 7px;
+
+  color: #16a34a;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  letter-spacing: 1.5px;
+}
+
+.all-history-header h2 {
+  margin: 0 0 7px;
+
+  color: #111827;
+
+  font-size: 29px;
+  font-weight: 750;
+}
+
+.all-history-header > p:last-child {
+  margin: 0;
+
+  color: #6b7280;
+
+  font-size: 14px;
+}
+
+/* ========================================
+   ERROR MESSAGE
+   ======================================== */
+
+.all-history-message {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+
+  margin-bottom: 22px;
+  padding: 14px 17px;
+
+  border-radius: 10px;
+}
+
+.all-history-message-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 27px;
+  height: 27px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  font-weight: 800;
+}
+
+.all-history-message strong {
+  display: block;
+  margin-bottom: 3px;
+}
+
+.all-history-message p {
+  margin: 0;
+
+  font-size: 13px;
+}
+
+.all-history-error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+}
+
+.all-history-error .all-history-message-icon {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+/* ========================================
+   SUMMARY
+   ======================================== */
+
+.all-history-summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  width: fit-content;
+
+  margin-bottom: 22px;
+  padding: 13px 17px;
+
+  border: 1px solid #d9eadf;
+  border-radius: 10px;
+
+  background: #f0fdf4;
+}
+
+.all-history-summary-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 32px;
+  height: 32px;
+
+  border-radius: 50%;
+
+  background: #dcfce7;
+  color: #15803d;
+
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.all-history-summary div:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.all-history-summary span {
+  color: #4b6357;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.all-history-summary strong {
+  color: #166534;
+  font-size: 20px;
+  line-height: 1;
+}
+
+/* ========================================
+   TABLE CARD
+   ======================================== */
+
+.all-history-card {
+  width: 100%;
+  min-width: 0;
+
+  background: #ffffff;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.045);
+
+  overflow: hidden;
+}
+
+/* ========================================
+   CARD HEADER
+   ======================================== */
+
+.all-history-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  padding: 21px 23px;
+
+  border-bottom: 1px solid #edf0f1;
+}
+
+.all-history-card-header h3 {
+  margin: 0 0 5px;
+
+  color: #111827;
+
+  font-size: 18px;
+}
+
+.all-history-card-header p {
+  margin: 0;
+
+  color: #6b7280;
+
+  font-size: 13px;
+}
+
+.all-history-count {
+  flex-shrink: 0;
+
+  padding: 7px 11px;
+
+  border-radius: 7px;
+
+  background: #f0fdf4;
+
+  color: #15803d;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* ========================================
+   FILTERS
+   ======================================== */
+
+.all-history-filters {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+  gap: 16px;
+
+  padding: 18px 23px;
+  border-bottom: 1px solid #edf0f1;
+  background: #fbfdfc;
+}
+
+.all-history-filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.all-history-filter-field label {
+  color: #374151;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.all-history-filter-field input,
+.all-history-filter-field select {
+  width: 100%;
+  min-height: 39px;
+  box-sizing: border-box;
+  padding: 8px 10px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  outline: none;
+
+  background: #ffffff;
+  color: #1f2937;
+  font: inherit;
+}
+
+.all-history-filter-field input:focus,
+.all-history-filter-field select:focus {
+  border-color: #22a559;
+  box-shadow: 0 0 0 3px rgba(34, 165, 89, 0.12);
+}
+
+.all-history-filter-actions {
+  display: flex;
+  align-items: end;
+}
+
+.all-history-clear-filters {
+  min-height: 39px;
+  padding: 8px 14px;
+
+  border: 1px solid #cbd5d0;
+  border-radius: 8px;
+
+  background: #ffffff;
+  color: #166534;
+
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.all-history-clear-filters:hover:not(:disabled) {
+  border-color: #22a559;
+  background: #f0fdf4;
+}
+
+.all-history-clear-filters:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* ========================================
+   TABLE WRAPPER
+
+   THIS IS THE IMPORTANT FIX
+
+   The table will never go underneath
+   the sidebar. If the available space
+   becomes too small, horizontal scrolling
+   happens inside this wrapper.
+   ======================================== */
+
+.all-history-table-wrapper {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+}
+
+/* ========================================
+   TABLE
+   ======================================== */
+
+.all-history-table {
+  width: 100%;
+  min-width: 1100px;
+
+  border-collapse: separate;
+  border-spacing: 0;
+
+  table-layout: fixed;
+
+  color: #374151;
+
+  font-size: 12px;
+}
+
+/* ========================================
+   TABLE HEADER
+   ======================================== */
+
+.all-history-table thead th {
+  height: 48px;
+
+  padding: 0 10px;
+
+  border-bottom: 1px solid #dce5df;
+
+  background: #dfeee5;
+
+  color: #31533f;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  text-align: center;
+  vertical-align: middle;
+
+  white-space: normal;
+}
+
+/* ========================================
+   COLUMN WIDTHS
+
+   Total = 100%
+   ======================================== */
+
+.all-history-table .history-user-id {
+  width: 13%;
+}
+
+.all-history-table .history-user-name {
+  width: 11%;
+}
+
+.all-history-table .history-email {
+  width: 14%;
+}
+
+.all-history-table .history-type {
+  width: 8%;
+}
+
+.all-history-table .history-location {
+  width: 11%;
+}
+
+.all-history-table .history-latitude {
+  width: 8%;
+}
+
+.all-history-table .history-longitude {
+  width: 8%;
+}
+
+.all-history-table .history-datetime {
+  width: 14%;
+}
+
+.all-history-table .history-remarks {
+  width: 13%;
+}
+
+/* ========================================
+   TABLE BODY
+   ======================================== */
+
+.all-history-table tbody td {
+  min-width: 0;
+
+  padding: 13px 10px;
+
+  border-bottom: 1px solid #edf1ee;
+
+  text-align: center;
+  vertical-align: middle;
+
+  line-height: 1.45;
+
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* ========================================
+   ALTERNATING ROW COLORS
+
+   White
+   Light green
+   White
+   Light green
+   ======================================== */
+
+.all-history-table tbody tr:nth-child(odd) {
+  background: #ffffff;
+}
+
+.all-history-table tbody tr:nth-child(even) {
+  background: #f3f8f5;
+}
+
+/* ========================================
+   HOVER
+   ======================================== */
+
+.all-history-table tbody tr:hover {
+  background: #eaf5ee;
+}
+
+/* ========================================
+   LONG TEXT
+
+   Prevent MongoDB IDs and emails from
+   expanding the table.
+   ======================================== */
+
+.history-long-text {
+  overflow-wrap: anywhere;
+  word-break: break-all;
+}
+
+/* ========================================
+   USER NAME
+   ======================================== */
+
+.history-user-name {
+  color: #1f2937;
+  font-weight: 650;
+}
+
+/* ========================================
+   TYPE BADGE
+   ======================================== */
+
+.history-type-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 56px;
+
+  padding: 5px 8px;
+
+  border-radius: 6px;
+
+  font-size: 10px;
+  font-weight: 750;
+}
+
+.history-type-office {
+  background: #e8f5ed;
+  color: #166534;
+}
+
+.history-type-outlet {
+  background: #fff4df;
+  color: #946200;
+}
+
+/* ========================================
+   COORDINATES
+   ======================================== */
+
+.history-coordinate {
+  color: #4b5563;
+
+  font-size: 11px;
+
+  overflow-wrap: anywhere;
+}
+
+/* ========================================
+   DATE / TIME
+   ======================================== */
+
+.history-datetime {
+  color: #374151;
+
+  font-size: 11px;
+}
+
+/* ========================================
+   REMARKS
+   ======================================== */
+
+.history-remarks {
+  color: #6b7280;
+}
+
+/* ========================================
+   EMPTY STATE
+   ======================================== */
+
+.all-history-empty {
+  padding: 40px 20px !important;
+
+  color: #9ca3af;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  text-align: center !important;
+}
+
+/* ========================================
+   LOADING
+   ======================================== */
+
+.all-history-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 260px;
+
+  padding: 30px;
+}
+
+.all-history-spinner {
+  width: 31px;
+  height: 31px;
+
+  margin-bottom: 13px;
+
+  border: 3px solid #dceee3;
+  border-top-color: #16a34a;
+
+  border-radius: 50%;
+
+  animation: allHistorySpin 0.8s linear infinite;
+}
+
+.all-history-loading p {
+  margin: 0;
+
+  color: #6b7280;
+
+  font-size: 13px;
+}
+
+@keyframes allHistorySpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 1200px) {
+  .all-history-content {
+    padding: 28px 22px 50px;
+  }
+
+  .all-history-table {
+    min-width: 1050px;
+  }
+}
+
+/* ========================================
+   SIDEBAR 220px
+   ======================================== */
+
+@media (max-width: 900px) {
+  .all-history-main {
+    margin-left: 220px;
+  }
+
+  .all-history-content {
+    padding: 25px 18px 45px;
+  }
+
+  .all-history-table {
+    min-width: 1000px;
+  }
+}
+
+/* ========================================
+   MOBILE
+   ======================================== */
+
+@media (max-width: 700px) {
+  .all-history-main {
+    margin-left: 0;
+  }
+
+  .all-history-content {
+    padding: 24px 15px 40px;
+  }
+
+  .all-history-header h2 {
+    font-size: 24px;
+  }
+
+  .all-history-card-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .all-history-count {
+    align-self: flex-start;
+  }
+
+  .all-history-filters {
+    grid-template-columns: 1fr;
+  }
+
+  .all-history-filter-actions {
+    align-items: stretch;
+  }
+
+  .all-history-clear-filters {
+    width: 100%;
+  }
+
+  /*
+    Keep the table readable on mobile.
+    It scrolls horizontally INSIDE the card.
+  */
+
+  .all-history-table {
+    min-width: 1000px;
+  }
+
+  .all-history-table thead th {
+    height: 45px;
+  }
+}

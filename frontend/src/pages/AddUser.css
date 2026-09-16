@@ -1,0 +1,790 @@
+/* ========================================
+   ADD USER PAGE
+   ======================================== */
+
+.add-user-layout {
+  min-height: 100vh;
+  background: #f5f7f6;
+}
+
+.add-user-main {
+  min-height: 100vh;
+  margin-left: 255px;
+}
+
+.add-user-sidebar-closed .add-user-main {
+  margin-left: 0;
+}
+
+.add-user-content {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 30px 30px 60px;
+  box-sizing: border-box;
+}
+
+/* ========================================
+   SIDEBAR TOGGLE
+   ======================================== */
+
+.add-user-sidebar-toggle {
+  position: fixed;
+  top: 88px;
+  left: 18px;
+  z-index: 150;
+
+  width: 42px;
+  height: 42px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 9px;
+
+  background: #ffffff;
+  color: #374151;
+
+  font-size: 19px;
+
+  cursor: pointer;
+
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.08);
+}
+
+.add-user-sidebar-toggle:hover {
+  background: #f9fafb;
+}
+
+/* ========================================
+   BACK TO DASHBOARD
+   ======================================== */
+
+.add-user-back-dashboard {
+  display: inline-flex;
+  align-items: center;
+
+  margin-bottom: 22px;
+
+  color: #15803d;
+
+  font-size: 14px;
+  font-weight: 650;
+
+  text-decoration: none;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.add-user-back-dashboard:hover {
+  color: #166534;
+  transform: translateX(-2px);
+}
+
+/* ========================================
+   HEADER
+   ======================================== */
+
+.add-user-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 25px;
+
+  margin-bottom: 24px;
+}
+
+.add-user-header-content {
+  min-width: 0;
+}
+
+.add-user-eyebrow {
+  margin: 0 0 7px;
+
+  color: #16a34a;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  letter-spacing: 1.5px;
+}
+
+.add-user-header h2 {
+  margin: 0 0 7px;
+
+  color: #111827;
+
+  font-size: 29px;
+  font-weight: 750;
+
+  letter-spacing: -0.4px;
+}
+
+.add-user-header-content > p:last-child {
+  margin: 0;
+
+  color: #6b7280;
+
+  font-size: 14px;
+}
+
+/* ========================================
+   VIEW USERS BUTTON
+   ======================================== */
+
+.add-user-view-users {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  flex-shrink: 0;
+
+  min-height: 42px;
+
+  padding: 0 16px;
+
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+
+  background: #f0fdf4;
+
+  color: #15803d;
+
+  font-family: inherit;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  text-decoration: none;
+
+  white-space: nowrap;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.add-user-view-users span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 14px;
+}
+
+.add-user-view-users:hover {
+  background: #dcfce7;
+  border-color: #86efac;
+  color: #166534;
+
+  transform: translateY(-1px);
+
+  box-shadow: 0 5px 12px rgba(22, 163, 74, 0.12);
+}
+
+/* ========================================
+   MESSAGE
+   ======================================== */
+
+.add-user-message-container {
+  margin-bottom: 22px;
+}
+
+.add-user-message {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 12px;
+
+  padding: 14px 17px;
+
+  border-radius: 10px;
+}
+
+.add-user-message > span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 27px;
+  height: 27px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  font-weight: 800;
+}
+
+.add-user-message strong {
+  display: block;
+
+  margin-bottom: 3px;
+}
+
+.add-user-message p {
+  margin: 0;
+
+  font-size: 13px;
+}
+
+.add-user-error {
+  background: #fef2f2;
+
+  border: 1px solid #fecaca;
+
+  color: #991b1b;
+}
+
+.add-user-error > span {
+  background: #fee2e2;
+
+  color: #b91c1c;
+}
+
+.add-user-success {
+  background: #ecfdf5;
+
+  border: 1px solid #bbf7d0;
+
+  color: #166534;
+}
+
+.add-user-success > span {
+  background: #dcfce7;
+
+  color: #15803d;
+}
+
+/* ========================================
+   INFORMATION CARD
+   ======================================== */
+
+.add-user-info-card {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 13px;
+
+  margin-bottom: 25px;
+
+  padding: 16px 18px;
+
+  border: 1px solid #d9eadf;
+  border-radius: 11px;
+
+  background: #f0fdf4;
+}
+
+.add-user-info-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 30px;
+  height: 30px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: #dcfce7;
+
+  color: #15803d;
+
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.add-user-info-card strong {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #166534;
+
+  font-size: 14px;
+}
+
+.add-user-info-card p {
+  margin: 0;
+
+  color: #4b6357;
+
+  font-size: 13px;
+
+  line-height: 1.5;
+}
+
+/* ========================================
+   FORM CARD
+   ======================================== */
+
+.add-user-card {
+  background: #ffffff;
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 14px;
+
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.045);
+
+  overflow: hidden;
+}
+
+/* ========================================
+   CARD HEADER
+   ======================================== */
+
+.add-user-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 21px 23px;
+
+  border-bottom: 1px solid #edf0f1;
+}
+
+.add-user-card-header h3 {
+  margin: 0 0 5px;
+
+  color: #111827;
+
+  font-size: 18px;
+}
+
+.add-user-card-header p {
+  margin: 0;
+
+  color: #6b7280;
+
+  font-size: 13px;
+}
+
+.add-user-card-header > span {
+  color: #9ca3af;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* ========================================
+   FORM
+   ======================================== */
+
+.add-user-form {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 19px;
+
+  padding: 23px;
+}
+
+.add-user-field {
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+.add-user-field label {
+  color: #374151;
+
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.add-user-field label span {
+  color: #dc2626;
+}
+
+.add-user-field input,
+.add-user-field select {
+  width: 100%;
+  height: 44px;
+
+  box-sizing: border-box;
+
+  padding: 0 13px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  color: #111827;
+
+  font-family: inherit;
+  font-size: 14px;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.add-user-field input:hover,
+.add-user-field select:hover {
+  border-color: #b8c0ca;
+}
+
+.add-user-field input:focus,
+.add-user-field select:focus {
+  border-color: #16a34a;
+
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.08);
+}
+
+.add-user-field input:disabled,
+.add-user-field select:disabled {
+  background: #f9fafb;
+
+  cursor: not-allowed;
+
+  opacity: 0.7;
+}
+
+.add-user-field small {
+  color: #9ca3af;
+
+  font-size: 11px;
+
+  line-height: 1.4;
+}
+
+/* ========================================
+   PASSWORD INPUT
+   ======================================== */
+
+.add-user-password-wrapper {
+  position: relative;
+
+  width: 100%;
+}
+
+.add-user-password-wrapper input {
+  padding-right: 68px;
+}
+
+.add-user-password-toggle {
+  position: absolute;
+
+  top: 50%;
+  right: 9px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 44px;
+  height: 28px;
+
+  padding: 0 6px;
+
+  transform: translateY(-50%);
+
+  border: none;
+  border-radius: 6px;
+
+  background: transparent;
+
+  color: #15803d;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.add-user-password-toggle:hover {
+  background: #f0fdf4;
+
+  color: #166534;
+}
+
+.add-user-password-toggle:disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}
+
+/* ========================================
+   ROLE CARD
+   ======================================== */
+
+.add-user-role-card {
+  grid-column: 1 / -1;
+
+  padding: 17px;
+
+  border: 1px solid #dfe9e3;
+
+  border-radius: 10px;
+
+  background: #f7faf8;
+}
+
+.add-user-role-card > strong {
+  display: block;
+
+  margin-bottom: 12px;
+
+  color: #374151;
+
+  font-size: 13px;
+}
+
+.add-user-role-grid {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 10px;
+}
+
+.add-user-role-grid > div {
+  display: flex;
+  align-items: center;
+
+  gap: 7px;
+
+  padding: 9px 10px;
+
+  border: 1px solid #e3ebe6;
+
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.add-user-role-grid > div:hover {
+  border-color: #bbf7d0;
+
+  background: #f0fdf4;
+}
+
+.add-user-role-grid span {
+  color: #16a34a;
+
+  font-weight: 800;
+}
+
+.add-user-role-grid p {
+  margin: 0;
+
+  color: #4b5563;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* ========================================
+   ACTIONS
+   ======================================== */
+
+.add-user-actions {
+  grid-column: 1 / -1;
+
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 10px;
+
+  padding-top: 5px;
+}
+
+.add-user-cancel,
+.add-user-submit {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-height: 43px;
+
+  padding: 0 18px;
+
+  border-radius: 8px;
+
+  font-family: inherit;
+
+  font-size: 14px;
+  font-weight: 650;
+
+  text-decoration: none;
+
+  cursor: pointer;
+}
+
+/* ========================================
+   CANCEL
+   ======================================== */
+
+.add-user-cancel {
+  border: 1px solid #d1d5db;
+
+  background: #ffffff;
+
+  color: #4b5563;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.add-user-cancel:hover {
+  background: #f9fafb;
+
+  border-color: #9ca3af;
+
+  color: #111827;
+}
+
+/* ========================================
+   SUBMIT
+   ======================================== */
+
+.add-user-submit {
+  border: none;
+
+  background: #16a34a;
+
+  color: #ffffff;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.add-user-submit:hover {
+  background: #15803d;
+
+  transform: translateY(-1px);
+
+  box-shadow: 0 5px 12px rgba(22, 163, 74, 0.18);
+}
+
+.add-user-submit:active {
+  transform: translateY(0);
+}
+
+.add-user-submit:disabled {
+  opacity: 0.65;
+
+  cursor: not-allowed;
+
+  transform: none;
+
+  box-shadow: none;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 900px) {
+  .add-user-main {
+    margin-left: 220px;
+  }
+
+  .add-user-content {
+    padding: 28px 20px 50px;
+  }
+
+  .add-user-role-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ========================================
+   TABLET / SMALL SCREEN
+   ======================================== */
+
+@media (max-width: 700px) {
+  .add-user-main {
+    margin-left: 0;
+  }
+
+  .add-user-content {
+    padding: 24px 15px 40px;
+  }
+
+  .add-user-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .add-user-view-users {
+    align-self: flex-start;
+  }
+
+  .add-user-form {
+    grid-template-columns: 1fr;
+  }
+
+  .add-user-role-card {
+    grid-column: auto;
+  }
+
+  .add-user-role-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .add-user-actions {
+    flex-direction: column-reverse;
+  }
+
+  .add-user-cancel,
+  .add-user-submit {
+    width: 100%;
+  }
+}
+
+/* ========================================
+   VERY SMALL SCREEN
+   ======================================== */
+
+@media (max-width: 480px) {
+  .add-user-header h2 {
+    font-size: 25px;
+  }
+
+  .add-user-card-header {
+    align-items: flex-start;
+
+    gap: 10px;
+
+    padding: 18px;
+  }
+
+  .add-user-card-header > span {
+    display: none;
+  }
+
+  .add-user-form {
+    padding: 18px;
+  }
+
+  .add-user-info-card {
+    padding: 14px;
+  }
+}

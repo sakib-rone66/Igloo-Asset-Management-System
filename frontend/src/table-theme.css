@@ -1,0 +1,1106 @@
+/* Shared table and page fitting theme, based on the Users page. */
+
+:where(
+  .assets-content,
+  .asset-history-content,
+  .all-history-content,
+  .authorization-content,
+  .checkin-history-page,
+  .distributors-page,
+  .districts-page,
+  .outlet-page,
+  .outlet-details-page,
+  .regions-page,
+  .users-content,
+  .verification-history-page
+) {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+/* Canonical Users table text treatment at every viewport. */
+:is(
+    .all-history-table,
+    .asset-table,
+    .asset-history-table,
+    .assets-table,
+    .authorization-table,
+    .checkin-history-table,
+    .distributors-table,
+    .districts-table,
+    .outlet-assets-table,
+    .outlet-table,
+    .regions-table,
+    .users-table,
+    .verification-history-table
+  )
+  th {
+  padding: 15px 18px !important;
+  color: #244c37 !important;
+  font-family: inherit !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.6px !important;
+  line-height: normal !important;
+  text-align: center !important;
+  text-transform: none !important;
+  white-space: nowrap !important;
+}
+
+:is(
+    .all-history-table,
+    .asset-table,
+    .asset-history-table,
+    .assets-table,
+    .authorization-table,
+    .checkin-history-table,
+    .distributors-table,
+    .districts-table,
+    .outlet-assets-table,
+    .outlet-table,
+    .regions-table,
+    .users-table,
+    .verification-history-table
+  )
+  td {
+  padding: 15px 18px !important;
+  color: #4b5563 !important;
+  font-family: inherit !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  letter-spacing: normal !important;
+  line-height: normal !important;
+  text-align: center !important;
+  text-transform: none !important;
+  vertical-align: middle !important;
+}
+
+:where(
+  .assets-table-card,
+  .authorization-table-card,
+  .asset-history-table-wrapper,
+  .all-history-card,
+  .checkin-history-card,
+  .distributors-table-card,
+  .districts-table-card,
+  .outlet-table-wrapper,
+  .regions-table-card,
+  .users-table-card,
+  .verification-history-card,
+  .outlet-assets-table-wrapper
+) {
+  border: 1px solid #e1e5e3;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+
+:where(
+  .assets-table-wrapper,
+  .authorization-table-wrapper,
+  .asset-history-table-wrapper,
+  .all-history-table-wrapper,
+  .checkin-history-table-wrapper,
+  .distributors-table-wrapper,
+  .districts-table-wrapper,
+  .outlet-table-wrapper,
+  .regions-table-wrapper,
+  .users-table-card,
+  .verification-history-table-wrapper,
+  .outlet-assets-table-wrapper
+) {
+  width: 100%;
+  overflow-x: auto;
+}
+
+:where(
+  .assets-table,
+  .authorization-table,
+  .asset-history-table,
+  .all-history-table,
+  .checkin-history-table,
+  .distributors-table,
+  .districts-table,
+  .outlet-table,
+  .regions-table,
+  .users-table,
+  .verification-history-table,
+  .outlet-assets-table
+) {
+  width: 100%;
+  min-width: 900px;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+:where(
+    .assets-table,
+    .authorization-table,
+    .asset-history-table,
+    .all-history-table,
+    .checkin-history-table,
+    .distributors-table,
+    .districts-table,
+    .outlet-table,
+    .regions-table,
+    .users-table,
+    .verification-history-table,
+    .outlet-assets-table
+  )
+  thead {
+  background: linear-gradient(180deg, #e7f3ec 0%, #dcece4 100%);
+}
+
+:where(
+    .assets-table,
+    .authorization-table,
+    .asset-history-table,
+    .all-history-table,
+    .checkin-history-table,
+    .distributors-table,
+    .districts-table,
+    .outlet-table,
+    .regions-table,
+    .users-table,
+    .verification-history-table,
+    .outlet-assets-table
+  )
+  th {
+  padding: 15px 18px;
+  border-bottom: 1px solid #cbded2;
+  color: #244c37;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+:where(
+    .assets-table,
+    .authorization-table,
+    .asset-history-table,
+    .all-history-table,
+    .checkin-history-table,
+    .distributors-table,
+    .districts-table,
+    .outlet-table,
+    .regions-table,
+    .users-table,
+    .verification-history-table,
+    .outlet-assets-table
+  )
+  td {
+  padding: 15px 18px;
+  border-bottom: 1px solid #edf0ee;
+  color: #4b5563;
+  font-size: 14px;
+  vertical-align: middle;
+  text-align: center;
+}
+
+:where(
+    .assets-table,
+    .authorization-table,
+    .asset-history-table,
+    .all-history-table,
+    .checkin-history-table,
+    .distributors-table,
+    .districts-table,
+    .outlet-table,
+    .regions-table,
+    .users-table,
+    .verification-history-table,
+    .outlet-assets-table
+  )
+  tbody
+  tr:nth-child(odd) {
+  background: #ffffff;
+}
+
+:where(
+    .assets-table,
+    .authorization-table,
+    .asset-history-table,
+    .all-history-table,
+    .checkin-history-table,
+    .distributors-table,
+    .districts-table,
+    .outlet-table,
+    .regions-table,
+    .users-table,
+    .verification-history-table,
+    .outlet-assets-table
+  )
+  tbody
+  tr:nth-child(even) {
+  background: #f3f7f5;
+}
+
+:where(
+    .assets-table,
+    .authorization-table,
+    .asset-history-table,
+    .all-history-table,
+    .checkin-history-table,
+    .distributors-table,
+    .districts-table,
+    .outlet-table,
+    .regions-table,
+    .users-table,
+    .verification-history-table,
+    .outlet-assets-table
+  )
+  tbody
+  tr:hover {
+  background: #eaf5ee;
+}
+
+:where(
+    .assets-table,
+    .authorization-table,
+    .asset-history-table,
+    .all-history-table,
+    .checkin-history-table,
+    .distributors-table,
+    .districts-table,
+    .outlet-table,
+    .regions-table,
+    .users-table,
+    .verification-history-table,
+    .outlet-assets-table
+  )
+  tbody
+  tr:last-child
+  td {
+  border-bottom: none;
+}
+
+.assets-table,
+.asset-history-table,
+.authorization-table,
+.all-history-table,
+.outlet-table,
+.regions-table,
+.verification-history-table {
+  min-width: 1000px;
+}
+
+.all-history-table,
+.checkin-history-table,
+.outlet-assets-table {
+  min-width: 1100px;
+}
+
+/* Shared non-dashboard frame, based on the Assets page. */
+:is(
+  .add-asset-layout,
+  .add-user-layout,
+  .existing-asset-layout,
+  .all-history-layout,
+  .assignment-layout,
+  .authorization-layout,
+  .asset-details-layout,
+  .asset-disposal-layout,
+  .asset-history-layout,
+  .asset-qr-layout,
+  .asset-return-layout,
+  .assets-layout,
+  .asset-transfer-layout,
+  .regions-layout,
+  .users-layout,
+  .app-page-layout
+) {
+  width: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
+  background: #f5f7f8 !important;
+  color: #17211b;
+  font-family: "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+:is(
+  .add-asset-main,
+  .add-user-main,
+  .existing-asset-main,
+  .all-history-main,
+  .assignment-main,
+  .authorization-main,
+  .asset-details-main,
+  .asset-disposal-main,
+  .asset-history-main,
+  .asset-qr-main,
+  .asset-return-main,
+  .assets-main,
+  .asset-transfer-main,
+  .regions-main,
+  .users-main,
+  .app-page-main
+) {
+  width: calc(100% - 230px) !important;
+  min-height: 100vh;
+  margin-left: 230px !important;
+  box-sizing: border-box;
+}
+
+:is(
+    .add-asset-sidebar-closed,
+    .add-user-sidebar-closed,
+    .existing-asset-sidebar-closed,
+    .all-history-sidebar-closed,
+    .assignment-sidebar-closed,
+    .authorization-sidebar-closed,
+    .asset-details-sidebar-closed,
+    .asset-disposal-sidebar-closed,
+    .asset-history-sidebar-closed,
+    .asset-qr-sidebar-closed,
+    .asset-return-sidebar-closed,
+    .assets-sidebar-closed,
+    .asset-transfer-sidebar-closed,
+    .regions-sidebar-closed,
+    .users-sidebar-closed,
+    .app-sidebar-closed
+  )
+  :is(
+    .add-asset-main,
+    .add-user-main,
+    .existing-asset-main,
+    .all-history-main,
+    .assignment-main,
+    .authorization-main,
+    .asset-details-main,
+    .asset-disposal-main,
+    .asset-history-main,
+    .asset-qr-main,
+    .asset-return-main,
+    .assets-main,
+    .asset-transfer-main,
+    .regions-main,
+    .users-main,
+    .app-page-main
+  ) {
+  width: 100% !important;
+  margin-left: 0 !important;
+}
+
+:is(
+  .add-asset-content,
+  .add-user-content,
+  .existing-asset-content,
+  .assignment-content,
+  .authorization-content,
+  .asset-details-content,
+  .asset-disposal-content,
+  .asset-history-content,
+  .asset-qr-content,
+  .asset-return-content,
+  .assets-content,
+  .asset-transfer-content,
+  .regions-page,
+  .users-content,
+  .checkin-page,
+  .checkin-history-page,
+  .mapping-page,
+  .mapping-admin-page,
+  .outlet-page,
+  .districts-page,
+  .distributors-page,
+  .verification-history-page
+) {
+  width: 100%;
+  max-width: 1600px !important;
+  margin: 0 auto !important;
+  padding: 32px !important;
+  box-sizing: border-box;
+}
+
+:is(
+  .add-asset-sidebar-toggle,
+  .add-user-sidebar-toggle,
+  .existing-asset-sidebar-toggle,
+  .all-history-sidebar-toggle,
+  .assignment-sidebar-toggle,
+  .authorization-sidebar-toggle,
+  .asset-details-sidebar-toggle,
+  .asset-disposal-sidebar-toggle,
+  .asset-history-sidebar-toggle,
+  .asset-qr-sidebar-toggle,
+  .asset-return-sidebar-toggle,
+  .assets-sidebar-toggle,
+  .asset-transfer-sidebar-toggle,
+  .regions-sidebar-toggle,
+  .users-sidebar-toggle,
+  .app-sidebar-toggle
+) {
+  top: 72px !important;
+  left: 18px;
+  border: 1px solid #34d399 !important;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #16a34a, #0f766e) !important;
+  color: #ffffff !important;
+  box-shadow:
+    0 10px 24px rgba(15, 118, 110, 0.32),
+    0 0 0 4px rgba(52, 211, 153, 0.12);
+}
+
+@media (max-width: 800px) {
+  :is(
+    .add-asset-content,
+    .add-user-content,
+    .existing-asset-content,
+    .assignment-content,
+    .authorization-content,
+    .asset-details-content,
+    .asset-disposal-content,
+    .asset-history-content,
+    .asset-qr-content,
+    .asset-return-content,
+    .assets-content,
+    .asset-transfer-content,
+    .regions-page,
+    .users-content,
+    .checkin-page,
+    .checkin-history-page,
+    .mapping-page,
+    .mapping-admin-page,
+    .outlet-page,
+    .districts-page,
+    .distributors-page,
+    .verification-history-page
+  ) {
+    padding: 24px 18px !important;
+  }
+}
+
+/* Shared page typography, based on the Users page. */
+:is(
+  .add-asset-eyebrow,
+  .existing-asset-eyebrow,
+  .add-user-eyebrow,
+  .all-history-eyebrow,
+  .assignment-eyebrow,
+  .authorization-eyebrow,
+  .asset-details-eyebrow,
+  .asset-disposal-eyebrow,
+  .asset-history-eyebrow,
+  .asset-qr-eyebrow,
+  .asset-return-eyebrow,
+  .assets-eyebrow,
+  .regions-eyebrow,
+  .asset-transfer-eyebrow,
+  .users-eyebrow,
+  .distributors-eyebrow,
+  .districts-eyebrow,
+  .mapping-eyebrow,
+  .mapping-admin-eyebrow
+) {
+  margin-bottom: 7px;
+  color: #16a34a !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  letter-spacing: 1.5px !important;
+  line-height: 1.2 !important;
+  text-transform: uppercase;
+}
+
+:is(
+  .add-asset-header h2,
+  .existing-asset-header h2,
+  .add-user-header h2,
+  .all-history-header h2,
+  .assignment-header h2,
+  .authorization-header h2,
+  .asset-details-hero h2,
+  .asset-disposal-header h2,
+  .asset-history-header h2,
+  .asset-qr-header h2,
+  .asset-return-header h2,
+  .assets-header h2,
+  .asset-transfer-header h2,
+  .checkin-header h2,
+  .checkin-history-header h2,
+  .distributors-header h2,
+  .districts-header h2,
+  .outlet-header-title h1,
+  .users-title-row h2,
+  .mapping-header h1,
+  .mapping-admin-header h1,
+  .verification-history-header h2
+) {
+  margin-top: 0;
+  margin-bottom: 7px;
+  color: #111827 !important;
+  font-size: 29px !important;
+  font-weight: 750 !important;
+  letter-spacing: -0.5px !important;
+  line-height: 1.15 !important;
+}
+
+:is(
+  .assets-subtitle,
+  .users-title-row p,
+  .checkin-header p,
+  .checkin-history-header p,
+  .verification-history-header p,
+  .mapping-header > p:last-child,
+  .mapping-admin-subtitle
+) {
+  color: #6b7280 !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+}
+
+:is(
+  .add-asset-card-header h3,
+  .existing-asset-card-header h3,
+  .add-user-card-header h3,
+  .all-history-card-header h3,
+  .assignment-card-header h3,
+  .authorization-table-header h3,
+  .asset-details-card-header h3,
+  .asset-disposal-card-header h3,
+  .asset-history-card-header h3,
+  .asset-qr-card-header h3,
+  .asset-qr-info-header h3,
+  .asset-return-card-header h3,
+  .assets-filter-header h3,
+  .assets-table-header h3,
+  .asset-transfer-card-header h3,
+  .checkin-card h3,
+  .distributors-card-header h3,
+  .distributors-filter-header h3,
+  .districts-filter-content h3,
+  .districts-list-header h3,
+  .regions-form-header h3,
+  .regions-list-header h3,
+  .users-card-header h3,
+  .users-filter-header h3,
+  .users-list-heading h3,
+  .verification-history-card h3
+) {
+  color: #111827 !important;
+  font-size: 17px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.3 !important;
+}
+
+@media (max-width: 800px) {
+  :where(
+    .assets-content,
+    .asset-history-content,
+    .all-history-content,
+    .authorization-content,
+    .checkin-history-page,
+    .distributors-page,
+    .districts-page,
+    .outlet-page,
+    .outlet-details-page,
+    .regions-page,
+    .users-content,
+    .verification-history-page
+  ) {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  /* Canonical Users table geometry for every table in the application. */
+  :is(
+    .all-history-table,
+    .asset-table,
+    .asset-history-table,
+    .assets-table,
+    .authorization-table,
+    .checkin-history-table,
+    .distributors-table,
+    .districts-table,
+    .outlet-assets-table,
+    .outlet-table,
+    .regions-table,
+    .users-table,
+    .verification-history-table
+  ) {
+    font-size: 14px !important;
+  }
+
+  :is(
+      .all-history-table,
+      .asset-table,
+      .asset-history-table,
+      .assets-table,
+      .authorization-table,
+      .checkin-history-table,
+      .distributors-table,
+      .districts-table,
+      .outlet-assets-table,
+      .outlet-table,
+      .regions-table,
+      .users-table,
+      .verification-history-table
+    )
+    th {
+    padding: 15px 18px !important;
+    color: #244c37 !important;
+    font-size: 12px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.6px !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+  }
+
+  :is(
+      .all-history-table,
+      .asset-table,
+      .asset-history-table,
+      .assets-table,
+      .authorization-table,
+      .checkin-history-table,
+      .distributors-table,
+      .districts-table,
+      .outlet-assets-table,
+      .outlet-table,
+      .regions-table,
+      .users-table,
+      .verification-history-table
+    )
+    td {
+    padding: 15px 18px !important;
+    color: #4b5563 !important;
+    font-size: 14px !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+  }
+
+  /* Users-style cards and form controls across non-dashboard pages. */
+  :is(
+    .add-asset-card,
+    .add-user-card,
+    .assignment-card,
+    .authorization-filter-card,
+    .asset-details-card,
+    .asset-details-wide-card,
+    .asset-disposal-card,
+    .asset-history-card,
+    .asset-qr-info-card,
+    .asset-return-card,
+    .asset-transfer-card,
+    .assets-filter-card,
+    .checkin-card,
+    .distributors-form-card,
+    .distributors-filter-card,
+    .districts-form-card,
+    .districts-filter-card,
+    .outlet-form-card,
+    .outlet-search-card,
+    .outlet-not-found-card,
+    .regions-form-card,
+    .verification-history-card,
+    .mapping-card,
+    .mapping-admin-card,
+    .users-edit-card,
+    .users-filter-card
+  ) {
+    background: #ffffff !important;
+    border: 1px solid #e5e7eb !important;
+    border-radius: 14px !important;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.045) !important;
+  }
+
+  :is(
+      .add-asset-content,
+      .add-user-content,
+      .assignment-content,
+      .authorization-content,
+      .asset-details-content,
+      .asset-disposal-content,
+      .asset-history-content,
+      .asset-qr-content,
+      .asset-return-content,
+      .asset-transfer-content,
+      .assets-content,
+      .checkin-page,
+      .checkin-history-page,
+      .distributors-page,
+      .districts-page,
+      .mapping-page,
+      .mapping-admin-page,
+      .outlet-page,
+      .regions-page,
+      .users-content,
+      .verification-history-page
+    )
+    :is(input, select, textarea) {
+    min-height: 44px;
+    box-sizing: border-box;
+    border: 1px solid #d1d5db !important;
+    border-radius: 8px !important;
+    background: #ffffff !important;
+    color: #111827 !important;
+    font-family: inherit;
+    font-size: 14px !important;
+  }
+
+  :is(
+      .add-asset-content,
+      .add-user-content,
+      .assignment-content,
+      .authorization-content,
+      .asset-details-content,
+      .asset-disposal-content,
+      .asset-history-content,
+      .asset-qr-content,
+      .asset-return-content,
+      .asset-transfer-content,
+      .assets-content,
+      .checkin-page,
+      .checkin-history-page,
+      .distributors-page,
+      .districts-page,
+      .mapping-page,
+      .mapping-admin-page,
+      .outlet-page,
+      .regions-page,
+      .users-content,
+      .verification-history-page
+    )
+    :is(input, select, textarea):focus {
+    border-color: #16a34a !important;
+    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.08) !important;
+    outline: none;
+  }
+  :is(
+    .add-asset-header h2,
+    .existing-asset-header h2,
+    .add-user-header h2,
+    .all-history-header h2,
+    .assignment-header h2,
+    .authorization-header h2,
+    .asset-details-hero h2,
+    .asset-disposal-header h2,
+    .asset-history-header h2,
+    .asset-qr-header h2,
+    .asset-return-header h2,
+    .assets-header h2,
+    .asset-transfer-header h2,
+    .checkin-header h2,
+    .checkin-history-header h2,
+    .distributors-header h2,
+    .districts-header h2,
+    .outlet-header-title h1,
+    .users-title-row h2,
+    .mapping-header h1,
+    .mapping-admin-header h1,
+    .verification-history-header h2
+  ) {
+    font-size: 26px !important;
+  }
+}
+
+/* Final Users table match for the requested management tables. */
+:is(
+  .regions-table,
+  .all-history-table,
+  .outlet-table,
+  .assets-table,
+  .districts-table,
+  .distributors-table
+) {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  font-size: 14px !important;
+}
+
+:is(
+    .regions-table,
+    .all-history-table,
+    .outlet-table,
+    .assets-table,
+    .districts-table,
+    .distributors-table
+  )
+  thead {
+  background: linear-gradient(180deg, #e7f3ec 0%, #dcece4 100%) !important;
+}
+
+:is(
+    .regions-table,
+    .all-history-table,
+    .outlet-table,
+    .assets-table,
+    .districts-table,
+    .distributors-table
+  )
+  th {
+  height: 49px !important;
+  box-sizing: border-box !important;
+  padding: 15px 18px !important;
+  border-bottom: 1px solid #cbded2 !important;
+  background: transparent !important;
+  color: #244c37 !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.6px !important;
+  line-height: 19px !important;
+  text-align: center !important;
+  text-transform: none !important;
+  vertical-align: middle !important;
+  white-space: nowrap !important;
+}
+
+:is(
+    .regions-table,
+    .all-history-table,
+    .outlet-table,
+    .assets-table,
+    .districts-table,
+    .distributors-table
+  )
+  td {
+  min-height: 49px !important;
+  box-sizing: border-box !important;
+  padding: 15px 18px !important;
+  border-bottom: 1px solid #edf0ee !important;
+  color: #4b5563 !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  letter-spacing: normal !important;
+  line-height: 19px !important;
+  text-align: center !important;
+  text-transform: none !important;
+  vertical-align: middle !important;
+}
+
+:is(
+    .regions-table,
+    .all-history-table,
+    .outlet-table,
+    .assets-table,
+    .districts-table,
+    .distributors-table
+  )
+  tbody
+  tr:nth-child(odd) {
+  background: #ffffff !important;
+}
+
+:is(
+    .regions-table,
+    .all-history-table,
+    .outlet-table,
+    .assets-table,
+    .districts-table,
+    .distributors-table
+  )
+  tbody
+  tr:nth-child(even) {
+  background: #f3f7f5 !important;
+}
+
+:is(
+    .regions-table,
+    .all-history-table,
+    .outlet-table,
+    .assets-table,
+    .districts-table,
+    .distributors-table
+  )
+  tbody
+  tr:hover {
+  background: #eaf5ee !important;
+}
+
+.verification-history-table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  font-size: 14px !important;
+}
+
+.verification-history-table thead {
+  background: linear-gradient(180deg, #e7f3ec 0%, #dcece4 100%) !important;
+}
+
+.verification-history-table th {
+  height: 49px !important;
+  box-sizing: border-box !important;
+  padding: 15px 18px !important;
+  border-bottom: 1px solid #cbded2 !important;
+  background: transparent !important;
+  color: #244c37 !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.6px !important;
+  line-height: 19px !important;
+  text-align: center !important;
+  text-transform: none !important;
+  vertical-align: middle !important;
+  white-space: nowrap !important;
+}
+
+.verification-history-table td {
+  min-height: 49px !important;
+  box-sizing: border-box !important;
+  padding: 15px 18px !important;
+  border-bottom: 1px solid #edf0ee !important;
+  color: #4b5563 !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  letter-spacing: normal !important;
+  line-height: 19px !important;
+  text-align: center !important;
+  text-transform: none !important;
+  vertical-align: middle !important;
+}
+
+.verification-history-table tbody tr:nth-child(odd) {
+  background: #ffffff !important;
+}
+
+.verification-history-table tbody tr:nth-child(even) {
+  background: #f3f7f5 !important;
+}
+
+.verification-history-table tbody tr:hover {
+  background: #eaf5ee !important;
+}
+
+/* Shared Distributors-style back button for every non-dashboard page. */
+:is(
+  .add-asset-back,
+  .existing-asset-back,
+  .add-user-back-dashboard,
+  .all-history-back-dashboard,
+  .assignment-back,
+  .authorization-back,
+  .asset-details-back,
+  .asset-details-back-button,
+  .asset-disposal-back,
+  .asset-history-back,
+  .asset-qr-back,
+  .asset-qr-back-button,
+  .asset-return-back,
+  .asset-transfer-back,
+  .asset-request-back,
+  .pending-asset-request-back,
+  .checkin-back-link,
+  .checkin-history-back-link,
+  .change-password-back,
+  .distributors-back-button,
+  .districts-back-button,
+  .forgot-back-button,
+  .manufacturer-back-dashboard,
+  .outlet-details-back-link,
+  .back-dashboard-btn,
+  .regions-back-button,
+  .repair-back-dashboard,
+  .repair-request-back-dashboard,
+  .reset-back-button,
+  .users-back-dashboard,
+  .assets-back-dashboard,
+  .mapping-back,
+  .mapping-admin-back,
+  .verification-history-link,
+  .user-access-back-button,
+  .user-profile-back-link
+) {
+  display: flex !important;
+  width: fit-content;
+  box-sizing: border-box;
+  align-self: flex-start;
+  align-items: center;
+  gap: 7px;
+  min-height: 38px !important;
+  margin: 0 0 24px !important;
+  padding: 0 14px !important;
+  border: 1px solid #bbf7d0 !important;
+  border-radius: 8px !important;
+  background: #f0fdf4 !important;
+  color: #166534 !important;
+  font-family: inherit;
+  font-size: 13px !important;
+  font-weight: 650 !important;
+  line-height: normal !important;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+:is(
+  .add-asset-back,
+  .existing-asset-back,
+  .add-user-back-dashboard,
+  .all-history-back-dashboard,
+  .assignment-back,
+  .authorization-back,
+  .asset-details-back,
+  .asset-details-back-button,
+  .asset-disposal-back,
+  .asset-history-back,
+  .asset-qr-back,
+  .asset-qr-back-button,
+  .asset-return-back,
+  .asset-transfer-back,
+  .asset-request-back,
+  .pending-asset-request-back,
+  .checkin-back-link,
+  .checkin-history-back-link,
+  .change-password-back,
+  .distributors-back-button,
+  .districts-back-button,
+  .forgot-back-button,
+  .manufacturer-back-dashboard,
+  .outlet-details-back-link,
+  .back-dashboard-btn,
+  .regions-back-button,
+  .repair-back-dashboard,
+  .repair-request-back-dashboard,
+  .reset-back-button,
+  .users-back-dashboard,
+  .assets-back-dashboard,
+  .mapping-back,
+  .mapping-admin-back,
+  .verification-history-link,
+  .user-access-back-button,
+  .user-profile-back-link
+):hover {
+  background: #dcfce7 !important;
+  border-color: #86efac !important;
+  color: #14532d !important;
+  transform: translateX(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Match the Users content width on both verification mapping pages. */
+.mapping-container,
+.mapping-admin-container {
+  width: 100% !important;
+  max-width: 1200px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* The outer Outlets card owns the frame; the table should fill it edge to edge. */
+.outlet-table-wrapper {
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: auto !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.outlet-table {
+  width: 100% !important;
+  margin: 0 !important;
+  border-collapse: collapse !important;
+}
