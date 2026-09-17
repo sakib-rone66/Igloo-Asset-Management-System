@@ -319,6 +319,52 @@ export default function AssetDetailScreen() {
               Verify
             </Text>
           </TouchableOpacity>
+
+          {asset.status === "ASSIGNED" && (
+            <TouchableOpacity
+              style={[styles.actionBtn, { backgroundColor: "#EAF3FF" }]}
+              onPress={() =>
+                router.push({
+                  pathname: "/repair-request" as any,
+                  params: { assetId: asset._id, ain: asset.ain },
+                })
+              }
+            >
+              <Ionicons
+                name="build-outline"
+                size={20}
+                color={Colors.light.info}
+              />
+              <Text
+                style={[styles.actionBtnText, { color: Colors.light.info }]}
+              >
+                Repair
+              </Text>
+            </TouchableOpacity>
+          )}
+
+          {asset.status !== "DISPOSED" && (
+            <TouchableOpacity
+              style={[styles.actionBtn, { backgroundColor: "#FDECEC" }]}
+              onPress={() =>
+                router.push({
+                  pathname: "/operations/disposal" as any,
+                  params: { assetId: asset._id, ain: asset.ain },
+                })
+              }
+            >
+              <Ionicons
+                name="trash-outline"
+                size={20}
+                color={Colors.light.danger}
+              />
+              <Text
+                style={[styles.actionBtnText, { color: Colors.light.danger }]}
+              >
+                Dispose
+              </Text>
+            </TouchableOpacity>
+          )}
         </View>
 
         {/* ASSIGNED OUTLET CARD */}
@@ -574,11 +620,12 @@ const styles = StyleSheet.create({
   },
   actionRow: {
     flexDirection: "row",
+    flexWrap: "wrap",
     gap: Spacing.sm,
     marginBottom: Spacing.lg,
   },
   actionBtn: {
-    flex: 1,
+    width: "31%",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",

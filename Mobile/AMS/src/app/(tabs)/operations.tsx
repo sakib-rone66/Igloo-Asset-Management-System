@@ -33,12 +33,12 @@ export default function OperationsScreen() {
       route: "/operations/assignment",
     },
     {
-      title: "Transfer",
-      description: "Transfer a freezer between active outlets",
-      icon: "swap-horizontal-outline" as const,
-      color: Colors.light.info,
-      background: "#EAF3FF",
-      route: "/operations/transfer",
+      title: "Disposal",
+      description: "Manage condemned freezer disposal requests",
+      icon: "trash-outline" as const,
+      color: Colors.light.danger,
+      background: "#FDECEC",
+      route: "/operations/disposal",
     },
     {
       title: "Return",
@@ -49,12 +49,12 @@ export default function OperationsScreen() {
       route: "/operations/return",
     },
     {
-      title: "Disposal",
-      description: "Manage condemned freezer disposal requests",
-      icon: "trash-outline" as const,
-      color: Colors.light.danger,
-      background: "#FDECEC",
-      route: "/operations/disposal",
+      title: "Transfer",
+      description: "Transfer a freezer between active outlets",
+      icon: "swap-horizontal-outline" as const,
+      color: Colors.light.info,
+      background: "#EAF3FF",
+      route: "/operations/transfer",
     },
   ];
 
@@ -136,6 +136,7 @@ export default function OperationsScreen() {
                 name="chevron-forward"
                 size={20}
                 color={Colors.light.textMuted}
+                style={styles.operationArrow}
               />
             </TouchableOpacity>
           ))}
@@ -241,18 +242,21 @@ const styles = StyleSheet.create({
     color: Colors.light.textSecondary,
   },
   operationList: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
     gap: Spacing.md,
     marginBottom: Spacing.xl,
   },
   operationCard: {
-    flexDirection: "row",
-    alignItems: "center",
+    width: "47.5%",
+    minHeight: 154,
+    alignItems: "flex-start",
     backgroundColor: Colors.light.surface,
     padding: Spacing.md,
     borderRadius: Radius.lg,
     borderWidth: 1,
     borderColor: Colors.light.border,
-    gap: Spacing.md,
     ...Shadows.card,
   },
   operationIcon: {
@@ -264,6 +268,8 @@ const styles = StyleSheet.create({
   },
   operationContent: {
     flex: 1,
+    width: "100%",
+    marginTop: Spacing.md,
   },
   operationTitle: {
     fontSize: Typography.size.sm,
@@ -274,6 +280,12 @@ const styles = StyleSheet.create({
     fontSize: Typography.size.xs,
     color: Colors.light.textSecondary,
     marginTop: 2,
+    lineHeight: 16,
+  },
+  operationArrow: {
+    position: "absolute",
+    top: Spacing.md,
+    right: Spacing.md,
   },
   infoCard: {
     flexDirection: "row",

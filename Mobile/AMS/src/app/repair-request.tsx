@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
   Alert,
@@ -14,7 +14,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { requestApi } from "../services/api";
 import { Asset } from "../services/apiTypes";
 import {
@@ -26,10 +26,11 @@ import {
 } from "../constants/theme";
 
 export default function RepairRequestScreen() {
+  const params = useLocalSearchParams<{ ain?: string }>();
   const formScrollRef = useRef<ScrollView>(null);
   const remarksInputRef = useRef<TextInput>(null);
   const repairCostInputRef = useRef<TextInput>(null);
-  const [ain, setAin] = useState("");
+  const [ain, setAin] = useState(params.ain || "");
   const [asset, setAsset] = useState<Asset | null>(null);
   const [problem, setProblem] = useState("");
   const [serviceProvider, setServiceProvider] = useState("");
@@ -51,7 +52,7 @@ export default function RepairRequestScreen() {
     }, 160);
   };
 
-  const searchAsset = async () => {
+  const searchAsset = useCallback(async () => {
     if (!ain.trim()) {
       Alert.alert("AIN Required", "Enter an asset AIN to continue.");
       return;
@@ -76,7 +77,13 @@ export default function RepairRequestScreen() {
     } finally {
       setSearching(false);
     }
-  };
+  }, [ain]);
+
+  useEffect(() => {
+    if (params.ain) {
+      searchAsset();
+    }
+  }, [params.ain, searchAsset]);
 
   const submitRequest = async () => {
     if (!asset) {

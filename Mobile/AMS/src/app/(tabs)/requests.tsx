@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
   Alert,
+  BackHandler,
   findNodeHandle,
   FlatList,
   Modal,
@@ -72,6 +73,20 @@ export default function RequestsScreen() {
   const [reason, setReason] = useState("");
   const [remarks, setRemarks] = useState("");
   const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (showRequestDashboard || showModal) return;
+
+    const subscription = BackHandler.addEventListener(
+      "hardwareBackPress",
+      () => {
+        setShowRequestDashboard(true);
+        return true;
+      },
+    );
+
+    return () => subscription.remove();
+  }, [showModal, showRequestDashboard]);
 
   useEffect(() => {
     outletApi
@@ -496,14 +511,6 @@ export default function RequestsScreen() {
           </View>
         ) : (
           <View style={styles.headerActions}>
-            <TouchableOpacity
-              style={styles.backButton}
-              onPress={() => setShowRequestDashboard(true)}
-              accessibilityRole="button"
-              accessibilityLabel="Back to incoming requests"
-            >
-              <Ionicons name="arrow-back" size={21} color={Colors.light.text} />
-            </TouchableOpacity>
             {activeRequestTab === "ASSET" ? (
               <TouchableOpacity
                 style={styles.headerAddButton}
@@ -905,16 +912,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.sm,
-  },
-  backButton: {
-    width: 42,
-    height: 42,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: Radius.md,
-    backgroundColor: Colors.light.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: Colors.light.border,
   },
   dashboardContent: {
     padding: Spacing.xl,

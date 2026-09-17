@@ -142,7 +142,18 @@ export default function VerificationScreen() {
           <Ionicons name="arrow-back" size={24} color={Colors.light.text} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Asset Verification</Text>
-        <View style={styles.headerSpacer} />
+        <TouchableOpacity
+          onPress={() => router.push("/verification-history" as any)}
+          hitSlop={10}
+          accessibilityRole="button"
+          accessibilityLabel="Open verification history"
+        >
+          <Ionicons
+            name="time-outline"
+            size={23}
+            color={Colors.light.primary}
+          />
+        </TouchableOpacity>
       </View>
 
       <ScrollView

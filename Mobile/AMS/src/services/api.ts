@@ -323,13 +323,26 @@ export const userApi = {
     const fileName = uri.split("/").pop() || "profile-picture.jpg";
     const extension = fileName.split(".").pop()?.toLowerCase();
     const mimeType = extension === "png" ? "image/png" : "image/jpeg";
+    const fileBlob = await new Promise<Blob>((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", uri, true);
+      xhr.responseType = "blob";
+      xhr.onload = () => {
+        if (xhr.response) resolve(xhr.response);
+        else
+          reject(new ApiError("Unable to read the selected profile picture"));
+      };
+      xhr.onerror = () =>
+        reject(new ApiError("Unable to read the selected profile picture"));
+      xhr.send();
+    });
+
+    const uploadBlob = fileBlob.type
+      ? fileBlob
+      : new Blob([fileBlob], { type: mimeType });
     const formData = new FormData();
 
-    formData.append("profilePicture", {
-      uri,
-      name: fileName,
-      type: mimeType,
-    } as any);
+    formData.append("profilePicture", uploadBlob, fileName);
 
     const response = await fetch(`${baseUrl}/users/me/profile-picture`, {
       method: "PATCH",
@@ -535,13 +548,9 @@ export const verificationApi = {
   },
 
   getMyVerificationRequests: async (): Promise<{ mappings: any[] }> => {
-    try {
-      return await request("/verification-mappings/my-requests", {
-        method: "GET",
-      });
-    } catch {
-      return { mappings: [] };
-    }
+    return await request("/verification-mappings/my", {
+      method: "GET",
+    });
   },
 };
 

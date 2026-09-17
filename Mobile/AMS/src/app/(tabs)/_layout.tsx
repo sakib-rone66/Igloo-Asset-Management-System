@@ -64,11 +64,7 @@ export default function TabsLayout() {
           title: "Operations",
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
-              name={
-                focused
-                  ? "swap-horizontal"
-                  : "swap-horizontal-outline"
-              }
+              name={focused ? "swap-horizontal" : "swap-horizontal-outline"}
               size={21}
               color={color}
             />
@@ -83,11 +79,7 @@ export default function TabsLayout() {
           title: "Outlet",
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
-              name={
-                focused
-                  ? "storefront"
-                  : "storefront-outline"
-              }
+              name={focused ? "storefront" : "storefront-outline"}
               size={21}
               color={color}
             />
@@ -102,11 +94,7 @@ export default function TabsLayout() {
           title: "Requests",
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
-              name={
-                focused
-                  ? "document-text"
-                  : "document-text-outline"
-              }
+              name={focused ? "document-text" : "document-text-outline"}
               size={21}
               color={color}
             />

@@ -144,11 +144,11 @@ export default function AssetsScreen() {
           />
 
           <ActionCard
-            icon="scan-outline"
-            title="Verification"
-            subtitle="Verify asset mapping"
-            enabled={canViewVerification}
-            onPress={() => router.push("/verification" as never)}
+            icon="document-text-outline"
+            title="New Asset Request"
+            subtitle="Request assets for an outlet"
+            enabled={true}
+            onPress={() => router.push("/new-asset-request" as never)}
           />
 
           <ActionCard
@@ -157,6 +157,14 @@ export default function AssetsScreen() {
             subtitle="Report an issue with an asset"
             enabled={canSendRepairRequest}
             onPress={() => router.push("/repair-request" as never)}
+          />
+
+          <ActionCard
+            icon="scan-outline"
+            title="Verification"
+            subtitle="Verify asset mapping"
+            enabled={canViewVerification}
+            onPress={() => router.push("/verification" as never)}
           />
         </View>
 

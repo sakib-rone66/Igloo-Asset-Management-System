@@ -64,7 +64,7 @@ router.post(
 router.get(
   "/my",
   authMiddleware,
-  permissionMiddleware("verificationMapping", "history"),
+  permissionMiddleware("verificationMapping", "submit"),
   getMyMappings,
 );
 
