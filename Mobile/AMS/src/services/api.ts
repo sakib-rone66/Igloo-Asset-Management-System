@@ -1,8 +1,7 @@
 // src/services/api.ts
 
 import * as SecureStore from "expo-secure-store";
-import { Platform } from "react-native";
-import Constants from "expo-constants";
+
 import {
   Asset,
   AssetHistoryRecord,
@@ -22,111 +21,269 @@ import {
 const CUSTOM_API_URL_KEY = "igloo_custom_api_url";
 const TOKEN_KEY = "igloo_auth_token";
 
-// Auto-detect debugger host (e.g. Expo Go on physical device)
-const getDebuggerHost = (): string | null => {
-  try {
-    const hostUri =
-      Constants.expoConfig?.hostUri ||
-      (Constants as any).manifest?.debuggerHost;
-    if (hostUri) {
-      const ip = hostUri.split(":")[0];
-      if (ip && ip !== "localhost" && ip !== "127.0.0.1") {
-        return `http://${ip}:3000/api`;
-      }
-    }
-  } catch {
-    // Ignore error
-  }
-  return null;
-};
+// ========================================
+// PRODUCTION / ONLINE BACKEND
+// ========================================
+//
+// This is the permanent online backend.
+//
+// Mobile App
+//     ↓
+// Internet
+//     ↓
+// Render Backend
+//     ↓
+// MongoDB
+//
+// No PC backend is required.
+//
+// No local IP is required.
+//
+// No same Wi-Fi is required.
+//
+// ========================================
 
-// Default fallbacks
-const DEFAULT_FALLBACK_URL =
-  process.env.EXPO_PUBLIC_API_URL ||
-  (Platform.OS === "web"
-    ? "http://localhost:3000/api"
-    : Platform.OS === "android"
-      ? "http://10.0.2.2:3000/api"
-      : "http://192.168.22.33:3000/api");
+const PRODUCTION_API_URL =
+  "https://igloo-asset-management-system.onrender.com/api";
+
+// ========================================
+// DEVELOPMENT MODE
+// ========================================
+//
+// Expo Go can still use a custom local URL
+// if one has been explicitly saved.
+//
+// However, the default is ALWAYS the
+// online Render backend.
+//
+// This means Expo Go can work without
+// running the backend on the PC.
+//
+// ========================================
+
+const IS_DEVELOPMENT = __DEV__;
+
+const getDevelopmentFallbackUrl = (): string => {
+  const envUrl = process.env.EXPO_PUBLIC_API_URL;
+
+  if (envUrl && envUrl.trim()) {
+    return envUrl.trim().replace(/\/+$/, "");
+  }
+
+  return PRODUCTION_API_URL;
+};
 
 let cachedApiUrl: string | null = null;
 
+// ========================================
+// GET API BASE URL
+// ========================================
+
 export const getApiBaseUrl = async (): Promise<string> => {
-  if (cachedApiUrl) return cachedApiUrl;
-
-  try {
-    const customUrl = await SecureStore.getItemAsync(CUSTOM_API_URL_KEY);
-    if (customUrl && customUrl.trim()) {
-      cachedApiUrl = customUrl.trim();
-      return cachedApiUrl;
-    }
-  } catch {
-    // Ignore secure store read failure
-  }
-
-  const detected = getDebuggerHost();
-  if (detected) {
-    cachedApiUrl = detected;
+  if (cachedApiUrl) {
     return cachedApiUrl;
   }
 
-  cachedApiUrl = DEFAULT_FALLBACK_URL;
+  // ======================================
+  // DEVELOPMENT / EXPO GO
+  // ======================================
+  //
+  // If a custom URL was previously saved
+  // through ServerConfigModal, use it.
+  //
+  // Otherwise use Render.
+  //
+  // This allows both:
+  //
+  // Expo Go → Render
+  //
+  // and, when required:
+  //
+  // Expo Go → Local PC backend
+  //
+  // ======================================
+
+  if (IS_DEVELOPMENT) {
+    try {
+      const customUrl = await SecureStore.getItemAsync(
+        CUSTOM_API_URL_KEY,
+      );
+
+      if (customUrl && customUrl.trim()) {
+        cachedApiUrl = customUrl
+          .trim()
+          .replace(/\/+$/, "");
+
+        return cachedApiUrl;
+      }
+    } catch {
+      // Ignore SecureStore read failure.
+    }
+
+    cachedApiUrl = getDevelopmentFallbackUrl();
+
+    return cachedApiUrl;
+  }
+
+  // ======================================
+  // PRODUCTION / EAS APK
+  // ======================================
+  //
+  // NEVER use a saved local URL here.
+  //
+  // This guarantees that an old value such as:
+  //
+  // http://10.0.2.2:3000/api
+  //
+  // or:
+  //
+  // http://192.168.x.x:3000/api
+  //
+  // cannot break the production APK.
+  //
+  // ======================================
+
+  cachedApiUrl = PRODUCTION_API_URL;
+
   return cachedApiUrl;
 };
 
-export const setCustomApiUrl = async (url: string | null): Promise<void> => {
+// ========================================
+// SET CUSTOM API URL
+// ========================================
+
+export const setCustomApiUrl = async (
+  url: string | null,
+): Promise<void> => {
+  // ======================================
+  // PRODUCTION
+  // ======================================
+  //
+  // Production APK must always use Render.
+  //
+  // ======================================
+
+  if (!IS_DEVELOPMENT) {
+    try {
+      await SecureStore.deleteItemAsync(
+        CUSTOM_API_URL_KEY,
+      );
+    } catch {
+      // Ignore SecureStore delete failure.
+    }
+
+    cachedApiUrl = PRODUCTION_API_URL;
+
+    return;
+  }
+
+  // ======================================
+  // DEVELOPMENT / EXPO GO
+  // ======================================
+
   if (url && url.trim()) {
-    const trimmed = url.trim().replace(/\/+$/, "");
-    await SecureStore.setItemAsync(CUSTOM_API_URL_KEY, trimmed);
+    const trimmed = url
+      .trim()
+      .replace(/\/+$/, "");
+
+    await SecureStore.setItemAsync(
+      CUSTOM_API_URL_KEY,
+      trimmed,
+    );
+
     cachedApiUrl = trimmed;
   } else {
-    await SecureStore.deleteItemAsync(CUSTOM_API_URL_KEY);
+    await SecureStore.deleteItemAsync(
+      CUSTOM_API_URL_KEY,
+    );
+
     cachedApiUrl = null;
   }
 };
 
+// ========================================
+// GET CUSTOM API URL
+// ========================================
+
 export const getCustomApiUrl = async (): Promise<string | null> => {
+  // Production does not use custom URLs.
+
+  if (!IS_DEVELOPMENT) {
+    return null;
+  }
+
   try {
-    return await SecureStore.getItemAsync(CUSTOM_API_URL_KEY);
+    return await SecureStore.getItemAsync(
+      CUSTOM_API_URL_KEY,
+    );
   } catch {
     return null;
   }
 };
 
+// ========================================
+// TEST CONNECTION
+// ========================================
+
 export const testConnection = async (
   testUrl?: string,
-): Promise<{ ok: boolean; url: string; message: string }> => {
+): Promise<{
+  ok: boolean;
+  url: string;
+  message: string;
+}> => {
   const url = testUrl
     ? testUrl.trim().replace(/\/+$/, "")
     : await getApiBaseUrl();
+
   try {
     const rootUrl = url.replace(/\/api$/, "");
+
     const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 4000);
+
+    const timer = setTimeout(
+      () => controller.abort(),
+      8000,
+    );
 
     const res = await fetch(`${rootUrl}/`, {
       method: "GET",
       signal: controller.signal,
     });
+
     clearTimeout(timer);
 
     if (res.ok) {
-      return { ok: true, url, message: "Backend server reached successfully!" };
+      return {
+        ok: true,
+        url,
+        message:
+          "Backend server reached successfully!",
+      };
     }
-    return { ok: false, url, message: `Server returned HTTP ${res.status}` };
+
+    return {
+      ok: false,
+      url,
+      message: `Server returned HTTP ${res.status}`,
+    };
   } catch (err: any) {
     return {
       ok: false,
       url,
       message:
-        err.name === "AbortError"
+        err?.name === "AbortError"
           ? "Connection timed out"
           : "Unable to reach server",
     };
   }
 };
 
-export const API_BASE_URL = DEFAULT_FALLBACK_URL;
+// ========================================
+// API BASE URL
+// ========================================
+
+export const API_BASE_URL = PRODUCTION_API_URL;
 
 // ========================================
 // API ERROR
@@ -136,8 +293,13 @@ export class ApiError extends Error {
   status: number;
   data: any;
 
-  constructor(message: string, status = 0, data: any = null) {
+  constructor(
+    message: string,
+    status = 0,
+    data: any = null,
+  ) {
     super(message);
+
     this.name = "ApiError";
     this.status = status;
     this.data = data;
@@ -150,27 +312,49 @@ export class ApiError extends Error {
 
 export const getToken = async (): Promise<string | null> => {
   try {
-    return await SecureStore.getItemAsync(TOKEN_KEY);
+    return await SecureStore.getItemAsync(
+      TOKEN_KEY,
+    );
   } catch (error) {
-    console.error("Get Token Error:", error);
+    console.error(
+      "Get Token Error:",
+      error,
+    );
+
     return null;
   }
 };
 
-export const saveToken = async (token: string): Promise<void> => {
+export const saveToken = async (
+  token: string,
+): Promise<void> => {
   try {
-    await SecureStore.setItemAsync(TOKEN_KEY, token);
+    await SecureStore.setItemAsync(
+      TOKEN_KEY,
+      token,
+    );
   } catch (error) {
-    console.error("Save Token Error:", error);
-    throw new Error("Unable to securely save authentication token");
+    console.error(
+      "Save Token Error:",
+      error,
+    );
+
+    throw new Error(
+      "Unable to securely save authentication token",
+    );
   }
 };
 
 export const removeToken = async (): Promise<void> => {
   try {
-    await SecureStore.deleteItemAsync(TOKEN_KEY);
+    await SecureStore.deleteItemAsync(
+      TOKEN_KEY,
+    );
   } catch (error) {
-    console.error("Remove Token Error:", error);
+    console.error(
+      "Remove Token Error:",
+      error,
+    );
   }
 };
 
@@ -188,29 +372,41 @@ const request = async (
 
     const headers: Record<string, string> = {
       "Content-Type": "application/json",
-      ...(options.headers as Record<string, string> | undefined),
+      ...(options.headers as
+        | Record<string, string>
+        | undefined),
     };
 
     if (token) {
       headers.Authorization = `Bearer ${token}`;
     }
 
-    const cleanEndpoint = endpoint.startsWith("/") ? endpoint : `/${endpoint}`;
+    const cleanEndpoint =
+      endpoint.startsWith("/")
+        ? endpoint
+        : `/${endpoint}`;
+
     const url = `${baseUrl}${cleanEndpoint}`;
 
-    // Add a 10s timeout to prevent hanging UI
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000);
+
+    const timeoutId = setTimeout(
+      () => controller.abort(),
+      15000,
+    );
 
     const response = await fetch(url, {
       ...options,
       headers,
-      signal: options.signal || controller.signal,
+      signal:
+        options.signal ||
+        controller.signal,
     });
 
     clearTimeout(timeoutId);
 
     let data: any = null;
+
     try {
       data = await response.json();
     } catch {
@@ -218,13 +414,13 @@ const request = async (
     }
 
     if (!response.ok) {
-      // Auto-clear session on 401
       if (response.status === 401) {
         await removeToken();
       }
 
       throw new ApiError(
-        data?.message || "Something went wrong",
+        data?.message ||
+          "Something went wrong",
         response.status,
         data,
       );
@@ -236,11 +432,13 @@ const request = async (
       throw error;
     }
 
-    const isTimeout = error.name === "AbortError";
+    const isTimeout =
+      error?.name === "AbortError";
+
     throw new ApiError(
       isTimeout
-        ? "Server request timed out. Please verify your connection."
-        : "Unable to connect to the server. Please verify your server IP.",
+        ? "Server request timed out. Please verify your internet connection."
+        : "Unable to connect to the server. Please verify your internet connection.",
       0,
       null,
     );
@@ -252,22 +450,39 @@ const request = async (
 // ========================================
 
 export const authApi = {
-  login: async (email: string, password: string) => {
-    const data = await request("/auth/login", {
-      method: "POST",
-      body: JSON.stringify({ email, password }),
-    });
+  login: async (
+    email: string,
+    password: string,
+  ) => {
+    const data = await request(
+      "/auth/login",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      },
+    );
 
     if (!data?.token) {
-      throw new ApiError("Login token was not received from server");
+      throw new ApiError(
+        "Login token was not received from server",
+      );
     }
 
     await saveToken(data.token);
+
     return data;
   },
 
   getProfile: async () => {
-    return await request("/auth/profile", { method: "GET" });
+    return await request(
+      "/auth/profile",
+      {
+        method: "GET",
+      },
+    );
   },
 
   changePassword: async (
@@ -275,17 +490,31 @@ export const authApi = {
     newPassword: string,
     confirmPassword: string,
   ) => {
-    return await request("/auth/change-password", {
-      method: "PATCH",
-      body: JSON.stringify({ currentPassword, newPassword, confirmPassword }),
-    });
+    return await request(
+      "/auth/change-password",
+      {
+        method: "PATCH",
+        body: JSON.stringify({
+          currentPassword,
+          newPassword,
+          confirmPassword,
+        }),
+      },
+    );
   },
 
-  forgotPassword: async (email: string) => {
-    return await request("/auth/forgot-password", {
-      method: "POST",
-      body: JSON.stringify({ email }),
-    });
+  forgotPassword: async (
+    email: string,
+  ) => {
+    return await request(
+      "/auth/forgot-password",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          email,
+        }),
+      },
+    );
   },
 
   resetPassword: async (
@@ -293,16 +522,26 @@ export const authApi = {
     newPassword: string,
     confirmPassword: string,
   ) => {
-    return await request(`/auth/reset-password/${token}`, {
-      method: "POST",
-      body: JSON.stringify({ newPassword, confirmPassword }),
-    });
+    return await request(
+      `/auth/reset-password/${token}`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          newPassword,
+          confirmPassword,
+        }),
+      },
+    );
   },
 
   logout: async () => {
     await removeToken();
   },
 };
+
+// ========================================
+// USER API
+// ========================================
 
 export const userApi = {
   updateMyProfile: async (data: {
@@ -311,55 +550,124 @@ export const userApi = {
     phone?: string;
     address?: string;
   }) => {
-    return await request("/users/me", {
-      method: "PATCH",
-      body: JSON.stringify(data),
-    });
+    return await request(
+      "/users/me",
+      {
+        method: "PATCH",
+        body: JSON.stringify(data),
+      },
+    );
   },
 
-  uploadMyProfilePicture: async (uri: string) => {
-    const baseUrl = await getApiBaseUrl();
+  uploadMyProfilePicture: async (
+    uri: string,
+  ) => {
+    const baseUrl =
+      await getApiBaseUrl();
+
     const token = await getToken();
-    const fileName = uri.split("/").pop() || "profile-picture.jpg";
-    const extension = fileName.split(".").pop()?.toLowerCase();
-    const mimeType = extension === "png" ? "image/png" : "image/jpeg";
-    const fileBlob = await new Promise<Blob>((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.open("GET", uri, true);
-      xhr.responseType = "blob";
-      xhr.onload = () => {
-        if (xhr.response) resolve(xhr.response);
-        else
-          reject(new ApiError("Unable to read the selected profile picture"));
-      };
-      xhr.onerror = () =>
-        reject(new ApiError("Unable to read the selected profile picture"));
-      xhr.send();
-    });
 
-    const uploadBlob = fileBlob.type
-      ? fileBlob
-      : new Blob([fileBlob], { type: mimeType });
-    const formData = new FormData();
+    const fileName =
+      uri.split("/").pop() ||
+      "profile-picture.jpg";
 
-    formData.append("profilePicture", uploadBlob, fileName);
+    const extension = fileName
+      .split(".")
+      .pop()
+      ?.toLowerCase();
 
-    const response = await fetch(`${baseUrl}/users/me/profile-picture`, {
-      method: "PATCH",
-      headers: token ? { Authorization: `Bearer ${token}` } : undefined,
-      body: formData,
-    });
+    const mimeType =
+      extension === "png"
+        ? "image/png"
+        : "image/jpeg";
+
+    const fileBlob =
+      await new Promise<Blob>(
+        (resolve, reject) => {
+          const xhr =
+            new XMLHttpRequest();
+
+          xhr.open(
+            "GET",
+            uri,
+            true,
+          );
+
+          xhr.responseType =
+            "blob";
+
+          xhr.onload = () => {
+            if (xhr.response) {
+              resolve(
+                xhr.response,
+              );
+            } else {
+              reject(
+                new ApiError(
+                  "Unable to read the selected profile picture",
+                ),
+              );
+            }
+          };
+
+          xhr.onerror = () =>
+            reject(
+              new ApiError(
+                "Unable to read the selected profile picture",
+              ),
+            );
+
+          xhr.send();
+        },
+      );
+
+    const uploadBlob =
+      fileBlob.type
+        ? fileBlob
+        : new Blob(
+            [fileBlob],
+            {
+              type: mimeType,
+            },
+          );
+
+    const formData =
+      new FormData();
+
+    formData.append(
+      "profilePicture",
+      uploadBlob,
+      fileName,
+    );
+
+    const response =
+      await fetch(
+        `${baseUrl}/users/me/profile-picture`,
+        {
+          method: "PATCH",
+          headers: token
+            ? {
+                Authorization:
+                  `Bearer ${token}`,
+              }
+            : undefined,
+          body: formData,
+        },
+      );
 
     let data: any = null;
+
     try {
-      data = await response.json();
+      data =
+        await response.json();
     } catch {
       data = null;
     }
 
     if (!response.ok) {
       throw new ApiError(
-        data?.message || "Unable to upload profile picture",
+        data?.message ||
+          "Unable to upload profile picture",
         response.status,
         data,
       );
@@ -389,32 +697,99 @@ export const assetApi = {
     currentPage: number;
     totalPages: number;
   }> => {
-    const query = new URLSearchParams();
-    if (params.status) query.append("status", params.status);
-    if (params.ain) query.append("ain", params.ain);
-    if (params.serialNumber) query.append("serialNumber", params.serialNumber);
-    if (params.outlet) query.append("outlet", params.outlet);
-    if (params.page) query.append("page", String(params.page));
-    if (params.limit) query.append("limit", String(params.limit));
+    const query =
+      new URLSearchParams();
 
-    const qs = query.toString();
-    return await request(`/assets${qs ? `?${qs}` : ""}`, { method: "GET" });
+    if (params.status)
+      query.append(
+        "status",
+        params.status,
+      );
+
+    if (params.ain)
+      query.append(
+        "ain",
+        params.ain,
+      );
+
+    if (params.serialNumber)
+      query.append(
+        "serialNumber",
+        params.serialNumber,
+      );
+
+    if (params.outlet)
+      query.append(
+        "outlet",
+        params.outlet,
+      );
+
+    if (params.page)
+      query.append(
+        "page",
+        String(params.page),
+      );
+
+    if (params.limit)
+      query.append(
+        "limit",
+        String(params.limit),
+      );
+
+    const qs =
+      query.toString();
+
+    return await request(
+      `/assets${
+        qs ? `?${qs}` : ""
+      }`,
+      {
+        method: "GET",
+      },
+    );
   },
 
-  getAssetById: async (id: string): Promise<{ asset: Asset }> => {
-    return await request(`/assets/${id}`, { method: "GET" });
+  getAssetById: async (
+    id: string,
+  ): Promise<{
+    asset: Asset;
+  }> => {
+    return await request(
+      `/assets/${id}`,
+      {
+        method: "GET",
+      },
+    );
   },
 
-  getAssetByAIN: async (ain: string): Promise<{ asset: Asset }> => {
-    return await request(`/assets/ain/${encodeURIComponent(ain)}`, {
-      method: "GET",
-    });
+  getAssetByAIN: async (
+    ain: string,
+  ): Promise<{
+    asset: Asset;
+  }> => {
+    return await request(
+      `/assets/ain/${encodeURIComponent(
+        ain,
+      )}`,
+      {
+        method: "GET",
+      },
+    );
   },
 
-  getPublicAssetByQR: async (qrId: string): Promise<{ asset: Asset }> => {
-    return await request(`/assets/public/qr/${encodeURIComponent(qrId)}`, {
-      method: "GET",
-    });
+  getPublicAssetByQR: async (
+    qrId: string,
+  ): Promise<{
+    asset: Asset;
+  }> => {
+    return await request(
+      `/assets/public/qr/${encodeURIComponent(
+        qrId,
+      )}`,
+      {
+        method: "GET",
+      },
+    );
   },
 
   createAsset: async (data: {
@@ -425,51 +800,98 @@ export const assetApi = {
     manufacturingMonth: number;
     manufacturingYear: number;
   }) => {
-    return await request("/assets", {
-      method: "POST",
-      body: JSON.stringify(data),
-    });
+    return await request(
+      "/assets",
+      {
+        method: "POST",
+        body: JSON.stringify(data),
+      },
+    );
   },
 
-  assignAsset: async (id: string, outletId: string, remarks?: string) => {
-    return await request(`/assets/${id}/assign`, {
-      method: "PUT",
-      body: JSON.stringify({ outletId, remarks }),
-    });
+  assignAsset: async (
+    id: string,
+    outletId: string,
+    remarks?: string,
+  ) => {
+    return await request(
+      `/assets/${id}/assign`,
+      {
+        method: "PUT",
+        body: JSON.stringify({
+          outletId,
+          remarks,
+        }),
+      },
+    );
   },
 
-  transferAsset: async (id: string, outletId: string, remarks?: string) => {
-    return await request(`/assets/${id}/transfer`, {
-      method: "PUT",
-      body: JSON.stringify({ outletId, remarks }),
-    });
+  transferAsset: async (
+    id: string,
+    outletId: string,
+    remarks?: string,
+  ) => {
+    return await request(
+      `/assets/${id}/transfer`,
+      {
+        method: "PUT",
+        body: JSON.stringify({
+          outletId,
+          remarks,
+        }),
+      },
+    );
   },
 
-  returnAsset: async (id: string, remarks?: string) => {
-    return await request(`/assets/${id}/return`, {
-      method: "PUT",
-      body: JSON.stringify({ remarks }),
-    });
+  returnAsset: async (
+    id: string,
+    remarks?: string,
+  ) => {
+    return await request(
+      `/assets/${id}/return`,
+      {
+        method: "PUT",
+        body: JSON.stringify({
+          remarks,
+        }),
+      },
+    );
   },
 
   getAssetHistory: async (
     assetId: string,
-  ): Promise<{ history: AssetHistoryRecord[] }> => {
-    return await request(`/asset-history/asset/${assetId}`, { method: "GET" });
+  ): Promise<{
+    history: AssetHistoryRecord[];
+  }> => {
+    return await request(
+      `/asset-history/asset/${assetId}`,
+      {
+        method: "GET",
+      },
+    );
   },
 };
 
+// ========================================
+// AUTHORIZATION API
+// ========================================
+
 export const authorizationApi = {
-  createAssetAuthorization: async (data: {
-    capacity: number;
-    manufacturingMonth: number;
-    manufacturingYear: number;
-    manufacturer: string;
-  }) => {
-    return await request("/authorizations", {
-      method: "POST",
-      body: JSON.stringify(data),
-    });
+  createAssetAuthorization: async (
+    data: {
+      capacity: number;
+      manufacturingMonth: number;
+      manufacturingYear: number;
+      manufacturer: string;
+    },
+  ) => {
+    return await request(
+      "/authorizations",
+      {
+        method: "POST",
+        body: JSON.stringify(data),
+      },
+    );
   },
 };
 
@@ -479,45 +901,94 @@ export const authorizationApi = {
 
 export const checkInApi = {
   createCheckIn: async (data: {
-    checkInType: "OFFICE" | "OUTLET";
+    checkInType:
+      | "OFFICE"
+      | "OUTLET";
     outletId?: string;
     latitude: number;
     longitude: number;
     remarks?: string;
-  }): Promise<{ message: string; checkIn: CheckInRecord }> => {
-    return await request("/check-ins", {
-      method: "POST",
-      body: JSON.stringify(data),
-    });
-  },
-
-  getLatestCheckIn: async (): Promise<{ checkIn: CheckInRecord | null }> => {
-    try {
-      return await request("/check-ins/latest", { method: "GET" });
-    } catch {
-      return { checkIn: null };
-    }
-  },
-
-  getMyHistory: async (params?: {
-    date?: string;
-    timezoneOffset?: number;
   }): Promise<{
+    message: string;
+    checkIn: CheckInRecord;
+  }> => {
+    return await request(
+      "/check-ins",
+      {
+        method: "POST",
+        body: JSON.stringify(data),
+      },
+    );
+  },
+
+  getLatestCheckIn:
+    async (): Promise<{
+      checkIn:
+        | CheckInRecord
+        | null;
+    }> => {
+      try {
+        return await request(
+          "/check-ins/latest",
+          {
+            method: "GET",
+          },
+        );
+      } catch {
+        return {
+          checkIn: null,
+        };
+      }
+    },
+
+  getMyHistory: async (
+    params?: {
+      date?: string;
+      timezoneOffset?: number;
+    },
+  ): Promise<{
     history: CheckInRecord[];
     count: number;
   }> => {
     try {
-      const query = new URLSearchParams();
-      if (params?.date) query.append("date", params.date);
-      if (params?.timezoneOffset !== undefined) {
-        query.append("timezoneOffset", String(params.timezoneOffset));
+      const query =
+        new URLSearchParams();
+
+      if (params?.date) {
+        query.append(
+          "date",
+          params.date,
+        );
       }
-      const qs = query.toString();
-      return await request(`/check-ins/history${qs ? `?${qs}` : ""}`, {
-        method: "GET",
-      });
+
+      if (
+        params?.timezoneOffset !==
+        undefined
+      ) {
+        query.append(
+          "timezoneOffset",
+          String(
+            params.timezoneOffset,
+          ),
+        );
+      }
+
+      const qs =
+        query.toString();
+
+      return await request(
+        `/check-ins/history${
+          qs ? `?${qs}` : ""
+        }`,
+        {
+          method: "GET",
+        },
+      );
     } catch {
-      return { history: [], count: 0 };
+      return {
+        history: [],
+        count: 0,
+      };
     }
   },
 };
@@ -527,31 +998,48 @@ export const checkInApi = {
 // ========================================
 
 export const verificationApi = {
-  getAssetForVerification: async (ain: string): Promise<{ asset: Asset }> => {
-    return await request(
-      `/verification-mappings/asset/ain/${encodeURIComponent(ain)}`,
-      {
-        method: "GET",
-      },
-    );
-  },
+  getAssetForVerification:
+    async (
+      ain: string,
+    ): Promise<{
+      asset: Asset;
+    }> => {
+      return await request(
+        `/verification-mappings/asset/ain/${encodeURIComponent(
+          ain,
+        )}`,
+        {
+          method: "GET",
+        },
+      );
+    },
 
-  createVerificationMapping: async (data: {
-    ain: string;
-    outletId: string;
-    remarks?: string;
-  }) => {
-    return await request("/verification-mappings", {
-      method: "POST",
-      body: JSON.stringify(data),
-    });
-  },
+  createVerificationMapping:
+    async (data: {
+      ain: string;
+      outletId: string;
+      remarks?: string;
+    }) => {
+      return await request(
+        "/verification-mappings",
+        {
+          method: "POST",
+          body: JSON.stringify(data),
+        },
+      );
+    },
 
-  getMyVerificationRequests: async (): Promise<{ mappings: any[] }> => {
-    return await request("/verification-mappings/my", {
-      method: "GET",
-    });
-  },
+  getMyVerificationRequests:
+    async (): Promise<{
+      mappings: any[];
+    }> => {
+      return await request(
+        "/verification-mappings/my",
+        {
+          method: "GET",
+        },
+      );
+    },
 };
 
 // ========================================
@@ -560,111 +1048,226 @@ export const verificationApi = {
 
 export const requestApi = {
   getAssetRequests: async (
-    params: { status?: string; search?: string } = {},
+    params: {
+      status?: string;
+      search?: string;
+    } = {},
   ): Promise<{
     requests: AssetRequestItem[];
   }> => {
     try {
-      const query = new URLSearchParams();
-      if (params.status) query.append("status", params.status);
-      if (params.search) query.append("search", params.search);
-      const qs = query.toString();
-      const response = await request(
-        `/asset-requests/my${qs ? `?${qs}` : ""}`,
-        {
-          method: "GET",
-        },
-      );
-      return { requests: response.assetRequests || [] };
+      const query =
+        new URLSearchParams();
+
+      if (params.status)
+        query.append(
+          "status",
+          params.status,
+        );
+
+      if (params.search)
+        query.append(
+          "search",
+          params.search,
+        );
+
+      const qs =
+        query.toString();
+
+      const response =
+        await request(
+          `/asset-requests/my${
+            qs ? `?${qs}` : ""
+          }`,
+          {
+            method: "GET",
+          },
+        );
+
+      return {
+        requests:
+          response.assetRequests ||
+          [],
+      };
     } catch {
-      return { requests: [] };
+      return {
+        requests: [],
+      };
     }
   },
 
-  getAllAssetRequests: async (
-    params: { status?: string; search?: string } = {},
-  ): Promise<{ requests: AssetRequestItem[] }> => {
-    try {
-      const query = new URLSearchParams();
-      if (params.status) query.append("status", params.status);
-      if (params.search) query.append("search", params.search);
-      const qs = query.toString();
-      const response = await request(
-        `/asset-requests/all${qs ? `?${qs}` : ""}`,
+  getAllAssetRequests:
+    async (
+      params: {
+        status?: string;
+        search?: string;
+      } = {},
+    ): Promise<{
+      requests: AssetRequestItem[];
+    }> => {
+      try {
+        const query =
+          new URLSearchParams();
+
+        if (params.status)
+          query.append(
+            "status",
+            params.status,
+          );
+
+        if (params.search)
+          query.append(
+            "search",
+            params.search,
+          );
+
+        const qs =
+          query.toString();
+
+        const response =
+          await request(
+            `/asset-requests/all${
+              qs ? `?${qs}` : ""
+            }`,
+            {
+              method: "GET",
+            },
+          );
+
+        return {
+          requests:
+            response.assetRequests ||
+            [],
+        };
+      } catch {
+        return {
+          requests: [],
+        };
+      }
+    },
+
+  updateAssetRequestStatus:
+    async (
+      id: string,
+      status:
+        | "APPROVED"
+        | "REJECTED",
+      remarks?: string,
+    ) => {
+      return await request(
+        `/asset-requests/${id}/status`,
         {
-          method: "GET",
+          method: "PATCH",
+          body: JSON.stringify({
+            status,
+            remarks,
+          }),
         },
       );
-      return { requests: response.assetRequests || [] };
-    } catch {
-      return { requests: [] };
-    }
-  },
+    },
 
-  updateAssetRequestStatus: async (
-    id: string,
-    status: "APPROVED" | "REJECTED",
-    remarks?: string,
-  ) => {
-    return await request(`/asset-requests/${id}/status`, {
-      method: "PATCH",
-      body: JSON.stringify({ status, remarks }),
-    });
-  },
-
-  createAssetRequest: async (data: {
-    outletId: string;
-    quantity: number;
-    reason: string;
-    remarks?: string;
-  }) => {
-    return await request("/asset-requests", {
-      method: "POST",
-      body: JSON.stringify(data),
-    });
-  },
+  createAssetRequest:
+    async (data: {
+      outletId: string;
+      quantity: number;
+      reason: string;
+      remarks?: string;
+    }) => {
+      return await request(
+        "/asset-requests",
+        {
+          method: "POST",
+          body: JSON.stringify(data),
+        },
+      );
+    },
 
   getRepairs: async (
-    params: { status?: string } = {},
-  ): Promise<{ repairs: RepairItem[] }> => {
+    params: {
+      status?: string;
+    } = {},
+  ): Promise<{
+    repairs: RepairItem[];
+  }> => {
     try {
-      const query = new URLSearchParams();
-      if (params.status) query.append("status", params.status);
-      const qs = query.toString();
-      return await request(`/repairs${qs ? `?${qs}` : ""}`, { method: "GET" });
+      const query =
+        new URLSearchParams();
+
+      if (params.status)
+        query.append(
+          "status",
+          params.status,
+        );
+
+      const qs =
+        query.toString();
+
+      return await request(
+        `/repairs${
+          qs ? `?${qs}` : ""
+        }`,
+        {
+          method: "GET",
+        },
+      );
     } catch {
-      return { repairs: [] };
+      return {
+        repairs: [],
+      };
     }
   },
 
-  createRepairRequest: async (data: {
-    assetId: string;
-    problem: string;
-    serviceProvider?: string;
-    remarks: string;
-    repairCost?: number;
-  }) => {
-    return await request("/repairs", {
-      method: "POST",
-      body: JSON.stringify(data),
-    });
-  },
+  createRepairRequest:
+    async (data: {
+      assetId: string;
+      problem: string;
+      serviceProvider?: string;
+      remarks: string;
+      repairCost?: number;
+    }) => {
+      return await request(
+        "/repairs",
+        {
+          method: "POST",
+          body: JSON.stringify(
+            data,
+          ),
+        },
+      );
+    },
 
-  getRepairAssetByAIN: async (ain: string): Promise<{ asset: Asset }> => {
-    return await request(`/repairs/asset/ain/${encodeURIComponent(ain)}`, {
-      method: "GET",
-    });
-  },
+  getRepairAssetByAIN:
+    async (
+      ain: string,
+    ): Promise<{
+      asset: Asset;
+    }> => {
+      return await request(
+        `/repairs/asset/ain/${encodeURIComponent(
+          ain,
+        )}`,
+        {
+          method: "GET",
+        },
+      );
+    },
 
-  createDisposal: async (data: {
-    assetId: string;
-    reason: string;
-    remarks?: string;
-  }) => {
-    return await request("/disposals", {
-      method: "POST",
-      body: JSON.stringify(data),
-    });
+  createDisposal: async (
+    data: {
+      assetId: string;
+      reason: string;
+      remarks?: string;
+    },
+  ) => {
+    return await request(
+      "/disposals",
+      {
+        method: "POST",
+        body: JSON.stringify(
+          data,
+        ),
+      },
+    );
   },
 };
 
@@ -674,60 +1277,129 @@ export const requestApi = {
 
 export const incomingRequestApi = {
   getAuthorizations: async () =>
-    await request("/authorizations", { method: "GET" }),
+    await request(
+      "/authorizations",
+      {
+        method: "GET",
+      },
+    ),
 
   getMyAuthorizations: async () =>
-    await request("/authorizations/my", { method: "GET" }),
+    await request(
+      "/authorizations/my",
+      {
+        method: "GET",
+      },
+    ),
 
-  reviewAuthorization: async (id: string, decision: "APPROVED" | "REJECTED") =>
-    await request(`/authorizations/${id}/decision`, {
-      method: "PATCH",
-      body: JSON.stringify({
-        decision,
-        rejectionReason:
-          decision === "REJECTED" ? "Rejected from mobile app." : undefined,
-      }),
-    }),
+  reviewAuthorization: async (
+    id: string,
+    decision:
+      | "APPROVED"
+      | "REJECTED",
+  ) =>
+    await request(
+      `/authorizations/${id}/decision`,
+      {
+        method: "PATCH",
+        body: JSON.stringify({
+          decision,
+          rejectionReason:
+            decision === "REJECTED"
+              ? "Rejected from mobile app."
+              : undefined,
+        }),
+      },
+    ),
 
-  getPendingVerifications: async () =>
-    await request("/verification-mappings/pending", { method: "GET" }),
+  getPendingVerifications:
+    async () =>
+      await request(
+        "/verification-mappings/pending",
+        {
+          method: "GET",
+        },
+      ),
 
-  reviewVerification: async (id: string, decision: "APPROVED" | "REJECTED") =>
-    await request(`/verification-mappings/${id}/review`, {
-      method: "PATCH",
-      body: JSON.stringify({
-        decision,
-        rejectionRemarks:
-          decision === "REJECTED" ? "Rejected from mobile app." : undefined,
-      }),
-    }),
+  reviewVerification: async (
+    id: string,
+    decision:
+      | "APPROVED"
+      | "REJECTED",
+  ) =>
+    await request(
+      `/verification-mappings/${id}/review`,
+      {
+        method: "PATCH",
+        body: JSON.stringify({
+          decision,
+          rejectionRemarks:
+            decision === "REJECTED"
+              ? "Rejected from mobile app."
+              : undefined,
+        }),
+      },
+    ),
 
   getPendingRepairs: async () =>
-    await request("/repairs/pending", { method: "GET" }),
+    await request(
+      "/repairs/pending",
+      {
+        method: "GET",
+      },
+    ),
 
-  getMyRepairs: async () => await request("/repairs/my", { method: "GET" }),
+  getMyRepairs: async () =>
+    await request(
+      "/repairs/my",
+      {
+        method: "GET",
+      },
+    ),
 
   updateRepairStatus: async (
     id: string,
-    status: "UNDER_REPAIR" | "COMPLETED",
+    status:
+      | "UNDER_REPAIR"
+      | "COMPLETED",
     repairCost?: number,
     remarks?: string,
   ) =>
-    await request(`/repairs/${id}/status`, {
-      method: "PUT",
-      body: JSON.stringify({ status, repairCost, remarks }),
-    }),
+    await request(
+      `/repairs/${id}/status`,
+      {
+        method: "PUT",
+        body: JSON.stringify({
+          status,
+          repairCost,
+          remarks,
+        }),
+      },
+    ),
 
-  approveRepair: async (id: string) =>
-    await request(`/repairs/${id}/approve`, { method: "PUT" }),
+  approveRepair: async (
+    id: string,
+  ) =>
+    await request(
+      `/repairs/${id}/approve`,
+      {
+        method: "PUT",
+      },
+    ),
 
-  rejectRepair: async (id: string) =>
-    await request(`/repairs/${id}/reject`, {
-      method: "PUT",
-      body: JSON.stringify({
-        rejectionReason: "Rejected from mobile app.",
-      }),
-    }),
+  rejectRepair: async (
+    id: string,
+  ) =>
+    await request(
+      `/repairs/${id}/reject`,
+      {
+        method: "PUT",
+        body: JSON.stringify({
+          rejectionReason:
+            "Rejected from mobile app.",
+        }),
+      },
+    ),
 };
 
 // ========================================
@@ -736,23 +1408,58 @@ export const incomingRequestApi = {
 
 export const outletApi = {
   getOutlets: async (
-    params: { status?: string; search?: string } = {},
+    params: {
+      status?: string;
+      search?: string;
+    } = {},
   ): Promise<{
     outlets: OutletRef[];
   }> => {
     try {
-      const query = new URLSearchParams();
-      if (params.status) query.append("status", params.status);
-      if (params.search) query.append("search", params.search);
-      const qs = query.toString();
-      return await request(`/outlets${qs ? `?${qs}` : ""}`, { method: "GET" });
+      const query =
+        new URLSearchParams();
+
+      if (params.status)
+        query.append(
+          "status",
+          params.status,
+        );
+
+      if (params.search)
+        query.append(
+          "search",
+          params.search,
+        );
+
+      const qs =
+        query.toString();
+
+      return await request(
+        `/outlets${
+          qs ? `?${qs}` : ""
+        }`,
+        {
+          method: "GET",
+        },
+      );
     } catch {
-      return { outlets: [] };
+      return {
+        outlets: [],
+      };
     }
   },
 
-  getOutletById: async (id: string): Promise<{ outlet: OutletRef }> => {
-    return await request(`/outlets/${id}`, { method: "GET" });
+  getOutletById: async (
+    id: string,
+  ): Promise<{
+    outlet: OutletRef;
+  }> => {
+    return await request(
+      `/outlets/${id}`,
+      {
+        method: "GET",
+      },
+    );
   },
 
   createOutlet: async (data: {
@@ -764,11 +1471,19 @@ export const outletApi = {
     contactPerson?: string;
     phone?: string;
     status?: string;
-  }): Promise<{ message: string; outlet: OutletRef }> => {
-    return await request("/outlets", {
-      method: "POST",
-      body: JSON.stringify(data),
-    });
+  }): Promise<{
+    message: string;
+    outlet: OutletRef;
+  }> => {
+    return await request(
+      "/outlets",
+      {
+        method: "POST",
+        body: JSON.stringify(
+          data,
+        ),
+      },
+    );
   },
 
   updateOutlet: async (
@@ -783,64 +1498,121 @@ export const outletApi = {
       contactPerson?: string;
       phone?: string;
     },
-  ): Promise<{ message: string; outlet: OutletRef }> => {
-    return await request(`/outlets/${id}`, {
-      method: "PATCH",
-      body: JSON.stringify(data),
-    });
+  ): Promise<{
+    message: string;
+    outlet: OutletRef;
+  }> => {
+    return await request(
+      `/outlets/${id}`,
+      {
+        method: "PATCH",
+        body: JSON.stringify(
+          data,
+        ),
+      },
+    );
   },
 
-  getOutletAssets: async (outletId: string): Promise<{ assets: Asset[] }> => {
+  getOutletAssets: async (
+    outletId: string,
+  ): Promise<{
+    assets: Asset[];
+  }> => {
     try {
-      return await request(`/assets?outlet=${encodeURIComponent(outletId)}`, {
-        method: "GET",
-      });
+      return await request(
+        `/assets?outlet=${encodeURIComponent(
+          outletId,
+        )}`,
+        {
+          method: "GET",
+        },
+      );
     } catch {
-      return { assets: [] };
+      return {
+        assets: [],
+      };
     }
   },
 
-  getRegions: async (): Promise<{ regions: RegionRef[] }> => {
+  getRegions: async (): Promise<{
+    regions: RegionRef[];
+  }> => {
     try {
-      return await request("/regions", { method: "GET" });
+      return await request(
+        "/regions",
+        {
+          method: "GET",
+        },
+      );
     } catch {
-      return { regions: [] };
+      return {
+        regions: [],
+      };
     }
   },
 
   getDistricts: async (
     regionId?: string,
-  ): Promise<{ districts: DistrictRef[] }> => {
+  ): Promise<{
+    districts: DistrictRef[];
+  }> => {
     try {
       const endpoint = regionId
         ? `/districts?region=${regionId}`
         : "/districts";
-      return await request(endpoint, { method: "GET" });
+
+      return await request(
+        endpoint,
+        {
+          method: "GET",
+        },
+      );
     } catch {
-      return { districts: [] };
+      return {
+        districts: [],
+      };
     }
   },
 
   getDistributors: async (
     districtId?: string,
-  ): Promise<{ distributors: DistributorRef[] }> => {
+  ): Promise<{
+    distributors: DistributorRef[];
+  }> => {
     try {
-      const endpoint = districtId
-        ? `/distributors?district=${districtId}`
-        : "/distributors";
-      return await request(endpoint, { method: "GET" });
+      const endpoint =
+        districtId
+          ? `/distributors?district=${districtId}`
+          : "/distributors";
+
+      return await request(
+        endpoint,
+        {
+          method: "GET",
+        },
+      );
     } catch {
-      return { distributors: [] };
+      return {
+        distributors: [],
+      };
     }
   },
 
-  getManufacturers: async () => {
-    try {
-      return await request("/manufacturers", { method: "GET" });
-    } catch {
-      return { manufacturers: [] };
-    }
-  },
+  getManufacturers:
+    async () => {
+      try {
+        return await request(
+          "/manufacturers",
+          {
+            method: "GET",
+          },
+        );
+      } catch {
+        return {
+          manufacturers: [],
+        };
+      }
+    },
 };
 
 // ========================================
@@ -850,35 +1622,69 @@ export const outletApi = {
 export const dashboardApi = {
   getStats: async () => {
     try {
-      const [totalRes, inStockRes, assignedRes, disposedRes, latestCheckInRes] =
+      const [
+        totalRes,
+        inStockRes,
+        assignedRes,
+        disposedRes,
+        latestCheckInRes,
+      ] =
         await Promise.allSettled([
-          request("/assets?page=1&limit=1"),
-          request("/assets?status=IN_STOCK&page=1&limit=1"),
-          request("/assets?status=ASSIGNED&page=1&limit=1"),
-          request("/assets?status=DISPOSED&page=1&limit=1"),
-          request("/check-ins/latest"),
+          request(
+            "/assets?page=1&limit=1",
+          ),
+
+          request(
+            "/assets?status=IN_STOCK&page=1&limit=1",
+          ),
+
+          request(
+            "/assets?status=ASSIGNED&page=1&limit=1",
+          ),
+
+          request(
+            "/assets?status=DISPOSED&page=1&limit=1",
+          ),
+
+          request(
+            "/check-ins/latest",
+          ),
         ]);
 
       return {
         totalAssets:
-          totalRes.status === "fulfilled"
-            ? totalRes.value?.totalAssets || 0
+          totalRes.status ===
+          "fulfilled"
+            ? totalRes.value
+                ?.totalAssets || 0
             : 0,
+
         inStockAssets:
-          inStockRes.status === "fulfilled"
-            ? inStockRes.value?.totalAssets || 0
+          inStockRes.status ===
+          "fulfilled"
+            ? inStockRes.value
+                ?.totalAssets || 0
             : 0,
+
         assignedAssets:
-          assignedRes.status === "fulfilled"
-            ? assignedRes.value?.totalAssets || 0
+          assignedRes.status ===
+          "fulfilled"
+            ? assignedRes.value
+                ?.totalAssets || 0
             : 0,
+
         disposedAssets:
-          disposedRes.status === "fulfilled"
-            ? disposedRes.value?.totalAssets || 0
+          disposedRes.status ===
+          "fulfilled"
+            ? disposedRes.value
+                ?.totalAssets || 0
             : 0,
+
         latestCheckIn:
-          latestCheckInRes.status === "fulfilled"
-            ? latestCheckInRes.value?.checkIn || null
+          latestCheckInRes.status ===
+          "fulfilled"
+            ? latestCheckInRes.value
+                ?.checkIn || null
             : null,
       };
     } catch {
@@ -898,33 +1704,74 @@ export const dashboardApi = {
 // ========================================
 
 export const api = {
-  get: async (endpoint: string) => {
-    return await request(endpoint, { method: "GET" });
+  get: async (
+    endpoint: string,
+  ) => {
+    return await request(
+      endpoint,
+      {
+        method: "GET",
+      },
+    );
   },
 
-  post: async (endpoint: string, body?: any) => {
-    return await request(endpoint, {
-      method: "POST",
-      body: body !== undefined ? JSON.stringify(body) : undefined,
-    });
+  post: async (
+    endpoint: string,
+    body?: any,
+  ) => {
+    return await request(
+      endpoint,
+      {
+        method: "POST",
+        body:
+          body !== undefined
+            ? JSON.stringify(body)
+            : undefined,
+      },
+    );
   },
 
-  patch: async (endpoint: string, body?: any) => {
-    return await request(endpoint, {
-      method: "PATCH",
-      body: body !== undefined ? JSON.stringify(body) : undefined,
-    });
+  patch: async (
+    endpoint: string,
+    body?: any,
+  ) => {
+    return await request(
+      endpoint,
+      {
+        method: "PATCH",
+        body:
+          body !== undefined
+            ? JSON.stringify(body)
+            : undefined,
+      },
+    );
   },
 
-  put: async (endpoint: string, body?: any) => {
-    return await request(endpoint, {
-      method: "PUT",
-      body: body !== undefined ? JSON.stringify(body) : undefined,
-    });
+  put: async (
+    endpoint: string,
+    body?: any,
+  ) => {
+    return await request(
+      endpoint,
+      {
+        method: "PUT",
+        body:
+          body !== undefined
+            ? JSON.stringify(body)
+            : undefined,
+      },
+    );
   },
 
-  delete: async (endpoint: string) => {
-    return await request(endpoint, { method: "DELETE" });
+  delete: async (
+    endpoint: string,
+  ) => {
+    return await request(
+      endpoint,
+      {
+        method: "DELETE",
+      },
+    );
   },
 };
 
