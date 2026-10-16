@@ -1,713 +1,940 @@
-# Igloo Asset Management System
+<div align="center">
 
-A full-stack Asset Management System designed to manage company assets, asset assignments, transfers, returns, verification, outlets, users, check-ins, and operational workflows through a web application and a dedicated mobile application.
+# 🧊 IGLOO ASSET MANAGEMENT SYSTEM
 
-The system consists of a **Backend API**, **Web Application**, and **Android Mobile Application**, all connected to a centralized production backend and database.
+### Enterprise Full-Stack Web + Mobile Asset Management Platform
+
+**Centralizing Commercial Freezer Assets • Outlets • Field Operations • Verification • Role-Based Workflows**
+
+<br>
+
+![React](https://img.shields.io/badge/React-19-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Node.js](https://img.shields.io/badge/Node.js-Backend-20232A?style=for-the-badge&logo=nodedotjs&logoColor=339933)
+![Express.js](https://img.shields.io/badge/Express.js-5-20232A?style=for-the-badge&logo=express&logoColor=FFFFFF)
+![MongoDB](https://img.shields.io/badge/MongoDB-Database-20232A?style=for-the-badge&logo=mongodb&logoColor=47A248)
+![React Native](https://img.shields.io/badge/React_Native-Mobile-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Expo](https://img.shields.io/badge/Expo-Mobile-20232A?style=for-the-badge&logo=expo&logoColor=FFFFFF)
+
+<br>
+
+**Developed by Md. Sakib Al-Hasan**  
+*Software Development Internship Project — Abdul Monem Ltd (Igloo)*
+
+</div>
 
 ---
 
-## 📌 Project Overview
+# 📌 Project Overview
 
-The **Igloo Asset Management System (AMS)** provides a centralized platform for managing organizational assets throughout their lifecycle.
+The **Igloo Asset Management System (AMS)** is a full-stack web and mobile software platform developed to support the operational management of commercial freezer assets.
 
-The system supports:
+The system centralizes **assets, outlets, organizational users, field operations, verification processes, approval workflows, asset movements, repairs, and access control** through a shared backend architecture.
 
-* Asset registration and management
-* Asset assignment and transfer
-* Asset return and disposal
-* Asset authorization
-* Asset verification
-* QR-based asset identification
-* Verification mapping
-* Outlet registration and management
-* Existing asset verification for outlets
-* User management
-* Role-based access control
-* Check-in and attendance workflows
-* Regional, district, distributor, and outlet management
-* Asset and verification history
-* Mobile field operations
+The platform consists of:
 
-The project contains both a browser-based web application and a lightweight Android mobile application for field users.
+- 🌐 A **React-based web application** for administrative and operational workflows
+- ⚙️ A **Node.js + Express.js REST API** containing shared business logic
+- 🗄️ A **MongoDB + Mongoose database layer**
+- 📱 A **React Native + Expo Android application** focused on field operations
+
+Both web and mobile applications communicate with the same backend and database, allowing business rules and operational data to remain consistent across platforms.
+
+---
+
+# 🎯 Project Objective
+
+Commercial freezer asset operations involve multiple organizational roles, field personnel, outlets, verification stages, and asset lifecycle activities.
+
+The system was designed to provide a centralized digital workflow for:
+
+- Managing commercial freezer assets
+- Associating assets with outlets
+- Identifying assets through structured AIN and QR-based workflows
+- Coordinating field and administrative operations
+- Managing verification requests and approvals
+- Maintaining asset history and traceability
+- Controlling access according to organizational responsibilities
+- Providing field-focused functionality through an Android application
+
+The goal was to transform operational requirements into a structured, secure, and maintainable software platform.
+
+---
+
+# ✨ Project Highlights
+
+```text
+🌐 Full-Stack Web Application
+⚙️ REST API Backend
+🗄️ Centralized MongoDB Database
+📱 Field-Focused Android Application
+🔐 JWT Authentication
+👥 Role-Based Authorization
+🛡️ Granular Access Rights
+📦 Asset Lifecycle Management
+🏪 Outlet Management
+🆔 Asset Identification Number (AIN)
+📱 QR / Barcode-Based Identification
+✅ Verification & Approval Workflows
+🔄 Rejection & Resubmission Workflows
+📍 GPS-Supported Field Check-Ins
+🛠️ Repair Operations
+🚚 Asset Transfer & Return
+📜 Operational History & Traceability
+```
+
+---
+
+# ⚙️ Project Stack
+
+<div align="center">
+
+![JavaScript](https://img.shields.io/badge/JavaScript-0D1117?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
+![TypeScript](https://img.shields.io/badge/TypeScript-0D1117?style=for-the-badge&logo=typescript&logoColor=3178C6)
+![React](https://img.shields.io/badge/React-0D1117?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Vite](https://img.shields.io/badge/Vite-0D1117?style=for-the-badge&logo=vite&logoColor=646CFF)
+![Node.js](https://img.shields.io/badge/Node.js-0D1117?style=for-the-badge&logo=nodedotjs&logoColor=339933)
+![Express.js](https://img.shields.io/badge/Express.js-0D1117?style=for-the-badge&logo=express&logoColor=FFFFFF)
+![MongoDB](https://img.shields.io/badge/MongoDB-0D1117?style=for-the-badge&logo=mongodb&logoColor=47A248)
+![Mongoose](https://img.shields.io/badge/Mongoose-0D1117?style=for-the-badge&logo=mongoose&logoColor=880000)
+![React Native](https://img.shields.io/badge/React_Native-0D1117?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Expo](https://img.shields.io/badge/Expo-0D1117?style=for-the-badge&logo=expo&logoColor=FFFFFF)
+![Git](https://img.shields.io/badge/Git-0D1117?style=for-the-badge&logo=git&logoColor=F05032)
+![Postman](https://img.shields.io/badge/Postman-0D1117?style=for-the-badge&logo=postman&logoColor=FF6C37)
+
+</div>
 
 ---
 
 # 🏗️ System Architecture
 
 ```text
-                    ┌─────────────────────────┐
-                    │         GitHub          │
-                    │   Project Source Code   │
-                    └────────────┬────────────┘
-                                 │
-                ┌────────────────┼────────────────┐
-                │                │                │
-                ▼                ▼                ▼
-        ┌──────────────┐ ┌──────────────┐ ┌──────────────┐
-        │   Backend    │ │ Web Frontend │ │ Mobile App   │
-        │   Node.js    │ │ React        │ │ Expo / RN    │
-        └──────┬───────┘ └──────┬───────┘ └──────┬───────┘
-               │                │                │
-               │                └───────┬────────┘
-               │                        │
-               ▼                        ▼
-        ┌─────────────────────────────────────┐
-        │          Production API             │
-        │             Render                  │
-        └──────────────────┬──────────────────┘
-                           │
-                           ▼
-                    ┌──────────────┐
-                    │   MongoDB    │
-                    │   Database   │
-                    └──────────────┘
+                  ┌──────────────────────────┐
+                  │      USERS / CLIENTS     │
+                  └────────────┬─────────────┘
+                               │
+                 ┌─────────────┴─────────────┐
+                 │                           │
+                 ▼                           ▼
+       ┌───────────────────┐       ┌───────────────────┐
+       │   React Web App   │       │ React Native App  │
+       │   React + Vite    │       │      + Expo       │
+       └─────────┬─────────┘       └─────────┬─────────┘
+                 │                           │
+                 └─────────────┬─────────────┘
+                               │
+                               │ REST API
+                               ▼
+                 ┌───────────────────────────┐
+                 │     Node.js + Express     │
+                 │                           │
+                 │  Authentication           │
+                 │  Authorization            │
+                 │  Validation               │
+                 │  Business Logic           │
+                 │  API Controllers          │
+                 └─────────────┬─────────────┘
+                               │
+                               ▼
+                 ┌───────────────────────────┐
+                 │    MongoDB + Mongoose     │
+                 │                           │
+                 │ Assets                    │
+                 │ Users                     │
+                 │ Outlets                   │
+                 │ Verification              │
+                 │ Operational Records       │
+                 └───────────────────────────┘
 ```
+
+### Architecture Principle
+
+> **One backend • One centralized database • Multiple client applications • Consistent business logic**
+
+The React web application and React Native mobile application consume the same REST API, reducing duplicated business logic and maintaining consistent operational data.
 
 ---
 
-# 📂 Repository Structure
+# 🛠️ Tech Stack
+
+## 💻 Languages
+
+![JavaScript](https://img.shields.io/badge/JavaScript-0D1117?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
+![TypeScript](https://img.shields.io/badge/TypeScript-0D1117?style=for-the-badge&logo=typescript&logoColor=3178C6)
+![HTML5](https://img.shields.io/badge/HTML5-0D1117?style=for-the-badge&logo=html5&logoColor=E34F26)
+![CSS3](https://img.shields.io/badge/CSS3-0D1117?style=for-the-badge&logo=css3&logoColor=1572B6)
+
+---
+
+## 🎨 Frontend Development
+
+![React](https://img.shields.io/badge/React-0D1117?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Vite](https://img.shields.io/badge/Vite-0D1117?style=for-the-badge&logo=vite&logoColor=646CFF)
+![React Router](https://img.shields.io/badge/React_Router-0D1117?style=for-the-badge&logo=reactrouter&logoColor=CA4245)
+![Axios](https://img.shields.io/badge/Axios-0D1117?style=for-the-badge&logo=axios&logoColor=5A29E4)
+
+**Frontend responsibilities include:**
+
+- User interfaces
+- Navigation and protected routes
+- Dashboard workflows
+- Asset operations
+- Outlet management
+- Verification interfaces
+- User and permission management
+- API integration
+- Form validation and error handling
+- Responsive application interfaces
+
+---
+
+## ⚙️ Backend & API Development
+
+![Node.js](https://img.shields.io/badge/Node.js-0D1117?style=for-the-badge&logo=nodedotjs&logoColor=339933)
+![Express.js](https://img.shields.io/badge/Express.js-0D1117?style=for-the-badge&logo=express&logoColor=FFFFFF)
+![REST API](https://img.shields.io/badge/REST_API-0D1117?style=for-the-badge&logo=fastapi&logoColor=009688)
+![JWT](https://img.shields.io/badge/JWT-0D1117?style=for-the-badge&logo=jsonwebtokens&logoColor=FFFFFF)
+
+**Backend responsibilities include:**
+
+- REST API endpoints
+- Authentication
+- Authorization
+- Access-right validation
+- Business rules
+- Data validation
+- Database operations
+- Asset workflows
+- Verification workflows
+- User management
+- Error handling
+- Client-server communication
+
+---
+
+## 🗄️ Database
+
+![MongoDB](https://img.shields.io/badge/MongoDB-0D1117?style=for-the-badge&logo=mongodb&logoColor=47A248)
+![Mongoose](https://img.shields.io/badge/Mongoose-0D1117?style=for-the-badge&logo=mongoose&logoColor=880000)
+
+MongoDB provides centralized persistence for operational data, while Mongoose is used for schema modeling and application-level database operations.
+
+Major data domains include:
 
 ```text
-Asset Management System/
-│
-├── Backend/
-│   ├── controllers/
-│   ├── models/
-│   ├── routes/
-│   ├── middleware/
-│   ├── services/
-│   ├── config/
-│   ├── utils/
-│   ├── server.js
-│   └── package.json
-│
-├── Frontend/
-│   ├── src/
-│   ├── public/
-│   ├── components/
-│   ├── pages/
-│   ├── services/
-│   └── package.json
-│
-├── Mobile/
-│   └── AMS/
-│       ├── src/
-│       │   ├── app/
-│       │   ├── components/
-│       │   ├── constants/
-│       │   ├── services/
-│       │   └── ...
-│       ├── assets/
-│       ├── app.json
-│       ├── eas.json
-│       └── package.json
-│
-└── README.md
+Assets
+Users
+Outlets
+Regions
+Districts
+Distributors
+Manufacturers
+Verification Records
+Verification Mappings
+Asset Requests
+Check-In Records
+Operational History
 ```
 
 ---
 
-# 🚀 Main Features
+## 📱 Mobile Development
 
-## 🔐 Authentication
+![React Native](https://img.shields.io/badge/React_Native-0D1117?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Expo](https://img.shields.io/badge/Expo-0D1117?style=for-the-badge&logo=expo&logoColor=FFFFFF)
+![TypeScript](https://img.shields.io/badge/TypeScript-0D1117?style=for-the-badge&logo=typescript&logoColor=3178C6)
 
-* User login
-* JWT-based authentication
-* Secure password handling
-* Forgot password
-* Password reset
-* Change password
-* Profile management
-* Protected routes
-* Session-based authentication state
+The Android application was designed as a **lightweight field-focused client** rather than a duplicate of every administrative web feature.
+
+Mobile capabilities include:
+
+- Secure authentication
+- Field dashboard
+- Asset search
+- Asset operations
+- QR / barcode scanning
+- Verification workflows
+- Verification history
+- Asset requests
+- Repair workflows
+- Outlet registration
+- Existing asset onboarding
+- GPS-supported check-ins
+- Profile functionality
+- Secure token storage
+- Shared REST API integration
+
+---
+
+## 🔧 Development Tools
+
+![Git](https://img.shields.io/badge/Git-0D1117?style=for-the-badge&logo=git&logoColor=F05032)
+![GitHub](https://img.shields.io/badge/GitHub-0D1117?style=for-the-badge&logo=github&logoColor=FFFFFF)
+![Postman](https://img.shields.io/badge/Postman-0D1117?style=for-the-badge&logo=postman&logoColor=FF6C37)
+![VS Code](https://img.shields.io/badge/VS_Code-0D1117?style=for-the-badge&logo=visualstudiocode&logoColor=007ACC)
+
+Used for:
+
+- Source control
+- Repository management
+- API testing
+- Debugging
+- Development
+- Release management
+- Production deployment workflow
+
+---
+
+# ✨ Core Features
+
+## 📦 Asset Management
+
+The platform supports structured management of commercial freezer assets throughout their operational lifecycle.
+
+Key functionality includes:
+
+- Asset registration
+- Asset identification
+- AIN management
+- Serial number association
+- Manufacturer information
+- Capacity information
+- Manufacturing information
+- Outlet assignment
+- Asset search
+- Asset status management
+- Asset history
+- Asset movement tracking
+
+---
+
+## 🏪 Outlet Management
+
+Outlet workflows allow operational users to manage locations associated with freezer assets.
+
+Capabilities include:
+
+- Outlet registration
+- Existing outlet search
+- Region association
+- District association
+- Distributor association
+- Outlet type
+- Outlet contact information
+- Existing asset association
+- Asset assignment
+
+---
+
+## ✅ Asset Verification
+
+Verification is one of the major operational workflows of the system.
+
+```text
+Asset / Outlet Information
+          │
+          ▼
+Verification Request
+          │
+          ▼
+Verification Mapping
+          │
+          ▼
+Asset Identification
+          │
+          ▼
+Administrative Review
+       ┌──┴──┐
+       │     │
+       ▼     ▼
+    APPROVE REJECT
+       │     │
+       │     ▼
+       │   Remarks
+       │     │
+       │     ▼
+       │  Correction
+       │     │
+       │     ▼
+       │ Resubmission
+       │     │
+       └─────┴──────────► Final Verification
+```
+
+The workflow supports:
+
+- New verification requests
+- Existing verification requests
+- Verification mapping
+- AIN-based identification
+- Outlet association
+- Administrative review
+- Approval
+- Rejection with remarks
+- Correction
+- Resubmission
+- Verification history
+
+---
+
+## 🔄 Asset Operations
+
+The system supports operational asset workflows including:
+
+```text
+Assignment
+   ↓
+Transfer
+   ↓
+Return
+   ↓
+Repair
+   ↓
+Disposal / Lifecycle History
+```
+
+These processes help maintain asset traceability across operational changes.
+
+---
+
+## 📍 Field Operations
+
+Field-oriented functionality includes:
+
+- GPS-supported check-ins
+- Outlet-level operations
+- Asset lookup
+- QR / barcode scanning
+- Verification
+- Asset requests
+- Repair workflows
+- Mobile field activities
+
+---
+
+## 👥 User & Access Management
+
+The platform supports multiple organizational user types with controlled access to operational functionality.
+
+Capabilities include:
+
+- User creation and management
+- User status management
+- Authentication
+- Role-based authorization
+- Access-right management
+- Profile management
+- Password management
+- Password recovery
+- Inactive account handling
 
 ---
 
 # 👥 User Roles
 
-The system supports the following user roles:
+The system supports five primary organizational roles:
 
-* **SYSTEM_ADMIN**
-* **ASO**
-* **TSO**
-* **TSM**
-* **TECHNICIAN**
+| Role | Operational Purpose |
+|---|---|
+| **SYSTEM_ADMIN** | Central administration, approvals, users, permissions and system-level operations |
+| **ASO** | Assigned asset and operational workflows |
+| **TSO** | Territory-oriented asset and field operations |
+| **TSM** | Management and assigned operational workflows |
+| **TECHNICIAN** | Technical and field-focused asset operations |
 
-The system also supports active/inactive user status and role-based access control.
-
-The system is designed with a single System Administrator restriction to prevent unauthorized creation or assignment of additional System Administrator accounts.
+Access to features is controlled according to assigned roles and permissions.
 
 ---
 
-# 📦 Asset Management
+# 🔐 Authentication & Security
 
-The asset module supports the complete asset lifecycle.
+Security was incorporated into the application architecture rather than treated as a purely UI-level restriction.
 
-### Asset Operations
-
-* Add assets
-* View assets
-* Update assets
-* Assign assets
-* Transfer assets
-* Return assets
-* Dispose assets
-* View asset history
-* View asset verification history
-* Generate and use asset QR codes
-
-### Asset Lifecycle
+### Authentication
 
 ```text
-Asset Creation
+User Credentials
       │
       ▼
-Asset Assignment
+Authentication Request
       │
       ▼
-AIN + Serial Number
+Backend Validation
       │
       ▼
-QR Generation
+JWT Generation
       │
       ▼
-QR Scanning
+Authenticated Session
       │
       ▼
-Verification Mapping
-      │
-      ▼
-Admin Approval
-      │
-      ▼
-Asset Activated
+Protected API Requests
 ```
 
----
+### Security Features
 
-# 🔎 Verification Mapping
+- 🔑 JWT-based authentication
+- 🔒 Password hashing
+- 🛡️ Protected API routes
+- 👥 Role-based authorization
+- 🎛️ Granular access rights
+- ✅ Request and data validation
+- 🚫 Inactive-account handling
+- 🔁 Password recovery workflow
+- 🌐 Controlled CORS configuration
+- 📱 Secure mobile token storage
 
-The verification mapping workflow connects an asset with its assigned outlet.
-
-### Workflow
-
-```text
-Asset Created
-     ↓
-Asset Assigned to Outlet
-     ↓
-AIN + Serial Number Generated
-     ↓
-QR Code Generated
-     ↓
-User Scans QR Code
-     ↓
-Verification Mapping
-     ↓
-AIN Entered
-     ↓
-Assigned Outlet Displayed
-     ↓
-Verification Submitted
-     ↓
-System Admin Review
-     ├── Approve → Asset Activated
-     └── Reject  → Remarks Required → Resubmission
-```
-
-The system also maintains verification history.
-
----
-
-# 🏪 Outlet Management
-
-The system supports outlet registration and asset management.
-
-### Outlet Features
-
-* Outlet search
-* Outlet registration
-* Region selection
-* District selection
-* Distributor selection
-* Outlet type
-* Outlet name
-* Address
-* Contact person
-* Phone number
-* Assigned asset viewing
-* Existing asset registration
-* Verification request submission
-
-### Existing Asset Workflow
-
-```text
-Search Outlet
-      ↓
-Outlet Found?
-   ┌──┴──┐
-  Yes    No
-   │      │
-   │      ▼
-   │   Create Outlet
-   │      │
-   └──┬───┘
-      ↓
-Add Existing Assets
-      ↓
-Enter Asset Information
-      ↓
-Submit Verification Request
-      ↓
-Verification Mapping
-```
-
----
-
-# 📍 Check-In Management
-
-The system supports field check-in operations.
-
-Features include:
-
-* User check-in
-* Check-in history
-* All check-in history
-* Outlet-specific check-in information
-* Location-related field workflows
-
----
-
-# 🌍 Geographic Management
-
-The web system supports management of:
-
-* Regions
-* Districts
-* Distributors
-* Outlets
-
-These entities are connected to the asset and operational workflows.
-
----
-
-# 🔑 Access Rights
-
-System administrators can configure user feature permissions.
-
-Permission areas include:
-
-* Dashboard
-* Users
-* Assets
-* Asset Operations
-* Asset Authorization
-* Verification Mapping
-* Outlets
-* Check-Ins
-* Regions
-* Districts
-* Distributors
-* Reports
-
-The permission system is designed around the actual features available in the application rather than unnecessary delete permissions.
-
----
-
-# 📱 Mobile Application
-
-The project includes a lightweight **Expo React Native Android application** designed primarily for field operations.
-
-### Mobile Navigation
-
-```text
-Home
-Assets
-Operations
-Outlet
-Requests
-Profile
-```
-
-The mobile application focuses on field-relevant functionality instead of reproducing every administrative feature of the web application.
-
----
-
-# 📱 Mobile Technology
-
-The mobile application is built using:
-
-* React Native
-* Expo
-* Expo Router
-* TypeScript
-* Expo Secure Store
-* Expo Camera
-* Expo Location
-* React Native components
-* EAS Build
+> Authorization is enforced through backend application logic rather than relying solely on frontend visibility.
 
 ---
 
 # 🌐 Web Application
 
-The web application provides the broader administrative and operational interface.
+The web application provides the broader administrative and operational interface of the platform.
 
-### Web Technologies
-
-* React
-* JavaScript / JSX
-* CSS
-* REST API
-* JWT authentication
-
-The web application provides management functionality for administrators and operational users.
-
----
-
-# ⚙️ Backend
-
-The backend provides the central REST API used by both the web application and mobile application.
-
-### Backend Technologies
-
-* Node.js
-* Express.js
-* MongoDB
-* Mongoose
-* JWT
-* bcrypt
-* Crypto
-* REST API
-* Email service integration
-
----
-
-# 🔗 Production API
-
-The production backend is hosted on Render.
+Major web areas include:
 
 ```text
-https://igloo-asset-management-system.onrender.com/api
+Dashboard
+Assets
+Verification
+Verification Mapping
+Verification History
+Asset Requests
+Asset Operations
+Check-Ins
+Regions
+Districts
+Distributors
+Outlets
+Users
+Access Rights
+Profile
+Authentication
 ```
 
-The mobile application is configured to communicate with the production backend.
-
-No local backend server is required for the production Android application.
+The web client communicates with the backend through REST APIs and provides interfaces based on the authenticated user's assigned permissions.
 
 ---
 
-# 🗄️ Database
+# 📱 Android Mobile Application
 
-The system uses **MongoDB** as its primary database.
+The mobile application extends the system to field users through a focused Android experience.
 
-The backend uses **Mongoose** for database modeling and interaction.
-
-Major data areas include:
-
-* Users
-* Assets
-* Outlets
-* Regions
-* Districts
-* Distributors
-* Authorizations
-* Verification mappings
-* Check-ins
-* Asset history
-
----
-
-# 🔒 Security
-
-The system implements several security mechanisms:
-
-* JWT authentication
-* Password hashing with bcrypt
-* Protected API routes
-* Role-based access control
-* Feature-level access rights
-* Secure password reset tokens
-* Password reset token expiration
-* Secure token storage in the mobile application
-* Authentication-protected web routes
-
----
-
-# 🛠️ Local Development
-
-## Backend
-
-Navigate to the backend directory:
-
-```bash
-cd Backend
-```
-
-Install dependencies:
-
-```bash
-npm install
-```
-
-Create the required environment configuration.
-
-Then start the backend using the project's configured start command.
-
----
-
-## Frontend
-
-Navigate to the frontend directory:
-
-```bash
-cd Frontend
-```
-
-Install dependencies:
-
-```bash
-npm install
-```
-
-Start the development server using the project's configured command.
-
----
-
-## Mobile
-
-Navigate to the mobile project:
-
-```bash
-cd Mobile/AMS
-```
-
-Install dependencies:
-
-```bash
-npm install
-```
-
-Start Expo:
-
-```bash
-npx expo start
-```
-
-For Android development:
-
-```bash
-npx expo start --android
-```
-
----
-
-# 📦 Android Production Build
-
-The Android application is configured for **EAS Build**.
-
-EAS configuration is stored in:
+### Mobile Navigation
 
 ```text
-Mobile/AMS/eas.json
+Home
+  │
+  ├── Assets
+  │
+  ├── Operations
+  │
+  ├── Outlet
+  │
+  ├── Requests
+  │
+  └── Profile
 ```
 
-The application package identifier is:
+### Mobile Capabilities
 
 ```text
-com.nexora.asset
+Authentication
+Asset Search
+QR / Barcode Scanning
+Verification
+Verification History
+New Asset Requests
+Asset Operations
+Repair Workflows
+Outlet Registration
+Existing Asset Onboarding
+GPS Check-Ins
+Profile Management
 ```
 
-Current application version:
-
-```text
-1.0.0
-```
-
-The production Android build is generated as an **Android App Bundle (AAB)** for Google Play distribution.
+The mobile application uses the **same backend API and database** as the web application.
 
 ---
 
-# ☁️ Deployment
+# 🔄 Major Workflows
 
-### Backend
-
-Hosted on:
+## 🆕 New Asset Workflow
 
 ```text
-Render
-```
-
-### Web Frontend
-
-Hosted on:
-
-```text
-Render
-```
-
-### Mobile
-
-Built using:
-
-```text
-Expo EAS
-```
-
-and prepared for:
-
-```text
-Google Play Store
-```
-
----
-
-# 🧪 Testing
-
-The system has been tested across:
-
-### Web
-
-* Authentication
-* Protected routes
-* Asset workflows
-* Outlet workflows
-* Verification workflows
-* User management
-* Access rights
-* Check-ins
-* Administrative workflows
-
-### Mobile
-
-* Login
-* Authentication
-* Asset workflows
-* Operations
-* Outlet workflows
-* Existing asset workflow
-* Requests
-* Profile
-* Production API connectivity
-* Android real-device testing
-
-The mobile application has also been tested while the local backend server was turned off, confirming that the production application communicates with the deployed backend.
-
----
-
-# 🔄 Production Architecture
-
-```text
-Android Device
-      │
-      │ HTTPS
-      ▼
-┌─────────────────────────┐
-│      Render Backend     │
-│     REST API / Node.js  │
-└────────────┬────────────┘
-             │
-             ▼
-        ┌──────────┐
-        │ MongoDB  │
-        └──────────┘
-```
-
-The web application follows the same backend architecture:
-
-```text
-Web Browser
-      │
-      │ HTTPS
-      ▼
-Render Frontend
-      │
-      ▼
-Render Backend API
-      │
-      ▼
-MongoDB
+Asset Creation
+      ↓
+Outlet Assignment
+      ↓
+AIN + Serial Number
+      ↓
+QR Identification
+      ↓
+Verification Mapping
+      ↓
+Verification Request
+      ↓
+Administrative Review
+      ↓
+Approval / Rejection
+      ↓
+Final Status
 ```
 
 ---
 
-# 📌 Project Status
-
-| Component                  | Status     |
-| -------------------------- | ---------- |
-| Backend                    | ✅ Complete |
-| Web Frontend               | ✅ Complete |
-| Mobile Application         | ✅ Complete |
-| Authentication             | ✅ Complete |
-| Asset Management           | ✅ Complete |
-| Verification Mapping       | ✅ Complete |
-| Outlet Management          | ✅ Complete |
-| Check-In                   | ✅ Complete |
-| User Management            | ✅ Complete |
-| Access Rights              | ✅ Complete |
-| Production Backend         | ✅ Deployed |
-| Production Web Application | ✅ Deployed |
-| Android Production Build   | ✅ Built    |
-| GitHub Source Backup       | ✅ Complete |
-| Project Archive Backup     | ✅ Complete |
-
----
-
-# 📁 Backup & Release
-
-The final project source is maintained in GitHub.
-
-The complete project is also archived separately for backup purposes.
-
-The Android production build is maintained through Expo Application Services (EAS).
-
-Recommended backup structure:
+## 📦 Existing Asset Workflow
 
 ```text
-GitHub
-  └── Complete source code
-
-Google Drive
-  └── Complete project archive
-
-Expo EAS
-  └── Android production build
+Search / Register Outlet
+          ↓
+Add Existing Asset
+          ↓
+Manufacturer + Capacity
+          ↓
+Manufacturing Information
+          ↓
+Verification Request
+          ↓
+Administrative Review
+          ↓
+Approval / Rejection
 ```
 
 ---
 
-# 👨‍💻 Development
+## ❌ Rejection & Resubmission
 
-This project was developed as a full-stack asset management solution with separate web and mobile interfaces connected through a centralized REST API.
-
-The architecture allows the web and mobile applications to share the same business logic and production backend while providing interfaces optimized for their respective users and workflows.
-
----
-
-# 📄 License
-
-This project is intended for authorized organizational and educational/project use.
-
-Unauthorized copying, redistribution, modification, or commercial use should follow the applicable organizational/project agreement.
-
----
-
-# 📞 Project Information
-
-**Project:** Asset Management System
-**Mobile Application:** Nexora / AMS
-**Platform:** Web + Android
-**Backend:** Node.js / Express
-**Frontend:** React
-**Mobile:** React Native / Expo
-**Database:** MongoDB
-**Backend Hosting:** Render
-**Mobile Build:** Expo EAS
-**Android Package:** `com.nexora.asset`
-**Application Version:** `1.0.0`
+```text
+Verification Submitted
+         ↓
+Administrative Review
+         ↓
+      Rejected
+         ↓
+   Remarks Provided
+         ↓
+Information Corrected
+         ↓
+     Resubmitted
+         ↓
+Administrative Review
+         ↓
+       Approved
+```
 
 ---
 
-## ⭐ Final Status
+# 🔗 REST API Architecture
 
-**The Igloo Asset Management System is a complete full-stack solution consisting of a production web application, production backend API, and field-focused Android mobile application.**
+The backend exposes RESTful endpoints consumed by both the web and mobile clients.
+
+```text
+React Web Client ───────┐
+                        │
+                        ▼
+                 REST API Layer
+                        │
+                        ▼
+               Express Application
+                        │
+             ┌──────────┼──────────┐
+             ▼          ▼          ▼
+       Authentication  Logic    Validation
+             │          │          │
+             └──────────┼──────────┘
+                        ▼
+                    Mongoose
+                        │
+                        ▼
+                     MongoDB
+                        ▲
+                        │
+React Native Client ────┘
+```
+
+This architecture allows the clients to share backend business rules instead of implementing independent data logic.
+
+---
+
+# 🗄️ Data Organization
+
+The application separates operational information into structured data domains.
+
+```text
+Organization
+├── Regions
+├── Districts
+├── Distributors
+└── Outlets
+
+Assets
+├── Identification
+├── Manufacturer
+├── Capacity
+├── Assignment
+├── Status
+└── History
+
+Users
+├── Account
+├── Role
+├── Status
+└── Access Rights
+
+Operations
+├── Verification
+├── Verification Mapping
+├── Requests
+├── Transfers
+├── Returns
+├── Repairs
+└── Check-Ins
+```
+
+---
+
+# 🧪 Testing & Validation
+
+The application was validated primarily through **manual functional and integration testing**.
+
+Testing focused on real application workflows such as:
+
+- Authentication
+- Authorization
+- Protected routes
+- Role-based functionality
+- REST API responses
+- Form validation
+- Asset operations
+- Outlet workflows
+- Verification workflows
+- Rejection and resubmission
+- Database operations
+- Web-to-backend integration
+- Mobile-to-backend integration
+- QR / barcode workflows
+- Field check-ins
+- Error handling
+
+**Postman** was used for API testing and debugging.
+
+> The project does not claim an automated unit/integration test suite; validation was performed through functional and integration-oriented manual testing.
+
+---
+
+# 🚀 Deployment
+
+The system is deployed as a live web application using **Render**.
+
+### Production Architecture
+
+```text
+                    INTERNET
+                       │
+          ┌────────────┴────────────┐
+          │                         │
+          ▼                         ▼
+  React Web Frontend         Android Application
+          │                         │
+          └────────────┬────────────┘
+                       │
+                       ▼
+               Production REST API
+                       │
+                       ▼
+               Node.js / Express
+                       │
+                       ▼
+                     MongoDB
+```
+
+### Live Web Application
+
+[![Live Application](https://img.shields.io/badge/Live_Application-Open_Web_App-46E3B7?style=for-the-badge&logo=render&logoColor=white)](https://igloo-asset-management-frontend.onrender.com)
+
+### Production API
+
+[![Backend API](https://img.shields.io/badge/Backend_API-Production-46E3B7?style=for-the-badge&logo=render&logoColor=white)](https://igloo-asset-management-system.onrender.com)
+
+> Production credentials, database connection strings, JWT secrets, email-service credentials, and other environment-specific secrets are intentionally excluded from this documentation.
+
+---
+
+# 📸 Application Screenshots
+
+> Selected screenshots should demonstrate the system without exposing confidential operational information, private user data, credentials, or sensitive organizational records.
+
+## 🌐 Web Application
+
+### Dashboard
+
+<!-- Add safe dashboard screenshot here -->
+
+### Asset Management
+
+<!-- Add safe asset-management screenshot here -->
+
+### Verification Workflow
+
+<!-- Add safe verification screenshot here -->
+
+### Outlet Management
+
+<!-- Add safe outlet screenshot here -->
+
+---
+
+## 📱 Android Application
+
+### Mobile Dashboard
+
+<!-- Add safe mobile dashboard screenshot here -->
+
+### Asset Operations
+
+<!-- Add safe asset operations screenshot here -->
+
+### Verification
+
+<!-- Add safe mobile verification screenshot here -->
+
+### QR / Barcode Workflow
+
+<!-- Add safe scanning screenshot here -->
+
+---
+
+# 📚 Engineering Experience
+
+Building the Igloo Asset Management System provided hands-on experience across the software development lifecycle.
+
+```text
+Requirements Analysis
+        ↓
+Application Planning
+        ↓
+Frontend Development
+        ↓
+Backend Development
+        ↓
+Database Modeling
+        ↓
+REST API Development
+        ↓
+Authentication & Authorization
+        ↓
+Web + Mobile Integration
+        ↓
+Validation & Error Handling
+        ↓
+Testing & Debugging
+        ↓
+Production Deployment
+        ↓
+Android Application Delivery
+```
+
+### Key Engineering Areas
+
+- Full-stack application development
+- Backend development
+- REST API design and integration
+- Database modeling
+- Authentication
+- Authorization
+- Role-based workflows
+- Access-right management
+- React application development
+- React Native mobile development
+- Web/mobile shared API architecture
+- Validation
+- Error handling
+- Debugging
+- Functional testing
+- Production deployment
+- Git-based source control
+
+---
+
+# 📁 Project Structure
+
+At a high level, the repository separates the system into its major application layers:
+
+```text
+Igloo-Asset-Management-System/
+│
+├── backend/
+│   └── Node.js + Express.js REST API
+│
+├── frontend/
+│   └── React + Vite Web Application
+│
+└── Mobile/
+    └── AMS/
+        └── React Native + Expo Android Application
+```
+
+This structure keeps the web client, backend services, and mobile application logically separated while allowing them to operate as one integrated system.
+
+---
+
+# 🔒 Security & Repository Notice
+
+This repository represents software development work completed as part of a professional internship project.
+
+For security and privacy:
+
+- Production environment variables are not documented
+- Database credentials must remain private
+- JWT secrets must remain private
+- API/service credentials must remain private
+- Private organizational data should not be included in screenshots
+- User credentials should never be committed
+- Confidential internship documentation should not be published through this repository
+
+---
+
+# 👨‍💻 Developer
+
+<div align="center">
+
+## Md. Sakib Al-Hasan
+
+### Software Developer | Full-Stack Developer | Backend Developer
+
+**B.Sc. in Computer Science & Engineering**
+
+<br>
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Let's_Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/r-talukder66/)
+[![GitHub](https://img.shields.io/badge/GitHub-Follow_Me-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/sakib-rone66)
+[![Email](https://img.shields.io/badge/Email-Contact_Me-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:info.sakib.bluesec@gmail.com)
+
+</div>
+
+---
+
+# ⚠️ Project Notice
+
+The **Igloo Asset Management System** was developed as part of a **Software Development Internship project at Abdul Monem Ltd (Igloo)**.
+
+This repository and its public documentation are intended to demonstrate the software engineering work, architecture, technologies, and development experience associated with the project.
+
+Sensitive business information, production secrets, credentials, private operational data, and confidential organizational documentation are intentionally excluded.
+
+---
+
+<div align="center">
+
+# 💻 Build • Solve • Learn • Improve
+
+### From Real Operational Requirements to a Working Web + Mobile Software Platform
+
+**Designed • Developed • Integrated • Tested • Deployed**
+
+<br>
+
+⭐ **Thanks for exploring the Igloo Asset Management System**
+
+</div>
