@@ -290,8 +290,6 @@ Used for:
 
 The platform supports structured management of commercial freezer assets throughout their operational lifecycle.
 
-Key functionality includes:
-
 - Asset registration
 - Asset identification
 - AIN management
@@ -310,8 +308,6 @@ Key functionality includes:
 ## 🏪 Outlet Management
 
 Outlet workflows allow operational users to manage locations associated with freezer assets.
-
-Capabilities include:
 
 - Outlet registration
 - Existing outlet search
@@ -378,8 +374,6 @@ The workflow supports:
 
 ## 🔄 Asset Operations
 
-The system supports operational asset workflows including:
-
 ```text
 Assignment
    ↓
@@ -398,8 +392,6 @@ These processes help maintain asset traceability across operational changes.
 
 ## 📍 Field Operations
 
-Field-oriented functionality includes:
-
 - GPS-supported check-ins
 - Outlet-level operations
 - Asset lookup
@@ -412,10 +404,6 @@ Field-oriented functionality includes:
 ---
 
 ## 👥 User & Access Management
-
-The platform supports multiple organizational user types with controlled access to operational functionality.
-
-Capabilities include:
 
 - User creation and management
 - User status management
@@ -430,8 +418,6 @@ Capabilities include:
 ---
 
 # 👥 User Roles
-
-The system supports five primary organizational roles:
 
 | Role | Operational Purpose |
 |---|---|
@@ -491,8 +477,6 @@ Protected API Requests
 
 The web application provides the broader administrative and operational interface of the platform.
 
-Major web areas include:
-
 ```text
 Dashboard
 Assets
@@ -526,13 +510,9 @@ The mobile application extends the system to field users through a focused Andro
 Home
   │
   ├── Assets
-  │
   ├── Operations
-  │
   ├── Outlet
-  │
   ├── Requests
-  │
   └── Profile
 ```
 
@@ -581,8 +561,6 @@ Approval / Rejection
 Final Status
 ```
 
----
-
 ## 📦 Existing Asset Workflow
 
 ```text
@@ -600,8 +578,6 @@ Administrative Review
           ↓
 Approval / Rejection
 ```
-
----
 
 ## ❌ Rejection & Resubmission
 
@@ -659,8 +635,6 @@ This architecture allows the clients to share backend business rules instead of 
 
 # 🗄️ Data Organization
 
-The application separates operational information into structured data domains.
-
 ```text
 Organization
 ├── Regions
@@ -698,7 +672,7 @@ Operations
 
 The application was validated primarily through **manual functional and integration testing**.
 
-Testing focused on real application workflows such as:
+Testing focused on:
 
 - Authentication
 - Authorization
@@ -763,45 +737,222 @@ The system is deployed as a live web application using **Render**.
 
 # 📸 Application Screenshots
 
-> Selected screenshots should demonstrate the system without exposing confidential operational information, private user data, credentials, or sensitive organizational records.
-
-## 🌐 Web Application
-
-### Dashboard
-
-<!-- Add safe dashboard screenshot here -->
-
-### Asset Management
-
-<!-- Add safe asset-management screenshot here -->
-
-### Verification Workflow
-
-<!-- Add safe verification screenshot here -->
-
-### Outlet Management
-
-<!-- Add safe outlet screenshot here -->
+> A visual walkthrough of the Igloo Asset Management System across its web and Android applications.
 
 ---
 
-## 📱 Android Application
+## 🌐 Web Application
 
-### Mobile Dashboard
+The web application provides centralized access to asset management, outlet operations, verification workflows, authorization, user management, and administrative functionality.
 
-<!-- Add safe mobile dashboard screenshot here -->
+### 🖥️ Web Interface Gallery
 
-### Asset Operations
+<table>
+<tr>
+<td width="50%" align="center">
+<strong>01 — Dashboard</strong><br><br>
+<img src="docs/screenshots/web/01-dashboard.jpg" width="100%" alt="Web Dashboard">
+</td>
+<td width="50%" align="center">
+<strong>02 — Assets</strong><br><br>
+<img src="docs/screenshots/web/02-assets.jpg" width="100%" alt="Web Assets">
+</td>
+</tr>
 
-<!-- Add safe asset operations screenshot here -->
+<tr>
+<td width="50%" align="center">
+<strong>03 — Asset Details</strong><br><br>
+<img src="docs/screenshots/web/03-asset-details.jpg" width="100%" alt="Asset Details">
+</td>
+<td width="50%" align="center">
+<strong>04 — Asset QR</strong><br><br>
+<img src="docs/screenshots/web/04-asset-qr.jpg" width="100%" alt="Asset QR">
+</td>
+</tr>
 
-### Verification
+<tr>
+<td width="50%" align="center">
+<strong>05 — Add New Asset</strong><br><br>
+<img src="docs/screenshots/web/05-add-new-asset.jpg" width="100%" alt="Add New Asset">
+</td>
+<td width="50%" align="center">
+<strong>06 — Outlets</strong><br><br>
+<img src="docs/screenshots/web/06-outlets.jpg" width="100%" alt="Outlets">
+</td>
+</tr>
 
-<!-- Add safe mobile verification screenshot here -->
+<tr>
+<td width="50%" align="center">
+<strong>07 — Outlet Details & Assets</strong><br><br>
+<img src="docs/screenshots/web/07-outlet-details-assets.jpg" width="100%" alt="Outlet Details and Assets">
+</td>
+<td width="50%" align="center">
+<strong>08 — Create Outlet</strong><br><br>
+<img src="docs/screenshots/web/08-create-outlet.jpg" width="100%" alt="Create Outlet">
+</td>
+</tr>
 
-### QR / Barcode Workflow
+<tr>
+<td width="50%" align="center">
+<strong>09 — Add Existing Asset</strong><br><br>
+<img src="docs/screenshots/web/09-add-existing-asset.jpg" width="100%" alt="Add Existing Asset">
+</td>
+<td width="50%" align="center">
+<strong>10 — Asset Authorization</strong><br><br>
+<img src="docs/screenshots/web/10-asset-authorization.jpg" width="100%" alt="Asset Authorization">
+</td>
+</tr>
 
-<!-- Add safe scanning screenshot here -->
+<tr>
+<td width="50%" align="center">
+<strong>11 — Verification Request</strong><br><br>
+<img src="docs/screenshots/web/11-verification-request.jpg" width="100%" alt="Verification Request">
+</td>
+<td width="50%" align="center">
+<strong>12 — Verification</strong><br><br>
+<img src="docs/screenshots/web/12-verification.jpg" width="100%" alt="Verification">
+</td>
+</tr>
+
+<tr>
+<td width="50%" align="center">
+<strong>13 — User Management</strong><br><br>
+<img src="docs/screenshots/web/13-user-management.jpg" width="100%" alt="User Management">
+</td>
+<td width="50%" align="center">
+<strong>14 — Role-Based Access Rights</strong><br><br>
+<img src="docs/screenshots/web/14-role-based-access-rights.jpg" width="100%" alt="Role Based Access Rights">
+</td>
+</tr>
+
+<tr>
+<td width="50%" align="center">
+<strong>15 — Profile</strong><br><br>
+<img src="docs/screenshots/web/15-profile.jpg" width="100%" alt="Web Profile">
+</td>
+<td width="50%" align="center">
+<strong>🌐 Web Platform</strong><br><br>
+Centralized administrative and operational experience integrated with the shared REST API and database.
+</td>
+</tr>
+</table>
+
+---
+
+## 📱 Android Mobile Application
+
+The Android application provides a lightweight, field-focused experience while communicating with the same production backend used by the web platform.
+
+### 📲 Mobile Interface Gallery
+
+<table>
+
+<tr>
+<td width="25%" align="center">
+<strong>01 — Dashboard</strong><br><br>
+<img src="docs/screenshots/mobile/01-dashboard.jpg" width="100%" alt="Mobile Dashboard">
+</td>
+<td width="25%" align="center">
+<strong>02 — Assets</strong><br><br>
+<img src="docs/screenshots/mobile/02-assets.jpg" width="100%" alt="Mobile Assets">
+</td>
+<td width="25%" align="center">
+<strong>03 — All Assets</strong><br><br>
+<img src="docs/screenshots/mobile/03-all-assets.jpg" width="100%" alt="Mobile All Assets">
+</td>
+<td width="25%" align="center">
+<strong>04 — Asset Details</strong><br><br>
+<img src="docs/screenshots/mobile/04-asset-details.jpg" width="100%" alt="Mobile Asset Details">
+</td>
+</tr>
+
+<tr>
+<td width="25%" align="center">
+<strong>05 — Add New Asset</strong><br><br>
+<img src="docs/screenshots/mobile/05-add-new-asset.jpg" width="100%" alt="Mobile Add New Asset">
+</td>
+<td width="25%" align="center">
+<strong>06 — Asset Operations</strong><br><br>
+<img src="docs/screenshots/mobile/06-asset-operations.jpg" width="100%" alt="Mobile Asset Operations">
+</td>
+<td width="25%" align="center">
+<strong>07 — Outlets</strong><br><br>
+<img src="docs/screenshots/mobile/07-outlets.jpg" width="100%" alt="Mobile Outlets">
+</td>
+<td width="25%" align="center">
+<strong>08 — Add New Outlet</strong><br><br>
+<img src="docs/screenshots/mobile/08-add-new-outlet.jpg" width="100%" alt="Mobile Add New Outlet">
+</td>
+</tr>
+
+<tr>
+<td width="25%" align="center">
+<strong>09 — Outlet Details</strong><br><br>
+<img src="docs/screenshots/mobile/09-outlet-details.jpg" width="100%" alt="Mobile Outlet Details">
+</td>
+<td width="25%" align="center">
+<strong>10 — Existing Asset</strong><br><br>
+<img src="docs/screenshots/mobile/10-add-existing-asset.jpg" width="100%" alt="Mobile Add Existing Asset">
+</td>
+<td width="25%" align="center">
+<strong>11 — Repair Request</strong><br><br>
+<img src="docs/screenshots/mobile/11-repair-request.jpg" width="100%" alt="Mobile Repair Request">
+</td>
+<td width="25%" align="center">
+<strong>12 — QR Scanner</strong><br><br>
+<img src="docs/screenshots/mobile/12-qr-scanner.jpg" width="100%" alt="Mobile QR Scanner">
+</td>
+</tr>
+
+<tr>
+<td width="25%" align="center">
+<strong>13 — Verification Request</strong><br><br>
+<img src="docs/screenshots/mobile/13-verification-request.jpg" width="100%" alt="Mobile Verification Request">
+</td>
+<td width="25%" align="center">
+<strong>14 — Requests</strong><br><br>
+<img src="docs/screenshots/mobile/14-requests.jpg" width="100%" alt="Mobile Requests">
+</td>
+<td width="25%" align="center">
+<strong>15 — Verification</strong><br><br>
+<img src="docs/screenshots/mobile/15-verification.jpg" width="100%" alt="Mobile Verification">
+</td>
+<td width="25%" align="center">
+<strong>16 — Profile</strong><br><br>
+<img src="docs/screenshots/mobile/16-profile.jpg" width="100%" alt="Mobile Profile">
+</td>
+</tr>
+
+</table>
+
+---
+
+## 🔗 One Platform — Two Experiences
+
+```text
+                IGLOO ASSET MANAGEMENT SYSTEM
+                            │
+             ┌──────────────┴──────────────┐
+             │                             │
+             ▼                             ▼
+      🌐 WEB APPLICATION            📱 MOBILE APPLICATION
+             │                             │
+      Administration                 Field Operations
+      Asset Management               Asset Access
+      User Management                QR Scanning
+      Access Control                 Verification
+      Verification                   Outlet Operations
+             │                             │
+             └──────────────┬──────────────┘
+                            │
+                            ▼
+                    ⚙️ SHARED REST API
+                            │
+                            ▼
+                   🗄️ CENTRAL DATABASE
+```
+
+> The web and Android applications provide different user experiences while sharing the same backend architecture, business rules, and operational data.
 
 ---
 
@@ -859,8 +1010,6 @@ Android Application Delivery
 
 # 📁 Project Structure
 
-At a high level, the repository separates the system into its major application layers:
-
 ```text
 Igloo-Asset-Management-System/
 │
@@ -870,12 +1019,22 @@ Igloo-Asset-Management-System/
 ├── frontend/
 │   └── React + Vite Web Application
 │
-└── Mobile/
-    └── AMS/
-        └── React Native + Expo Android Application
+├── Mobile/
+│   └── AMS/
+│       └── React Native + Expo Android Application
+│
+├── docs/
+│   └── screenshots/
+│       ├── web/
+│       │   └── 15 Web Application Screenshots
+│       │
+│       └── mobile/
+│           └── 16 Android Application Screenshots
+│
+└── README.md
 ```
 
-This structure keeps the web client, backend services, and mobile application logically separated while allowing them to operate as one integrated system.
+This structure keeps the web client, backend services, mobile application, and portfolio documentation logically separated while allowing the application components to operate as one integrated system.
 
 ---
 
