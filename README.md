@@ -1068,6 +1068,7 @@ For security and privacy:
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Let's_Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/r-talukder66/)
 [![GitHub](https://img.shields.io/badge/GitHub-Follow_Me-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/sakib-rone66)
+[![Portfolio](https://img.shields.io/badge/Portfolio-Visit-0D1117?style=for-the-badge&logo=googlechrome&logoColor=4285F4)](https://sakib-rone66.github.io/sakib-portfolio/)
 [![Email](https://img.shields.io/badge/Email-Contact_Me-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:info.sakib.bluesec@gmail.com)
 
 </div>
